@@ -55,13 +55,13 @@ tests_require = []
 classifiers = []
 
 setup(
-    name='{{ cookiecutter.project.name }}',
+    name='{{ cookiecutter.project_name }}',
     version=meta['VERSION'],
-    description="{{ cookiecutter.project.short_description }}",
+    description="{{ cookiecutter.project_short_description }}",
     long_description=readme + '\n\n' + history,
     author=meta['author'],
     author_email=meta['email'],
-    url='{{ cookiecutter.project.url }}',
+    url='{{ cookiecutter.project_url }}',
     packages=[
         '{{ cookiecutter.module_name }}',
     ],
