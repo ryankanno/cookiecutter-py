@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+import re
 
 try:
     from setuptools import setup
@@ -11,11 +13,11 @@ except ImportError:
 HERE = os.path.dirname(os.path.realpath(__file__))
 
 
-with open(os.path.join(here, 'README.rst')) as readme_file:
+with open(os.path.join(HERE, 'README.rst')) as readme_file:
     readme = readme_file.read()
 
 
-with open('HISTORY.rst') as history_file:
+with open(os.path.join(HERE, 'HISTORY.rst')) as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
 # Metadata
@@ -84,7 +86,7 @@ setup(
         'Programming Language :: Python :: 3.4',
     ],
     test_suite='tests',
-    tests_require=test_requires,
+    tests_require=tests_require,
 )
 
 # vim: filetype=python
