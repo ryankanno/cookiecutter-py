@@ -1,0 +1,8 @@
+{
+  "module_name": "py_foobar",
+  "project": {
+    "name": "FooBar",
+    "short_description": "",
+    "url": ""
+  }
+}

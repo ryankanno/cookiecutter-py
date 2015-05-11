@@ -1,0 +1,16 @@
+language: python
+
+python:
+  - 3.3
+  - 2.7
+  - 2.6
+
+install:
+  - pip install tox
+  - pip install coveralls
+
+script:
+  - tox --recreate
+
+after_success:
+  - coveralls
