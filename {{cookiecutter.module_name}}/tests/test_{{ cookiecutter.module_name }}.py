@@ -7,6 +7,7 @@ Tests for `{{ cookiecutter.module_name }}` module.
 
 from {{ cookiecutter.module_name }} import {{ cookiecutter.module_name }}
 
+
 class Test{{ cookiecutter.repo_name|capitalize }}(object):
 
     @classmethod
