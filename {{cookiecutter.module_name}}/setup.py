@@ -43,7 +43,8 @@ patterns = {
 }
 
 
-with open(os.path.join(HERE, '{{ cookiecutter.module_name }}/__init__.py'), 'r') as f:
+relative_init_path = '{{ cookiecutter.module_name }}/__init__.py'
+with open(os.path.join(HERE, relative_init_path), 'r') as f:
     for line in f:
         for pattern, handler in patterns.items():
             m = pattern.match(line.strip())
@@ -53,8 +54,18 @@ with open(os.path.join(HERE, '{{ cookiecutter.module_name }}/__init__.py'), 'r')
 # Requires
 
 requires = []
-tests_require = []
-classifiers = []
+tests_require = ['pytest']
+classifiers = [
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+    "Programming Language :: Python :: 2",
+    'Programming Language :: Python :: 2.6',
+    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.3',
+    'Programming Language :: Python :: 3.4',
+]
 
 setup(
     name='{{ cookiecutter.project_name }}',
@@ -74,17 +85,7 @@ setup(
     license=meta['license'],
     zip_safe=False,
     keywords='{{ cookiecutter.module_name }}',
-    classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
-        'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-    ],
+    classifiers=classifiers,
     test_suite='tests',
     tests_require=tests_require,
 )
