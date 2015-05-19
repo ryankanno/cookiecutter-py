@@ -1,0 +1,14 @@
+name: "{{cookiecutter.module_name}}"
+windows:
+- name: "project folder"
+  root: "{{cookiecutter.project_root}}"
+  layout: tiled
+  panes:
+    - commands:
+      - "ls -al"
+- name: "konch shell"
+  root: "{{cookiecutter.project_root}}"
+  layout: tiled
+  panes:
+    - commands:
+      - "konch"
