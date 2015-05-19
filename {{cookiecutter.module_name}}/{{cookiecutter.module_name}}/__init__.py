@@ -6,7 +6,7 @@ from collections import namedtuple
 version_info = namedtuple('version_info', ('major', 'minor', 'patch'))
 
 
-VERSION = version_info(0, 0, 1)
+VERSION = version_info({{ cookiecutter.project_major_version }}, {{ cookiecutter.project_minor_version }}, {{ cookiecutter.project_patch_version }})
 
 
 __title__ = '{{ cookiecutter.project_name }}'

@@ -1,8 +1,14 @@
 {
+  "author_name": "Ryan Kanno",
+  "author_email": "ryankanno@localkinegrinds.com",
+  "module_name": "py_foobar",
   "project_name": "FooBar",
   "project_short_description": "",
   "project_url": "",
-  "module_name": "py_foobar",
-  "author_name": "Ryan Kanno",
-  "author_email": "ryankanno@localkinegrinds.com"
+  "project_license": "MIT",
+  "project_root": "~/Projects/github/me/cookiecutter-test/{{cookiecutter.module_name}}",
+  "project_major_version": "0",
+  "project_minor_version": "0",
+  "project_patch_version": "1",
+  "year": "2015"
 }
