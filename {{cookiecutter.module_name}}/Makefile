@@ -55,7 +55,8 @@ install: clean ## Install package to current Python's site-package
 	python setup.py install
 
 lint: ## Check style with flake8
-	flake8 {{ cookiecutter.module_name }} tests
+	python setup.py flake8
+	flake8 tests
 
 release: clean ## Package and upload a release
 	python setup.py sdist upload
