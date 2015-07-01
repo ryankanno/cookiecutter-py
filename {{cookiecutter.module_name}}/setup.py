@@ -51,6 +51,47 @@ with open(os.path.join(HERE, relative_init_path), 'r') as f:
             if m:
                 meta.update(handler(m))
 
+# Tests
+
+try:
+    from setuptools.command.test import test as TestCommand
+
+    class PyTest(TestCommand):
+        user_options = [('pytest-args=', 'a', "Arguments to pass to py.test")]
+
+        def initialize_options(self):
+            TestCommand.initialize_options(self)
+            self.pytest_args = []
+
+        def finalize_options(self):
+            TestCommand.finalize_options(self)
+            self.test_args = []
+            self.test_suite = True
+
+        def run_tests(self):
+            import pytest
+            import sys
+            errno = pytest.main(self.pytest_args)
+            sys.exit(errno)
+
+except ImportError:
+    from distutils.core import Command
+
+    class PyTest(Command):
+        user_options = []
+
+        def initialize_options(self):
+            pass
+
+        def finalize_options(self):
+            pass
+
+        def run(self):
+            import subprocess
+            import sys
+            errno = subprocess.call([sys.executable, 'runtests.py'])
+            raise SystemExit(errno)
+
 # Requires
 
 requires = []
@@ -86,7 +127,7 @@ setup(
     include_package_data=True,
     install_requires=requires,
     zip_safe=False,
-    test_suite='tests',
+    cmdclass={'test': PyTest},
     tests_require=tests_require,
 )
 

@@ -14,8 +14,8 @@ class Test{{ cookiecutter.repo_name|capitalize }}(object):
     def setup_class(cls):
         pass
 
-    def test_something(self):
-        pass
+    def test_hello_world(self):
+        assert {{ cookiecutter.module_name }}.hello_world() == "Hello World"
 
     @classmethod
     def teardown_class(cls):
