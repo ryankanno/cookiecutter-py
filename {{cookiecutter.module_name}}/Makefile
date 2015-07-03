@@ -11,7 +11,8 @@ help: ## Prints out help dialog
 		printf "%-30s %s\n" $$help_command $$help_info; \
 	done; \
 
-clean: clean-build clean-pyc clean-test
+clean-all: ## Remove build, Python, and test artifacts
+	clean-build clean-pyc clean-test
 
 clean-build: ## Remove build artifacts (build, dist, .egg)
 	rm -fr build/
