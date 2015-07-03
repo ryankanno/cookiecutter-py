@@ -11,8 +11,7 @@ help: ## Prints out help dialog
 		printf "%-30s %s\n" $$help_command $$help_info; \
 	done; \
 
-clean-all: ## Remove build, Python, and test artifacts
-	clean-build clean-pyc clean-test
+clean-all: clean-build clean-pyc clean-test ## Remove build, Python, and test artifacts
 
 clean-build: ## Remove build artifacts (build, dist, .egg)
 	rm -fr build/
@@ -47,19 +46,19 @@ docs: ## generate Sphinx documentation
 	$(MAKE) -C docs html
 	open docs/_build/html/index.html
 
-dist: clean ## Package {{ cookiecutter.module_name }}
+dist: clean-all ## Package {{ cookiecutter.module_name }}
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist
 
-install: clean ## Install package to current Python's site-package
+install: clean-all ## Install package to current Python's site-package
 	python setup.py install
 
 lint: ## Check style with flake8
 	python setup.py flake8
 	flake8 tests
 
-release: clean ## Package and upload a release
+release: clean-all ## Package and upload a release
 	python setup.py sdist upload
 	python setup.py bdist_wheel upload
 
