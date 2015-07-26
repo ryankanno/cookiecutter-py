@@ -9,8 +9,21 @@ Heavily influenced by
   * [cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
 
 Every time you start a new Python project, you shouldn't be starting from
-scratch.  Ideally, you'd start with a decent set of tooling / integrations to
-help facilitate writing code.
+scratch. Ideally, you'd start with a decent set of tooling / integrations to
+help facilitate writing good code.
+
+One of these days, I'll write about all the Python tools that I use.
+
+## Dependencies
+
+While you don't necessarily need all these tools installed to use this
+Cookiecutter, it'll help you take advantage of all the tools here.
+
+  * [pyenv](https://github.com/yyuu/pyenv)
+  * [pyenv-virtualenv](https://github.com/yyuu/pyenv-virtualenv)
+  * [teamocil](https://github.com/remiprev/teamocil)
+  * [konch](https://github.com/sloria/konch)
+  * [tox](https://bitbucket.org/hpk42/tox)
 
 ## What you're getting
 
