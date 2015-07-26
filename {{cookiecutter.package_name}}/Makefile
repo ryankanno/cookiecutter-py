@@ -33,20 +33,20 @@ clean-test: ## Remove test artifacts (.tox, .coverage, coveragexml)
 	@rm -fr htmlcov/
 
 coverage: ## Check code coverage with current Python
-	coverage run --source {{ cookiecutter.module_name }} setup.py test
+	coverage run --source {{ cookiecutter.package_name }} setup.py test
 	coverage report -m
 	coverage html
 	open htmlcov/index.html
 
 docs: ## generate Sphinx documentation
-	rm -f docs/{{ cookiecutter.module_name }}.rst
+	rm -f docs/{{ cookiecutter.package_name }}.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ {{ cookiecutter.module_name }}
+	sphinx-apidoc -o docs/ {{ cookiecutter.package_name }}
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	open docs/_build/html/index.html
 
-dist: clean-all ## Package {{ cookiecutter.module_name }}
+dist: clean-all ## Package {{ cookiecutter.package_name }}
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist

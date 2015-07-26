@@ -1,4 +1,4 @@
-name: "{{cookiecutter.module_name}}"
+name: "{{cookiecutter.package_name}}"
 windows:
 - name: "project folder"
   root: "{{cookiecutter.project_root}}"

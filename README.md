@@ -28,11 +28,11 @@ Cookiecutter, it'll help you take full advantage of this cookiecutter.
 ## What you're getting
 
   * [MIT License](http://opensource.org/licenses/MIT)
-  * decent [setup.py](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.module_name%7D%7D/setup.py)
-  * [pyenv virtualenv](https://github.com/yyuu/pyenv-virtualenv) named `cookiecutter.module_name`
+  * decent [setup.py](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.package_name%7D%7D/setup.py)
+  * [pyenv virtualenv](https://github.com/yyuu/pyenv-virtualenv) named `cookiecutter.package_name`
   * [teamocil](http://www.teamocil.com/) tmux yml file
   * [konch](http://konch.readthedocs.org/en/latest/) configuration file
-  * custom [makefile](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.module_name%7D%7D/Makefile)
+  * custom [makefile](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.package_name%7D%7D/Makefile)
   * [pytest](http://pytest.org/latest/) integration
   * [coverage](http://coverage.readthedocs.org/en/latest/) integration
   * [flake8](http://flake8.readthedocs.org/en/latest/) integration

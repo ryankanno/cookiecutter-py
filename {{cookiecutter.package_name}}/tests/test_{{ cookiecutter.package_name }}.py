@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 """
-Tests for `{{ cookiecutter.module_name }}` module.
+Tests for `{{ cookiecutter.package_name }}` package.
 """
 
-from {{ cookiecutter.module_name }} import {{ cookiecutter.module_name }}
+from {{ cookiecutter.package_name }} import {{ cookiecutter.package_name }}
 
 
 class Test{{ cookiecutter.repo_name|capitalize }}(object):
@@ -15,7 +15,7 @@ class Test{{ cookiecutter.repo_name|capitalize }}(object):
         pass
 
     def test_hello_world(self):
-        assert {{ cookiecutter.module_name }}.hello_world() == "Hello World"
+        assert {{ cookiecutter.package_name }}.hello_world() == "Hello World"
 
     @classmethod
     def teardown_class(cls):

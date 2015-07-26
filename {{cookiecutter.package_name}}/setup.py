@@ -43,7 +43,7 @@ patterns = {
 }
 
 
-relative_init_path = '{{ cookiecutter.module_name }}/__init__.py'
+relative_init_path = '{{ cookiecutter.package_name }}/__init__.py'
 with open(os.path.join(HERE, relative_init_path), 'r') as f:
     for line in f:
         for pattern, handler in patterns.items():
@@ -118,12 +118,12 @@ setup(
     author_email=meta['email'],
     license=meta['license'],
     classifiers=classifiers,
-    keywords='{{ cookiecutter.module_name }}',
+    keywords='{{ cookiecutter.package_name }}',
     packages=[
-        '{{ cookiecutter.module_name }}',
+        '{{ cookiecutter.package_name }}',
     ],
-    package_dir={'{{ cookiecutter.module_name }}':
-                 '{{ cookiecutter.module_name }}'},
+    package_dir={'{{ cookiecutter.package_name }}':
+                 '{{ cookiecutter.package_name }}'},
     include_package_data=True,
     install_requires=requires,
     zip_safe=False,
