@@ -27,6 +27,7 @@ Cookiecutter, it'll help you take full advantage of this cookiecutter.
 
 ## What you're getting
 
+  * [MIT License](http://opensource.org/licenses/MIT)
   * decent [setup.py](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.module_name%7D%7D/setup.py)
   * [pyenv virtualenv](https://github.com/yyuu/pyenv-virtualenv) named `cookiecutter.module_name`
   * [teamocil](http://www.teamocil.com/) tmux yml file
