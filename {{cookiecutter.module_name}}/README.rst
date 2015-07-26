@@ -14,5 +14,16 @@
 Features
 --------
 
-TODO
-----
+Usage
+-----
+
+Installation
+------------
+
+Requirements
+^^^^^^^^^^^^
+
+License
+-------
+
+MIT
