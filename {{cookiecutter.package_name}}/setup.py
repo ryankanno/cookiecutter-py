@@ -109,7 +109,7 @@ classifiers = [
 ]
 
 setup(
-    name='{{ cookiecutter.project_name }}',
+    name='{{ cookiecutter.package_name }}',
     version=meta['VERSION'],
     description="{{ cookiecutter.project_short_description }}",
     long_description=readme + '\n\n' + history,

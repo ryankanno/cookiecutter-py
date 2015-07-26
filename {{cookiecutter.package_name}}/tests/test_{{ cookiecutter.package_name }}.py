@@ -8,7 +8,7 @@ Tests for `{{ cookiecutter.package_name }}` package.
 from {{ cookiecutter.package_name }} import {{ cookiecutter.package_name }}
 
 
-class Test{{ cookiecutter.repo_name|capitalize }}(object):
+class Test{{ cookiecutter.project_name|replace(' ', '')}}(object):
 
     @classmethod
     def setup_class(cls):
