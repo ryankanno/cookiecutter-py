@@ -17,7 +17,7 @@ One of these days, I'll write about all the Python tools that I use.
 ## Dependencies
 
 While you don't necessarily need all these tools installed to use this
-Cookiecutter, it'll help you take advantage of all the tools here.
+Cookiecutter, it'll help you take full advantage of this cookiecutter.
 
   * [pyenv](https://github.com/yyuu/pyenv)
   * [pyenv-virtualenv](https://github.com/yyuu/pyenv-virtualenv)
