@@ -1,0 +1,15 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  simple:
+    "()": structlog.stdlib.ProcessorFormatter,
+    "processor": structlog.dev.ConsoleRenderer(colors=False),
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+root:
+  level: DEBUG
+  handlers: [console]

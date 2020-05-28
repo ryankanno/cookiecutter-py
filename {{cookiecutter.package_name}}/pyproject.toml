@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "{{cookiecutter.package_name}}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.project_short_description }}"
+authors = ["{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"]
+
+[tool.poetry.dependencies]
+python = "^{{ cookiecutter.python_version }}"
+structlog = "^20.1.0"
+
+[tool.poetry.dev-dependencies]
+bump2version = "^1.0.0"
+flake8 = "^3.7"
+flake8-isort = "^3.0.0"
+isort = "^4.3"
+mypy = "^0.770"
+pdbpp = "^0.10.0"
+pre-commit = "^2.4.0"
+pytest = "^5.4.2"
+pytest-black = "^0.3.7"
+pytest-cov = "^2.7"
+pytest-flake8 = "^1.0"
+pytest-mock = "^3.1.0"
+pytest-mypy = "^0.6.2"
+pytest-randomly = "^3.0"
+sphinx = "^3.0.4"
+tox = "^3.15.1"
+
+[tool.black]
+line-length = 79
+skip-string-normalization = true
+target_version = '{{ cookiecutter.python_version }}'
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+'''
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

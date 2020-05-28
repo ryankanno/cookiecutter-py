@@ -10,14 +10,14 @@ import time
 
 import konch
 
-import {{cookiecutter.module_name}}
+import {{cookiecutter.package_name}}
 
 # Available options:
 #   'context', 'banner', 'shell', 'prompt',
 #   'hide_context', 'ipy_extensions', 'ipy_autoreload'
 
 banner = '''
-Welcome to the {{cookiecutter.module_name}} shell. Please edit .konchrc file if
+Welcome to the {{cookiecutter.package_name}} shell. Please edit .konchrc file if
 you'd like to add additional dependencies.
 '''
 
@@ -32,7 +32,7 @@ konch.config({
         'dt': datetime.datetime,
         'pp': pprint.pprint,
         'speak': konch.speak,
-        '{{cookiecutter.module_name}}': {{cookiecutter.module_name}}
+        '{{cookiecutter.package_name}}': {{cookiecutter.package_name}}
     },
     'shell': 'ipython',
     'ipy_autoreload': True,
@@ -48,5 +48,6 @@ def setup():
 
 def teardown():
     pass
+
 
 # vim: filetype=python

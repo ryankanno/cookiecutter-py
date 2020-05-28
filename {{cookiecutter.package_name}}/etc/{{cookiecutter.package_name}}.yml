@@ -1,14 +1,12 @@
-name: "{{cookiecutter.package_name}}"
+session_name: "{{cookiecutter.package_name}}"
 windows:
 - name: "project folder"
-  root: "{{cookiecutter.project_root}}"
-  layout: tiled
+  layout: even-horizontal
   panes:
     - commands:
       - "ls -al"
 - name: "konch shell"
-  root: "{{cookiecutter.project_root}}"
-  layout: tiled
+  layout: even-horizontal
   panes:
     - commands:
       - "konch"

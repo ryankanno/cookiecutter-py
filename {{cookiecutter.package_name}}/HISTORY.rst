@@ -4,7 +4,7 @@ History
 =======
 
 
-{{ cookiecutter.project_major_version }}.{{ cookiecutter.project_minor_version }}.{{ cookiecutter.project_patch_version }} - {{ cookiecutter.project_release_date }}
+{{ cookiecutter.version }} - {% now 'utc', '%Y-%m-%d' %}
 ------------
 
 * initial released version

@@ -1,5 +1,7 @@
 .PHONY: help
 
+export PYTHONPATH=$(shell pwd)
+
 help: ## Prints out help dialog
 	@IFS=$$'\n' ; \
 	help_lines=(`fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//'`); \
@@ -11,7 +13,7 @@ help: ## Prints out help dialog
 		printf "%-30s %s\n" $$help_command $$help_info; \
 	done; \
 
-clean: clean-build clean-pyc clean-test ## Remove build, Python, and test artifacts
+clean: clean-docs clean-build clean-pyc clean-test ## Remove build, Python, test artifacts, and docs
 
 clean-build: ## Remove build artifacts (build, dist, .egg)
 	rm -fr build/
@@ -19,6 +21,10 @@ clean-build: ## Remove build artifacts (build, dist, .egg)
 	rm -fr .eggs/
 	find . -name '*.egg-info' -exec rm -fr {} +
 	find . -name '*.egg' -exec rm -f {} +
+
+clean-docs: ## Remove docs
+	rm -f docs/{{ cookiecutter.package_name }}.rst
+	rm -f docs/modules.rst
 
 clean-pyc: ## Remove Python artifacts (.pyc, .pyo, __pycache__)
 	find . -name '*.pyc' -exec rm -f {} +
@@ -33,37 +39,32 @@ clean-test: ## Remove test artifacts (.tox, .coverage, coveragexml)
 	@rm -fr htmlcov/
 
 coverage: ## Check code coverage with current Python
-	coverage run --source {{ cookiecutter.package_name }} setup.py test
-	coverage report -m
-	coverage html
+	poetry run pytest --cov={{ cookiecutter.package_name}} tests/
+	poetry run coverage report -m
+	poetry run coverage html
 	open htmlcov/index.html
 
-docs: ## generate Sphinx documentation
-	rm -f docs/{{ cookiecutter.package_name }}.rst
-	rm -f docs/modules.rst
+docs: clean-docs  ## generate Sphinx documentation
 	sphinx-apidoc -o docs/ {{ cookiecutter.package_name }}
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	open docs/_build/html/index.html
 
 dist: clean ## Package {{ cookiecutter.package_name }}
-	python setup.py sdist
-	python setup.py bdist_wheel
+	poetry build
 	ls -l dist
 
 install: clean ## Install package to current Python's site-package
-	python setup.py install
+	poetry install
 
 lint: ## Check style with flake8
-	python setup.py flake8
-	flake8 tests
+	poetry run flake8 {{ cookiecutter.package_name }} tests
 
 release: clean ## Package and upload a release
-	python setup.py sdist upload
-	python setup.py bdist_wheel upload
+	ls -al
 
 test: ## Runs test with current Python
-	python setup.py test
+	poetry run pytest tests/
 
 test-all: ## Runs test against all Pythons with tox
 	tox

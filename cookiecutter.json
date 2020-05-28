@@ -1,21 +1,14 @@
 {
   "author_name": "Ryan Kanno",
   "author_email": "ryankanno@localkinegrinds.com",
-  "repo_username": "ryankanno",
 
-  "project_name": "Decacorns and Unicorns",
-  "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
-  "package_name": "{{ cookiecutter.repo_name|replace('-', '_') }}",
-
+  "project_name": "Everybody go surf",
   "project_short_description": "This is a short description about {{ cookiecutter.project_name }}",
-  "project_url": "https://github.com/{{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }}",
+  "project_url": "https://github.com/ryankanno/cookiecuter-py",
   "project_license": "MIT",
 
-  "project_root": "~/Projects/github/{{ cookiecutter.package_name }}",
+  "package_name": "surf",
 
-  "project_major_version": "0",
-  "project_minor_version": "0",
-  "project_patch_version": "1",
-  "project_release_date": "2015-7-21",
-  "year": "2015"
+  "version": "0.0.1",
+  "python_version": "3.8"
 }
