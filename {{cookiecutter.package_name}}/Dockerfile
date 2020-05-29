@@ -16,8 +16,7 @@ RUN apt-get update \
 RUN ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip
 RUN wget -qO- https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | POETRY_VERSION=$POETRY_VERSION python3
 
-COPY pyproject.toml /pyproject.toml
-COPY poetry.lock /poetry.lock
+COPY pyproject.toml poetry.* /
 
 RUN /bin/bash -c "source ${HOME}/.poetry/env && poetry config virtualenvs.create false && poetry install --no-dev --no-interaction --no-ansi"
 
