@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:{{ cookiecutter.python_version }}-slim-buster
 MAINTAINER {{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>
 
 ENV PYTHONFAULTHANDLER=1 \
