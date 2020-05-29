@@ -10,5 +10,7 @@
   "package_name": "surf",
 
   "version": "0.0.1",
-  "python_version": "3.8"
+  "python_version": "3.8",
+
+  "should_create_author_files": "y"
 }
