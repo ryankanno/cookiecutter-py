@@ -9,8 +9,10 @@
 
 """
 
+
 def hello_world():
     return "Hello World"
+
 
 # vim: fenc=utf-8
 # vim: filetype=python
