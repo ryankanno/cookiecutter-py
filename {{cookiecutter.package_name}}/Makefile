@@ -39,7 +39,7 @@ clean-test: ## Remove test artifacts (.tox, .coverage, coveragexml)
 	@rm -fr htmlcov/
 
 coverage: ## Check code coverage with current Python
-	poetry run pytest --cov={{ cookiecutter.package_name}} tests/
+	poetry run pytest --cov={{ cookiecutter.package_name}}
 	poetry run coverage report -m
 	poetry run coverage html
 	open htmlcov/index.html
@@ -64,7 +64,7 @@ release: clean ## Package and upload a release
 	ls -al
 
 test: ## Runs test with current Python
-	poetry run pytest tests/
+	poetry run pytest
 
 test-all: ## Runs test against all Pythons with tox
 	tox
