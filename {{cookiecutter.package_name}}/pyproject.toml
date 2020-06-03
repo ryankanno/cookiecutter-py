@@ -30,7 +30,7 @@ tox = "^3.15.1"
 [tool.black]
 line-length = 79
 skip-string-normalization = true
-target_version = '{{ cookiecutter.python_version }}'
+target_version = ['py{{ cookiecutter.python_version|replace(".", "") }}']
 include = '\.pyi?$'
 exclude = '''
 (
