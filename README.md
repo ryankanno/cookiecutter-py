@@ -17,7 +17,8 @@ do that.
   * [Poetry](https://poetry.eustace.io): Python Dependency Management and Packaging
   * [Tox](https://tox.readthedocs.org/en/latest/): Standardized testing across different Python versions and interpreters
   * [Bump2version](https://github.com/c4urself/bump2version): Version bumping
-  * [Konch](http://konch.readthedocs.org/en/latest/): Configurations for your Python shell
+  * [Konch](http://konch.readthedocs.org/en/latest/): Configurations for your Python shell with support for
+    * [IPython](https://ipython.org)
   * Logging configuration w/ [Structlog](https://www.structlog.org/en/stable/) integration
   * [Pdb++](https://github.com/pdbpp/pdbpp) support, an enhanced Python debugger
   * Testing using [Pytest](http://pytest.org/latest/) with support for
