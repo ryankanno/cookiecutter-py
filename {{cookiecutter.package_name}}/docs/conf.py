@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# type: ignore
 #
 # {{cookiecutter.package_name}} documentation build configuration file, created by
 # sphinx-quickstart on Mon May 11 21:57:03 2015.
