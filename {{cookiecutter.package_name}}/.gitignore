@@ -62,3 +62,9 @@ target/
 
 # mypy
 .mypy_cache/
+
+# hypothesis
+.hypothesis/
+
+# mutmut
+.mutmut-cache
