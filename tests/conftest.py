@@ -21,7 +21,7 @@ def context():
         'package_name': 'test_project',
         'version': '0.0.1',
         'python_version': '3.8',
-        'should_create_author_files': 'y'
+        'should_create_author_files': 'y',
     }
 
 
