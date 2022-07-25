@@ -42,5 +42,5 @@ jobs:
         run: poetry install --no-interaction
       - name: Run lint checks
         run: |
-          poetry run flake8 ./cookiecutter-py
-          poetry run black ./cookiecutter-py --check
+          poetry run flake8 .
+          poetry run black . --check
