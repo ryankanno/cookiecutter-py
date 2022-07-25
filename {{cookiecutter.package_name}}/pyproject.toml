@@ -3,6 +3,13 @@ name = "{{cookiecutter.package_name}}"
 version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.project_short_description }}"
 authors = ["{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"]
+readme = "README.rst"
+repository = "{{ cookiecutter.project_url }}"
+keywords = []
+license = "{{ cookiecutter.project_license }}"
+classifiers = [
+    "Programming Language :: Python",
+]
 
 [tool.poetry.dependencies]
 python = "^{{ cookiecutter.python_version }}"
@@ -53,6 +60,20 @@ exclude = '''
   )/
 )
 '''
+
+[tool.coverage.run]
+branch = true
+source = ["{{ cookiecutter.package_name }}", "tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "import",
+]
+show_missing = true
+skip_covered = false
+fail_under = 100
 
 [tool.isort]
 force_grid_wrap = 0
