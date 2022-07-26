@@ -1,5 +1,4 @@
 FROM python:{{ cookiecutter.python_version }}-slim-buster
-MAINTAINER {{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>
 
 ENV PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
@@ -21,7 +20,7 @@ ENV VERSION ${VERSION:-null}
 ENV REVISION ${REVISION:-null}
 ENV BRANCH ${BRANCH:-main}
 
-LABEL maintainers="{{ cookiecutter.author_email }}"
+LABEL maintainers="{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"
 
 LABEL org.opencontainers.image.created="${BUILD_DATETIME}" \
       org.opencontainers.image.title="{{ cookiecutter.project_name }}" \
@@ -32,9 +31,12 @@ LABEL org.opencontainers.image.created="${BUILD_DATETIME}" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.licenses="{{ cookiecutter.project_license }}"
 
+SHELL ["/bin/bash", "-exo", "pipefail",  "-c"]
+
 RUN apt-get update \
-    && apt-get install -y wget python3-pip \
-	&& apt-get clean
+    && apt-get install --no-install-recommends -y wget python3-pip \
+	&& apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip
 RUN wget -qO- https://install.python-poetry.org | POETRY_VERSION=$POETRY_VERSION python3
