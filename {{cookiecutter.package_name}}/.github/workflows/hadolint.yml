@@ -34,10 +34,10 @@ jobs:
         uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           script: |
             const output = `
-            #### Hadolint: \`${{ steps.hadolint.outcome }}\`
+            #### Hadolint: \`{% raw %}${{ steps.hadolint.outcome }}{% endraw %}\`
             \`\`\`
             ${process.env.HADOLINT_RESULTS}
             \`\`\`
