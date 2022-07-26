@@ -1,0 +1,55 @@
+name: lint dockerfile
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - .github/workflows/hadolint.yml
+      - Dockerfile
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    paths:
+      - .github/workflows/hadolint.yml
+      - Dockerfile
+
+jobs:
+  hadolint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v2.1.0
+        id: hadolint
+        with:
+          dockerfile: Dockerfile
+          ignore: DL3008
+        continue-on-error: true
+
+      - name: Update Pull Request
+        uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          script: |
+            const output = `
+            #### Hadolint: \`{% raw %}${{ steps.hadolint.outcome }}{% endraw %}\`
+            \`\`\`
+            ${process.env.HADOLINT_RESULTS}
+            \`\`\`
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Set Overall Status
+        if: steps.hadolint.outcome == 'failure'
+        run: exit 1
