@@ -6,6 +6,8 @@ updates:
       interval: "daily"
     commit-message:
       prefix: chore
+    labels:
+      - "github-actions"
 
   - package-ecosystem: "pip"
     directory: "/"
@@ -15,6 +17,10 @@ updates:
       prefix: fix
       prefix-development: chore
       include: scope
+    open-pull-requests-limit: 10
+    labels:
+      - "pip"
+      - "dependencies"
 
   - package-ecosystem: "docker"
     directory: "/"
@@ -22,3 +28,6 @@ updates:
       interval: "daily"
     commit-message:
       prefix: chore
+    labels:
+      - "docker"
+      - "dependencies"
