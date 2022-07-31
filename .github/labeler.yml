@@ -1,0 +1,18 @@
+repo:
+  - ./*
+
+ci/cd:
+  - .github/**/*
+
+dependencies:
+  - pyproject.toml
+
+docs:
+  - "docs/**/*"
+  - "**/README.*"
+
+source:
+- any: ['hooks/**/*', '!docs/*']
+
+test:
+  - tests/**/*

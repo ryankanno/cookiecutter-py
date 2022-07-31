@@ -1,0 +1,28 @@
+repo:
+  - ./*
+
+ci/cd:
+  - .github/**/*
+
+dependencies:
+  - pyproject.toml
+
+docker:
+  - Dockerfile*
+  - .dockerignore
+  - docker-compose.yml
+  - docker/**/*
+
+docs:
+  - "docs/**/*"
+  - "**/README.*"
+  - "AUTHORS.*"
+  - "HISTORY.*"
+
+source:
+- any: ['{{ cookiecutter.package_name }}/**/*', '!docs/*']
+
+test:
+  - tests/**/*
+  - codecov.yml
+  - .coveragerc
