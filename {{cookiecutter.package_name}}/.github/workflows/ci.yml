@@ -77,6 +77,8 @@ jobs:
       - name: Install Dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction
-      - name: Run Tests
+      - name: Run Tests And Collect Coverage
         run: |
-          poetry run pytest tests
+          poetry run pytest --cov --cov-report xml --doctest-modules
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v3
