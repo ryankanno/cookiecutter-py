@@ -4,7 +4,7 @@
 
   "project_name": "Everybody go surf",
   "project_short_description": "This is a short description about {{ cookiecutter.project_name }}",
-  "project_url": "https://github.com/ryankanno/cookiecuter-py",
+  "project_url": "https://github.com/ryankanno/cookiecutter-py",
   "project_license": "MIT",
 
   "package_name": "surf",
