@@ -10,17 +10,8 @@ Tests for `{{ cookiecutter.package_name }}` package.
 from {{ cookiecutter.package_name }} import {{ cookiecutter.package_name }}
 
 
-class Test{{ cookiecutter.project_name|replace(' ', '')}}(object):
+def test_hello_world():
+    assert {{ cookiecutter.package_name }}.hello_world() == "Hello World"
 
-    @classmethod
-    def setup_class(cls):
-        pass
-
-    def test_hello_world(self):
-        assert {{ cookiecutter.package_name }}.hello_world() == "Hello World"
-
-    @classmethod
-    def teardown_class(cls):
-        pass
 
 # vim: filetype=python
