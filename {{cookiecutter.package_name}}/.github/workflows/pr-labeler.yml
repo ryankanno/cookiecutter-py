@@ -13,5 +13,5 @@ jobs:
     steps:
     - uses: actions/labeler@v4
       with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        repo-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
         sync-labels: true
