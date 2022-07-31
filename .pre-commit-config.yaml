@@ -1,0 +1,58 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: check-added-large-files
+      - id: debug-statements
+      - id: detect-aws-credentials
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.910
+    hooks:
+      - id: mypy
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.9.2
+    hooks:
+    -   id: flake8
+        additional_dependencies: [flake8-blind-except, flake8-bugbear, flake8-comprehensions,
+          flake8-debugger, flake8-docstrings, flake8-polyfill,
+          flake8-pytest, flake8-quotes, yesqa]
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.24.0
+    hooks:
+      - id: pyupgrade
+  - repo: https://github.com/python/black
+    rev: 21.7b0
+    hooks:
+      - id: black
+        args: [--safe, --quiet]
+  - repo: https://github.com/asottile/blacken-docs
+    rev: v1.10.0
+    hooks:
+      - id: blacken-docs
+        additional_dependencies: [black==21.7b0]
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0
+    hooks:
+      - id: python-check-blanket-noqa
+      - id: python-check-mock-methods
+      - id: python-no-eval
+      - id: python-no-log-warn
+      - id: rst-backticks
+  - repo: https://github.com/openstack/bashate
+    rev: 2.0.0
+    hooks:
+      - id: bashate
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v5.0.0
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
+        additional_dependencies: ['@commitlint/config-conventional']
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.0.3
+    hooks:
+    -   id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
