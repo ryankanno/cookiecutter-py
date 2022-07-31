@@ -17,13 +17,13 @@ jobs:
         python-version:
           - "3.8"
         os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: {% raw %}${{ matrix.os }}{% endraw %}
     steps:
       - uses: actions/checkout@v3
-      - name: Configure Python ${{ matrix.python-version }}
+      - name: Configure Python {% raw %}${{ matrix.python-version }}{% endraw %}
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
@@ -36,7 +36,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: {% raw %}venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}{% endraw %}
       - name: Install Dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction
@@ -54,13 +54,13 @@ jobs:
           - "3.9"
           - "3.10"
         os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: {% raw %}${{ matrix.os }}{% endraw %}
     steps:
       - uses: actions/checkout@v3
-      - name: Configure Python ${{ matrix.python-version }}
+      - name: Configure Python {% raw %}${{ matrix.python-version }}{% endraw %}
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
@@ -73,7 +73,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: {% raw %}venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}{% endraw %}
       - name: Install Dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction
