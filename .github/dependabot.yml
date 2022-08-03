@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: "daily"
     commit-message:
-      prefix: chore
+      prefix: build(github)
     labels:
       - "github-actions"
 
@@ -14,8 +14,8 @@ updates:
     schedule:
       interval: "daily"
     commit-message:
-      prefix: fix
-      prefix-development: chore
+      prefix: build(deps)
+      prefix-development: build(dev-deps)
       include: scope
     open-pull-requests-limit: 10
     labels:
@@ -27,7 +27,7 @@ updates:
     schedule:
       interval: "daily"
     commit-message:
-      prefix: chore
+      prefix: build(docker)
     labels:
       - "docker"
       - "dependencies"
