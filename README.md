@@ -1,16 +1,11 @@
 # cookiecutter-py
 
-This is a fairly opinionated Python [cookiecutter](https://github.com/audreyr/cookiecutter) template.
+Each time you start a new Python project, you shouldn't start from scratch.
+Ideally, you'd start with a standard project structure and set of tools and
+integrations to help facilitate writing quality Python code.
 
-Heavily influenced by
-
-  * [py-skeleton-templates](https://github.com/ryankanno/py-skeleton-templates)
-  * [cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
-
-Every time you start a new Python project, you shouldn't start from
-scratch. Ideally, you'd start with a decent set of tooling / integrations to
-help facilitate writing good Python code. This is the tool that will help you
-do that.
+This opinionated Python [cookiecutter](https://github.com/audreyr/cookiecutter)
+template is the tool that will help you do just that.
 
 ## Features
 
