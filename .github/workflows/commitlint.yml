@@ -32,7 +32,7 @@ jobs:
         id: commitlint
         continue-on-error: true
         with:
-          configFile: commitlint.config.js
+          configFile: .commitlint.config.js
 
       - name: Validate PR Title
         id: prTitle
