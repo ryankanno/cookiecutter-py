@@ -16,7 +16,7 @@ PATTERN = r"{{(\s?cookiecutter)[.](.*?)}}"
 RE_OBJ = re.compile(PATTERN)
 
 
-EXPECTED_BASE_BAKED_PROJECT_FILES = [
+EXPECTED_BASE_BAKED_FILES = [
     '.commitlint.config.js',
     '.coveragerc',
     '.dockerignore',
@@ -37,9 +37,6 @@ EXPECTED_BASE_BAKED_PROJECT_FILES = [
     'pyproject.toml',
     'pytest.ini',
     'setup.cfg',
-    '/test_project/__init__.py',
-    '/test_project/test_project.py',
-    '/tests/test_test_project.py',
     'tox.ini',
 ]
 
@@ -62,6 +59,28 @@ EXPECTED_BAKED_GITHUB_ACTIONS_FILES = [
     '/.github/workflows/pr-size-labeler.yml',
     '/.github/workflows/release-drafter.yml',
 ]
+
+EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES = [
+    '/.github/workflows/publish.yml',
+]
+
+
+def get_expected_baked_files(package_name: str) -> List[str]:
+    return EXPECTED_BASE_BAKED_FILES + [
+        f'/{package_name}/__init__.py',
+        f'/{package_name}/{package_name}.py',
+        f'/tests/test_{package_name}.py',
+    ]
+
+
+def get_expected_baked_default_files(package_name: str) -> List[str]:
+    return (
+        get_expected_baked_files(package_name)
+        + EXPECTED_BAKED_AUTHORS_FILES
+        + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
+        + EXPECTED_BAKED_GITHUB_ACTIONS_FILES
+        + EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES
+    )
 
 
 def build_files_list(root_dir: str, is_absolute: bool = True) -> List[str]:
@@ -95,7 +114,29 @@ def check_paths_exist(
         assert expected_path in baked_files
 
 
-def test_with_default_configuration(cookies, context):
+def test_with_default_configuration(cookies, default_context):
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+    assert abs_baked_files
+    check_paths_substitution(abs_baked_files)
+
+    rel_baked_files = build_files_list(
+        str(baked_project.project_path), is_absolute=False
+    )
+    assert rel_baked_files
+
+    check_paths_exist(
+        get_expected_baked_default_files(default_context['package_name']),
+        rel_baked_files,
+    )
+
+
+def test_with_parameterized_configuration(cookies, context):
 
     baked_project = cookies.bake(extra_context=context)
 
@@ -116,9 +157,20 @@ def test_with_default_configuration(cookies, context):
         strtobool(context['should_create_author_files'])
         and strtobool(context['should_install_github_dependabot'])
         and strtobool(context['should_install_github_actions'])
+        and strtobool(context['should_publish_to_pypi'])
     ):
         check_paths_exist(
-            EXPECTED_BASE_BAKED_PROJECT_FILES
+            get_expected_baked_default_files(context['package_name']),
+            rel_baked_files,
+        )
+    elif (
+        strtobool(context['should_create_author_files'])
+        and strtobool(context['should_install_github_dependabot'])
+        and strtobool(context['should_install_github_actions'])
+        and not strtobool(context['should_publish_to_pypi'])
+    ):
+        check_paths_exist(
+            get_expected_baked_files(context['package_name'])
             + EXPECTED_BAKED_AUTHORS_FILES
             + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
             + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
@@ -130,7 +182,7 @@ def test_with_default_configuration(cookies, context):
         and not strtobool(context['should_install_github_actions'])
     ):
         check_paths_exist(
-            EXPECTED_BASE_BAKED_PROJECT_FILES
+            get_expected_baked_files(context['package_name'])
             + EXPECTED_BAKED_AUTHORS_FILES
             + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES,
             rel_baked_files,
@@ -139,31 +191,92 @@ def test_with_default_configuration(cookies, context):
         strtobool(context['should_create_author_files'])
         and not strtobool(context['should_install_github_dependabot'])
         and strtobool(context['should_install_github_actions'])
+        and strtobool(context['should_publish_to_pypi'])
     ):
         check_paths_exist(
-            EXPECTED_BASE_BAKED_PROJECT_FILES
+            get_expected_baked_files(context['package_name'])
+            + EXPECTED_BAKED_AUTHORS_FILES
+            + EXPECTED_BAKED_GITHUB_ACTIONS_FILES
+            + EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES,
+            rel_baked_files,
+        )
+    elif (
+        strtobool(context['should_create_author_files'])
+        and not strtobool(context['should_install_github_dependabot'])
+        and strtobool(context['should_install_github_actions'])
+        and not strtobool(context['should_publish_to_pypi'])
+    ):
+        check_paths_exist(
+            get_expected_baked_files(context['package_name'])
             + EXPECTED_BAKED_AUTHORS_FILES
             + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
+            rel_baked_files,
+        )
+    elif (
+        strtobool(context['should_create_author_files'])
+        and not strtobool(context['should_install_github_dependabot'])
+        and not strtobool(context['should_install_github_actions'])
+    ):
+        check_paths_exist(
+            get_expected_baked_files(context['package_name'])
+            + EXPECTED_BAKED_AUTHORS_FILES,
             rel_baked_files,
         )
     elif (
         not strtobool(context['should_create_author_files'])
         and strtobool(context['should_install_github_dependabot'])
         and strtobool(context['should_install_github_actions'])
+        and strtobool(context['should_publish_to_pypi'])
     ):
         check_paths_exist(
-            EXPECTED_BASE_BAKED_PROJECT_FILES
+            get_expected_baked_files(context['package_name'])
+            + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
+            + EXPECTED_BAKED_GITHUB_ACTIONS_FILES
+            + EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES,
+            rel_baked_files,
+        )
+    elif (
+        not strtobool(context['should_create_author_files'])
+        and strtobool(context['should_install_github_dependabot'])
+        and strtobool(context['should_install_github_actions'])
+        and not strtobool(context['should_publish_to_pypi'])
+    ):
+        check_paths_exist(
+            get_expected_baked_files(context['package_name'])
             + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
             + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
             rel_baked_files,
         )
     elif (
         not strtobool(context['should_create_author_files'])
-        and not strtobool(context['should_install_github_dependabot'])
-        and strtobool(context['should_install_github_actions'])
+        and strtobool(context['should_install_github_dependabot'])
+        and not strtobool(context['should_install_github_actions'])
     ):
         check_paths_exist(
-            EXPECTED_BASE_BAKED_PROJECT_FILES
+            get_expected_baked_files(context['package_name'])
+            + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES,
+            rel_baked_files,
+        )
+    elif (
+        not strtobool(context['should_create_author_files'])
+        and not strtobool(context['should_install_github_dependabot'])
+        and strtobool(context['should_install_github_actions'])
+        and strtobool(context['should_publish_to_pypi'])
+    ):
+        check_paths_exist(
+            get_expected_baked_files(context['package_name'])
+            + EXPECTED_BAKED_GITHUB_ACTIONS_FILES
+            + EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES,
+            rel_baked_files,
+        )
+    elif (
+        not strtobool(context['should_create_author_files'])
+        and not strtobool(context['should_install_github_dependabot'])
+        and strtobool(context['should_install_github_actions'])
+        and not strtobool(context['should_publish_to_pypi'])
+    ):
+        check_paths_exist(
+            get_expected_baked_files(context['package_name'])
             + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
             rel_baked_files,
         )
@@ -172,4 +285,13 @@ def test_with_default_configuration(cookies, context):
         and not strtobool(context['should_install_github_dependabot'])
         and not strtobool(context['should_install_github_actions'])
     ):
-        check_paths_exist(EXPECTED_BASE_BAKED_PROJECT_FILES, rel_baked_files)
+        check_paths_exist(
+            get_expected_baked_files(context['package_name']), rel_baked_files
+        )
+    else:
+        print(f"author file: {context['should_create_author_files']}")
+        print(f"dependabot: {context['should_install_github_dependabot']}")
+        print(f"gh actions: {context['should_install_github_actions']}")
+        print(f"pypi: {context['should_publish_to_pypi']}")
+
+        pytest.fail('eeps. missed a case')
