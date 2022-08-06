@@ -53,12 +53,14 @@ EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES = [
 
 EXPECTED_BAKED_GITHUB_ACTIONS_FILES = [
     '/.github/labeler.yml',
+    '/.github/release-drafter.yml',
     '/.github/workflows/ci.yml',
     '/.github/workflows/codeql-analysis.yml',
     '/.github/workflows/commitlint.yml',
     '/.github/workflows/hadolint.yml',
     '/.github/workflows/pr-labeler.yml',
     '/.github/workflows/pr-size-labeler.yml',
+    '/.github/workflows/release-drafter.yml',
 ]
 
 
