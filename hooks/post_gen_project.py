@@ -36,6 +36,7 @@ def manage_github_files(
 
     if not strtobool(should_install_github_actions):
         remove_path(PROJECT_GITHUB / Path("labeler.yml"))
+        remove_path(PROJECT_GITHUB / Path("release-drafter.yml"))
         remove_path(PROJECT_GITHUB / Path("workflows"))
 
     if not any(Path(PROJECT_GITHUB).iterdir()):
