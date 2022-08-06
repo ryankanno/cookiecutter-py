@@ -28,7 +28,9 @@ def manage_author_files(should_create_author_files: str) -> None:
 
 
 def manage_github_files(
-    should_install_github_dependabot: str, should_install_github_actions: str
+    should_install_github_dependabot: str,
+    should_install_github_actions: str,
+    should_publish_to_pypi: str,
 ) -> None:
 
     if not strtobool(should_install_github_dependabot):
@@ -38,6 +40,8 @@ def manage_github_files(
         remove_path(PROJECT_GITHUB / Path("labeler.yml"))
         remove_path(PROJECT_GITHUB / Path("release-drafter.yml"))
         remove_path(PROJECT_GITHUB / Path("workflows"))
+    elif not strtobool(should_publish_to_pypi):
+        remove_path(PROJECT_GITHUB / Path("workflows") / Path("publish.yml"))
 
     if not any(Path(PROJECT_GITHUB).iterdir()):
         remove_path(PROJECT_GITHUB)
@@ -48,6 +52,7 @@ if __name__ == '__main__':
     manage_github_files(
         '{{ cookiecutter.should_install_github_dependabot }}',
         '{{ cookiecutter.should_install_github_actions}}',
+        '{{ cookiecutter.should_publish_to_pypi }}',
     )
 
 
