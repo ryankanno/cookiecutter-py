@@ -32,6 +32,7 @@ EXPECTED_BASE_BAKED_FILES = [
     '.gitignore',
     '.konchrc',
     '.pre-commit-config.yaml',
+    '.secrets.baseline',
     'Dockerfile',
     'HISTORY.rst',
     'LICENSE',

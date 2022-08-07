@@ -68,4 +68,3 @@ test: ## Runs test with current Python
 
 test-all: ## Runs test against all Pythons with tox
 	tox
-
