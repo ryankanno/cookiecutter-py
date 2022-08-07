@@ -10,7 +10,7 @@ Tests for `{{ cookiecutter.package_name }}` package.
 from {{ cookiecutter.package_name }} import {{ cookiecutter.package_name }}
 
 
-def test_hello_world():
+def test_hello_world() -> None:
     assert {{ cookiecutter.package_name }}.hello_world() == "Hello World"
 
 
