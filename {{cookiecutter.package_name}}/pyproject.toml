@@ -67,6 +67,13 @@ exclude = '''
 )
 '''
 
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q -n auto"
+testpaths = [
+    "tests",
+]
+
 [tool.coverage.run]
 branch = true
 source = ["{{ cookiecutter.package_name }}", "tests"]
