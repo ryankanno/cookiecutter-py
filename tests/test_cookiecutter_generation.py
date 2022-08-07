@@ -1,7 +1,15 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Copyright © 2020 Ryan Kanno <ryankanno@localkinegrinds.com>
+#
+# Distributed under terms of the MIT license.
+
 """
 Tests project generation
 """
 
+import mmap
 import os
 import re
 
@@ -295,3 +303,29 @@ def test_with_parameterized_configuration(cookies, context):
         print(f"pypi: {context['should_publish_to_pypi']}")
 
         pytest.fail('eeps. missed a case')
+
+
+@pytest.mark.parametrize('codecov', ['y', 'n'])
+def test_with_codecov(cookies, default_context, codecov):
+    default_context['should_upload_coverage_to_codecov'] = codecov
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    for path in abs_baked_files:
+        if 'ci.yml' in path:
+            with open(path, 'rb', 0) as file, mmap.mmap(
+                file.fileno(), 0, access=mmap.ACCESS_READ
+            ) as s:
+                if s.find(b'codecov') == -1 and codecov == 'y':
+                    pytest.fail('Should have codecov')
+                elif s.find(b'codecov') != -1 and codecov == 'n':
+                    pytest.fail('Should not have codecov')
+
+
+# vim: fenc=utf-8
+# vim: filetype=python

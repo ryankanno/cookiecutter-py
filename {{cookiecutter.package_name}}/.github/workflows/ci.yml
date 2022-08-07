@@ -80,5 +80,7 @@ jobs:
       - name: Run Tests And Collect Coverage
         run: |
           poetry run pytest --cov --cov-report xml --doctest-modules
+      {%- if cookiecutter.should_upload_coverage_to_codecov == 'y' -%}
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
+      {%- endif %}

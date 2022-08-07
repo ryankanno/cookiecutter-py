@@ -27,6 +27,7 @@ def default_context(request):
         "should_create_author_files": "y",
         "should_install_github_dependabot": "y",
         "should_install_github_actions": "y",
+        "should_upload_coverage_to_codecov": "y",
         "should_publish_to_pypi": "y",
     }
 
@@ -52,6 +53,7 @@ def context(request):
         'should_create_author_files': should_create_author_files,
         'should_install_github_dependabot': should_install_github_dependabot,
         'should_install_github_actions': should_install_github_actions,
+        'should_upload_coverage_to_codecov': 'y',
         'should_publish_to_pypi': should_publish_to_pypi,
     }
 
