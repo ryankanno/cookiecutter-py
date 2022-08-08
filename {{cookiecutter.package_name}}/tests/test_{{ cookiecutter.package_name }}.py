@@ -7,7 +7,11 @@
 Tests for `{{ cookiecutter.package_name }}` package.
 """
 
+# fmt: off
+
 from {{ cookiecutter.package_name }} import {{ cookiecutter.package_name }}
+
+# fmt: on
 
 
 def test_hello_world() -> None:
