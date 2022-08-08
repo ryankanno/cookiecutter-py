@@ -342,5 +342,29 @@ def test_with_codecov(
                     pytest.fail('Should not have codecov')
 
 
+@pytest.mark.parametrize('poetry_version', ['8.0.8', '4.2.0'])
+def test_with_poetry_version(
+    cookies: Cookies,
+    default_context: typing.Dict[str, str],
+    poetry_version: str,
+) -> None:
+    default_context['poetry_version'] = poetry_version
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    for path in abs_baked_files:
+        if 'Dockerfile' in path:
+            with open(path, 'rb', 0) as file, mmap.mmap(
+                file.fileno(), 0, access=mmap.ACCESS_READ
+            ) as s:
+                if s.find(f"POETRY_VERSION={poetry_version}".encode()) == -1:
+                    pytest.fail('Should have appropriate poetry version')
+
+
 # vim: fenc=utf-8
 # vim: filetype=python
