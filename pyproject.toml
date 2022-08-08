@@ -73,8 +73,8 @@ testpaths = [
 [tool.coverage.run]
 parallel = true
 branch = true
-include = [
-    "hooks/*"
+source = [
+    "hooks"
 ]
 omit = [
     "*/{{cookiecutter.package_name}}/*",
