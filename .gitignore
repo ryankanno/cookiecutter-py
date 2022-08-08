@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
 
 # C extensions
 *.so
@@ -56,4 +57,14 @@ docs/_build/
 # PyBuilder
 target/
 
+# pyenv
 .python-version
+
+# mypy
+.mypy_cache/
+
+# hypothesis
+.hypothesis/
+
+# mutmut
+.mutmut-cache
