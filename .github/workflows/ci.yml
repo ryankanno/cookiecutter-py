@@ -47,7 +47,7 @@ jobs:
         run: poetry add tox-gh-actions
       - name: Run tox
         run: |
-          poetry run python -m tox -p
+          tox -p
       - name: set coverage mapping
         run: |
           MATRIX_PYTHON_VERSION=${{matrix.python-version}}
