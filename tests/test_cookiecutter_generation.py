@@ -14,9 +14,11 @@ import os
 import re
 
 from distutils.util import strtobool
-from typing import List
+import typing
 
 from binaryornot.check import is_binary
+from pytest_cookies.plugin import Cookies
+
 import pytest
 
 
@@ -73,7 +75,7 @@ EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES = [
 ]
 
 
-def get_expected_baked_files(package_name: str) -> List[str]:
+def get_expected_baked_files(package_name: str) -> typing.List[str]:
     return EXPECTED_BASE_BAKED_FILES + [
         f'/{package_name}/__init__.py',
         f'/{package_name}/{package_name}.py',
@@ -81,7 +83,7 @@ def get_expected_baked_files(package_name: str) -> List[str]:
     ]
 
 
-def get_expected_baked_default_files(package_name: str) -> List[str]:
+def get_expected_baked_default_files(package_name: str) -> typing.List[str]:
     return (
         get_expected_baked_files(package_name)
         + EXPECTED_BAKED_AUTHORS_FILES
@@ -91,7 +93,9 @@ def get_expected_baked_default_files(package_name: str) -> List[str]:
     )
 
 
-def build_files_list(root_dir: str, is_absolute: bool = True) -> List[str]:
+def build_files_list(
+    root_dir: str, is_absolute: bool = True
+) -> typing.List[str]:
     """Build a list containing abs/relative paths to the generated files."""
     return [
         os.path.join(dirpath, file_path)
@@ -102,7 +106,7 @@ def build_files_list(root_dir: str, is_absolute: bool = True) -> List[str]:
     ]
 
 
-def check_paths_substitution(paths):
+def check_paths_substitution(paths: typing.List[str]) -> None:
     for path in paths:
         if is_binary(path):
             continue
@@ -114,15 +118,22 @@ def check_paths_substitution(paths):
 
 
 def check_paths_exist(
-    expected_paths: List[str], baked_files: List[str]
+    expected_paths: typing.List[str], baked_files: typing.List[str]
 ) -> None:
-    assert len(expected_paths) == len(baked_files)
+
+    baked_files_no_pycache = list(
+        filter(lambda x: '__pycache__' not in x, baked_files)
+    )
+
+    assert len(expected_paths) == len(baked_files_no_pycache)
 
     for _, expected_path in enumerate(expected_paths):
-        assert expected_path in baked_files
+        assert expected_path in baked_files_no_pycache
 
 
-def test_with_default_configuration(cookies, default_context):
+def test_with_default_configuration(
+    cookies: Cookies, default_context: typing.Dict[str, str]
+) -> None:
     baked_project = cookies.bake(extra_context=default_context)
 
     assert baked_project.exit_code == 0
@@ -144,7 +155,9 @@ def test_with_default_configuration(cookies, default_context):
     )
 
 
-def test_with_parameterized_configuration(cookies, context):
+def test_with_parameterized_configuration(
+    cookies: Cookies, context: typing.Dict[str, str]
+) -> None:
 
     baked_project = cookies.bake(extra_context=context)
 
@@ -160,6 +173,11 @@ def test_with_parameterized_configuration(cookies, context):
         str(baked_project.project_path), is_absolute=False
     )
     assert rel_baked_files
+
+    print(f"author file: {context['should_create_author_files']}")
+    print(f"dependabot: {context['should_install_github_dependabot']}")
+    print(f"gh actions: {context['should_install_github_actions']}")
+    print(f"pypi: {context['should_publish_to_pypi']}")
 
     if (
         strtobool(context['should_create_author_files'])
@@ -297,16 +315,13 @@ def test_with_parameterized_configuration(cookies, context):
             get_expected_baked_files(context['package_name']), rel_baked_files
         )
     else:
-        print(f"author file: {context['should_create_author_files']}")
-        print(f"dependabot: {context['should_install_github_dependabot']}")
-        print(f"gh actions: {context['should_install_github_actions']}")
-        print(f"pypi: {context['should_publish_to_pypi']}")
-
         pytest.fail('eeps. missed a case')
 
 
 @pytest.mark.parametrize('codecov', ['y', 'n'])
-def test_with_codecov(cookies, default_context, codecov):
+def test_with_codecov(
+    cookies: Cookies, default_context: typing.Dict[str, str], codecov: str
+) -> None:
     default_context['should_upload_coverage_to_codecov'] = codecov
     baked_project = cookies.bake(extra_context=default_context)
 
