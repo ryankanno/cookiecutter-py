@@ -1,9 +1,24 @@
 [tool.poetry]
 name = "cookiecutter-py"
-version = "0.1.0"
-description = "Cookiecutter Python template"
+version = "0.0.0"
+description = "🐍 Modern Python project Cookiecutter template"
 authors = ["Ryan <ryankanno@localkinegrinds.com>"]
+maintainers = ["Ryan <ryankanno@localkinegrinds.com>"]
+readme = "README.md"
+repository = "https://github.com/ryankanno/cookiecutter-py"
+keywords = ["cookiecutter"]
 license = "MIT"
+classifiers = [
+    "Programming Language :: Python",
+]
+packages = [
+  {include = "cookiecutter_py"}
+]
+include = [
+  '{{cookiecutter.package_name}}/**/*',
+  'cookiecutter.json',
+  'hooks/*'
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -15,6 +30,10 @@ pytest-cookies = "^0.6.1"
 flake8 = "^4.0.1"
 black = "^22.6.0"
 pre-commit = "^2.20.0"
+tox = "^3.25.1"
+mypy = "^0.971"
+pytest-cov = "^3.0.0"
+pytest-xdist = "^2.5.0"
 
 [tool.black]
 line-length = 79
@@ -43,6 +62,32 @@ exclude = '''
  )/
 )
 '''
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-n auto"
+testpaths = [
+    "tests/",
+]
+
+[tool.coverage.run]
+parallel = true
+branch = true
+omit = [
+    "*/{{cookiecutter.package_name}}/*",
+    "*/python?.?/*",
+    "*/tests/*"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+show_missing = true
+skip_covered = false
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
