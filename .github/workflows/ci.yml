@@ -47,6 +47,6 @@ jobs:
         run: poetry add tox-gh-actions
       - name: Run tox
         run: |
-          tox -p
+          poetry run python -m tox -p
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
