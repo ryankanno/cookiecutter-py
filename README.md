@@ -20,6 +20,7 @@ template is the tool that will help you do just that.
   - [`pytest-cov`](https://pytest-cov.readthedocs.io/en/latest/) for coverage reports
   - [`pytest-mock`](https://github.com/pytest-dev/pytest-mock/) for mocks
   - [`pytest-xdist`](https://github.com/pytest-dev/pytest-xdist) for distributed testing
+  - [`pytest-randomly`](https://github.com/pytest-dev/pytest-randomly) to randomly order tests
 - [`tox`](https://tox.readthedocs.org/en/latest/) for testing automation
 - [`sphinx`](http://www.sphinx-doc.org/en/master/) for docs
 - [`pdb++`](https://github.com/pdbpp/pdbpp) for debugging
