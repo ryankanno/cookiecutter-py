@@ -39,12 +39,12 @@ jobs:
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-      - name: Install Dependencies
+          # - name: Install Dependencies
         # if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: |
-          poetry install --no-interaction
-      - name: Install tox-gh-actions
-        run: poetry add tox-gh-actions
+        # run: |
+        # poetry install --no-interaction
+      - name: Install tox + tox-gh-actions
+        run: poetry add tox tox-gh-actions
       - name: Run tox
         run: |
           tox -p
