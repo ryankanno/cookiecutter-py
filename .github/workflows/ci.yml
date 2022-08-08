@@ -10,46 +10,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  linter:
+  tox:
     strategy:
       fail-fast: false
       matrix:
         python-version:
-          - "3.8"
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Configure Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          version: 1.1.13
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          installer-parallel: true
-      - name: Load Cached Venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-      - name: Install Dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction
-      - name: Run Lint Checks
-        run: |
-          poetry run flake8 .
-          poetry run black . --check
-  tests:
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version:
-          - "3.7"
           - "3.8"
           - "3.9"
           - "3.10"
@@ -61,22 +26,38 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          version: 1.1.13
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          installer-parallel: true
-      - name: Load Cached Venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-      - name: Install Dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction
-      - name: Run Tests
+          #- name: Install Poetry
+          #uses: snok/install-poetry@v1
+          #with:
+          #version: 1.1.14
+          #virtualenvs-create: true
+          #virtualenvs-in-project: true
+          #installer-parallel: true
+          #- name: Load Cached Venv
+          #id: cached-poetry-dependencies
+          #uses: actions/cache@v3
+          #with:
+          #path: .venv
+          #key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          # - name: Install Dependencies
+        # if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        # run: |
+        # poetry install --no-interaction
+      - name: Install dependencies
         run: |
-          poetry run pytest tests
+          python -m pip install --upgrade pip
+          pip install poetry==1.1.14 tox==3.25.1 tox-gh-actions
+      - name: Run tox
+        run: |
+          tox -p
+      - name: set coverage mapping
+        run: |
+          MATRIX_PYTHON_VERSION=${{matrix.python-version}}
+          echo "TOX_COVERAGE_ENV=py${MATRIX_PYTHON_VERSION/./}" >> $GITHUB_ENV
+          ls -alR
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./.tox/.coverage.${{ env.TOX_COVERAGE_ENV }}
+          verbose: true
+          fail_ci_if_error: true

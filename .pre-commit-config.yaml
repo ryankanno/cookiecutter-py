@@ -3,8 +3,6 @@ repos:
     rev: v4.3.0
     hooks:
       - id: check-added-large-files
-      - id: debug-statements
-      - id: detect-aws-credentials
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: trailing-whitespace
@@ -12,6 +10,9 @@ repos:
     rev: v0.971
     hooks:
       - id: mypy
+        exclude: |
+          (?x)(cookiecutter\.package_name)
+        additional_dependencies: [pytest==7.1.2]
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.9.2
     hooks:
@@ -27,12 +28,14 @@ repos:
     rev: 22.6.0
     hooks:
       - id: black
-        args: [--safe, --quiet]
+        args: ['--config', 'pyproject.toml']
+        exclude: |
+          (?x)(\{\{cookiecutter\.package_name\}\}\/tests)
   - repo: https://github.com/asottile/blacken-docs
     rev: v1.12.1
     hooks:
       - id: blacken-docs
-        additional_dependencies: [black==21.7b0]
+        additional_dependencies: [black==22.6]
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.9.0
     hooks:
