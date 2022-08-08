@@ -37,7 +37,6 @@ jobs:
         run: |
           MATRIX_PYTHON_VERSION=${{matrix.python-version}}
           echo "TOX_COVERAGE_ENV=py${MATRIX_PYTHON_VERSION/./}" >> $GITHUB_ENV
-          ls -alR
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
         with:
