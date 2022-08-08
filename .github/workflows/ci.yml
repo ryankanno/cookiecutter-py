@@ -64,4 +64,4 @@ jobs:
           files: ./.tox/.coverage.${{ env.TOX_COVERAGE_ENV }}.xml
           verbose: true
           fail_ci_if_error: true
-          flags: ${{ matrix.python-version }}
+          flags: "${{ env.TOX_COVERAGE_ENV }}"
