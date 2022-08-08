@@ -48,5 +48,11 @@ jobs:
       - name: Run tox
         run: |
           poetry run python -m tox -p
+      - name: set coverage mapping
+        run: |
+          echo "TOX_COVERAGE_ENV=py${${{matrix.python-version}}//./}" >> $GITHUB_ENV
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          files: .tox/.coverage.${{ env.TOX_COVERAGE_ENV }}
+          verbose: true
