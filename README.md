@@ -29,8 +29,8 @@ template is the tool that will help you do just that.
 - [`dockerfile`](https://www.docker.com/) for development, testing, and production
 - custom [`makefile`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.package_name%7D%7D/Makefile) (run make help)
 - stay up-to-date w/ configured [`dependabot`](https://dependabot.com/)
-- [`github-actions`](https://github.com/features/actions) with ci, publish to pypi workflows w/ draft-releaser workflow
-- [`codecov`](https://codecov.io) (optional) integration for code coverage
+- [`github-actions`](https://github.com/features/actions) with ci (leveraging [`tox`](https://tox.readthedocs.org/en/latest/)), publish to pypi workflows w/ [`release-drafter`](https://github.com/release-drafter/release-drafter) integration
+- optional [`codecov`](https://codecov.io) integration for code coverage
 
 ## Installation
 
@@ -54,8 +54,7 @@ Coming soon to a README near you!
 
 - add mutmut example to template
 - add hypothesis example to template
-- run pre-commit in github-actions (currently runs flake8 / black directly)
-- clean up tox integration
+- add licenses
 - remove bump2version for dunamai
 - add typeguard
 - version releases
