@@ -11,6 +11,7 @@ Tests for `{{ cookiecutter.package_name }}` package.
 
 from {{ cookiecutter.package_name }} import {{ cookiecutter.package_name }}
 
+
 # fmt: on
 
 
