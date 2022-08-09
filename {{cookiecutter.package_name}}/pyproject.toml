@@ -94,6 +94,7 @@ testpaths = [
 ]
 
 [tool.coverage.run]
+parallel = true
 branch = true
 source = ["{{ cookiecutter.package_name }}"]
 omit = [
@@ -110,7 +111,6 @@ exclude_lines = [
 ]
 show_missing = true
 skip_covered = false
-fail_under = 100
 
 [tool.isort]
 force_grid_wrap = 0
