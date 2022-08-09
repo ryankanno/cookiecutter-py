@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: "daily"
     commit-message:
-      prefix: build(github)
+      prefix: build(github-actions)
     labels:
       - "github-actions"
 
@@ -14,8 +14,7 @@ updates:
     schedule:
       interval: "daily"
     commit-message:
-      prefix: build(deps)
-      prefix-development: build(dev-deps)
+      prefix: build
       include: scope
     open-pull-requests-limit: 10
     labels:
