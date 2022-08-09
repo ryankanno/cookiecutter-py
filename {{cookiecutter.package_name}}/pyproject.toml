@@ -95,11 +95,16 @@ testpaths = [
 
 [tool.coverage.run]
 branch = true
-source = ["{{ cookiecutter.package_name }}", "tests"]
+source = ["{{ cookiecutter.package_name }}"]
+omit = [
+    "*/python?.?/*",
+    "*/tests/*"
+]
 
 [tool.coverage.report]
 exclude_lines = [
     "pragma: no cover",
+    "raise AssertionError",
     "raise NotImplementedError",
     "import",
 ]
