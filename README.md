@@ -55,7 +55,6 @@ Coming soon to a README near you!
 - add mutmut example to template
 - add hypothesis example to template
 - add licenses
-- remove bump2version for dunamai
 - add typeguard
 - version releases
 - integrate [earthly](https://github.com/earthly/earthly)
