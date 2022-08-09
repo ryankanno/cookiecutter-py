@@ -45,7 +45,6 @@ EXPECTED_BASE_BAKED_FILES = [
     '/docs/make.bat',
     'logging.yaml',
     'pyproject.toml',
-    'setup.cfg',
     'tox.ini',
 ]
 
