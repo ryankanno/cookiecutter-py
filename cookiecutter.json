@@ -10,7 +10,7 @@
   "github_repository_owner": "ryankanno",
 
   "package_name": "surf",
-  "version": "0.0.1",
+  "version": "0.0.0",
 
   "python_version": "3.8",
   "poetry_version": "1.1.14",

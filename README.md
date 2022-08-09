@@ -27,6 +27,7 @@ template is the tool that will help you do just that.
 - [`konch`](http://konch.readthedocs.org/en/latest/) for shell configuration w/ [`ipython`](https://ipython.org) support
 - [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / flake8) configured
 - [`dockerfile`](https://www.docker.com/) for development, testing, and production
+- [`dunamai`](https://github.com/mtkennerly/dunamai) for versioning
 - custom [`makefile`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.package_name%7D%7D/Makefile) (run make help)
 - stay up-to-date w/ configured [`dependabot`](https://dependabot.com/)
 - [`github-actions`](https://github.com/features/actions) with ci (leveraging [`tox`](https://tox.readthedocs.org/en/latest/)), publish to pypi workflows w/ [`release-drafter`](https://github.com/release-drafter/release-drafter) integration
@@ -50,12 +51,17 @@ cookiecutter gh:ryankanno/cookiecutter-py
 
 Coming soon to a README near you!
 
+### Versioning
+
+If you enable the PyPi workflow, versioning will happen via [`dunamai`](https://github.com/mtkennerly/dunamai) within the Github pipeline.
+
+If instead, you prefer to version your package, please do it via ```poetry version $(dunamai from any)``` as recommended in their [documentation](https://github.com/mtkennerly/dunamai#integration).
+
 ## TODO
 
 - add mutmut example to template
 - add hypothesis example to template
 - add licenses
-- remove bump2version for dunamai
 - add typeguard
 - version releases
 - integrate [earthly](https://github.com/earthly/earthly)
