@@ -54,7 +54,7 @@ jobs:
       - name: Run tox
         run: |
           tox -p
-      {%- if cookiecutter.should_upload_coverage_to_codecov == 'y' -%}
+      {%- if cookiecutter.should_upload_coverage_to_codecov == 'y' %}
       - name: Set code coverage variable for coverage file / flags
         run: |
           MATRIX_PYTHON_VERSION={% raw %}${{matrix.python-version}}{% endraw %}
