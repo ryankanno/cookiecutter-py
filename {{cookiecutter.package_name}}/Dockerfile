@@ -11,7 +11,8 @@ ENV PIP_NO_CACHE_DIR=off \
   PIP_DEFAULT_TIMEOUT=100 \
   PATH="~/.local/bin:/venv/bin:${PATH}" \
   VIRTUAL_ENV="/venv" \
-  POETRY_VERSION={{ cookiecutter.poetry_version }}
+  POETRY_VERSION={{ cookiecutter.poetry_version }} \
+  POETRY_VIRTUALENVS_CREATE=false
 
 WORKDIR /app
 
@@ -24,7 +25,6 @@ RUN apt-get update \
 
 RUN curl -sSL https://install.python-poetry.org | python3 - --version ${POETRY_VERSION}
 RUN python3 -m venv ${VIRTUAL_ENV}
-RUN poetry config virtualenvs.create false
 
 COPY pyproject.toml poetry.lock ./
 RUN poetry install --no-dev --no-interaction --no-ansi --no-root
