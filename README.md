@@ -47,9 +47,29 @@ After installing Cookiecutter, create the project:
 cookiecutter gh:ryankanno/cookiecutter-py
 ```
 
+After following the prompts, make sure to generate the poetry lockfile for the Docker container:
+
+```bash
+poetry lock --no-update
+```
+
 ## Details
 
 Coming soon to a README near you!
+
+### Docker
+
+To build the container:
+
+```bash
+DOCKER_BUILDKIT=1 docker build .
+```
+
+To run the container (if you've installed the defaults):
+
+```bash
+docker run <image_id or tag> python -m surf.surf
+```
 
 ### Versioning
 
