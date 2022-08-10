@@ -1,12 +1,37 @@
-FROM python:{{ cookiecutter.python_version }}-slim-buster
+FROM python:{{ cookiecutter.python_version }}-slim-buster as base
 
 ENV PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
-  PYTHONHASHSEED=random \
-  PIP_NO_CACHE_DIR=off \
+  PYTHONHASHSEED=random
+
+FROM base as builder
+
+ENV PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100 \
+  PATH="~/.local/bin:/venv/bin:${PATH}" \
+  VIRTUAL_ENV="/venv" \
   POETRY_VERSION={{ cookiecutter.poetry_version }}
+
+WORKDIR /app
+
+SHELL ["/bin/bash", "-exo", "pipefail",  "-c"]
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y curl \
+	&& apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sSL https://install.python-poetry.org | python3 - --version ${POETRY_VERSION}
+RUN python3 -m venv ${VIRTUAL_ENV}
+RUN poetry config virtualenvs.create false
+
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --no-dev --no-interaction --no-ansi --no-root
+COPY . ./
+RUN poetry install --no-interaction --no-ansi
+
+FROM base as final
 
 ARG REPOSITORY={{ cookiecutter.project_url }}
 ARG BUILD_DATETIME
@@ -20,6 +45,9 @@ ENV VERSION ${VERSION:-null}
 ENV REVISION ${REVISION:-null}
 ENV BRANCH ${BRANCH:-main}
 
+ENV PATH="/venv/bin:${PATH}" \
+  VIRTUAL_ENV="/venv"
+
 LABEL maintainers="{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"
 
 LABEL org.opencontainers.image.created="${BUILD_DATETIME}" \
@@ -31,21 +59,8 @@ LABEL org.opencontainers.image.created="${BUILD_DATETIME}" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.licenses="{{ cookiecutter.project_license }}"
 
-SHELL ["/bin/bash", "-exo", "pipefail",  "-c"]
+COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
+COPY --from=builder /app /app
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y wget python3-pip \
-	&& apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN ln -s /usr/bin/python3 /usr/bin/python && ln -s /usr/bin/pip3 /usr/bin/pip
-RUN wget -qO- https://install.python-poetry.org | POETRY_VERSION=$POETRY_VERSION python3
-
-ENV PATH="~/.local/bin:${PATH}"
-
-COPY pyproject.toml poetry.* /
-
-RUN /bin/bash -c "poetry config virtualenvs.create false && poetry install --no-dev --no-interaction --no-ansi --no-root"
-
-# Specify entrypoint and default command
-ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x '/docker-entrypoint.sh'

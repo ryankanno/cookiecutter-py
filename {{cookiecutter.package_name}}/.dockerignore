@@ -43,14 +43,6 @@ venv
 tests/
 dist/
 
-# docs
-README*
-LICENSE
-AUTHORS*
-HISTORY*
-*.md
-docs
-
 # data
 *.log
 *.sqlite
