@@ -35,6 +35,7 @@ EXPECTED_BASE_BAKED_FILES = [
     '.pre-commit-config.yaml',
     '.secrets.baseline',
     'Dockerfile',
+    'docker-entrypoint.sh',
     'HISTORY.rst',
     'LICENSE',
     'Makefile',
