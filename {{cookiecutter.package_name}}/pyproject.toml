@@ -124,6 +124,12 @@ default_section = "THIRDPARTY"
 known_first_party = "{{ cookiecutter.package_name }}"
 sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 
+[tool.vulture]
+make_whitelist = true
+min_confidence = 80
+paths = ["{{ cookiecutter.package_name }}/", "tests/"]
+sort_by_size = true
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
