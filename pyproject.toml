@@ -33,7 +33,7 @@ pre-commit = "^2.20.0"
 tox = "^3.25.1"
 mypy = "^0.971"
 pytest-cov = "^3.0.0"
-pytest-xdist = "^2.5.0"
+pytest-xdist = "^3.0.2"
 
 [tool.mypy]
 python_version = "3.8"
