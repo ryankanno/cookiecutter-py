@@ -50,12 +50,6 @@ After installing Cookiecutter, create the project:
 cookiecutter gh:ryankanno/cookiecutter-py
 ```
 
-After following the prompts, make sure to generate the poetry lockfile for the Docker container:
-
-```bash
-poetry lock --no-update
-```
-
 ## Details
 
 Coming soon to a README near you!
@@ -86,6 +80,7 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - add hypothesis example to template
 - add licenses
 - add typeguard
+- add bandit
 - version releases
 - integrate [earthly](https://github.com/earthly/earthly)
 - darglint
