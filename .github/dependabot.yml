@@ -11,31 +11,6 @@ updates:
     labels:
       - "github-actions"
 
-  - package-ecosystem: "github-actions"
-    directory: "/{{cookiecutter.package_name}}"
-    schedule:
-      interval: "daily"
-    assignees:
-      - "ryankanno"
-    commit-message:
-      prefix: build(github)
-    labels:
-      - "github-actions"
-
-  - package-ecosystem: "pip"
-    directory: "/{{cookiecutter.package_name}}"
-    schedule:
-      interval: "daily"
-    assignees:
-      - "ryankanno"
-    commit-message:
-      prefix: build
-      include: scope
-    open-pull-requests-limit: 10
-    labels:
-      - "pip"
-      - "dependencies"
-
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
@@ -50,8 +25,33 @@ updates:
       - "pip"
       - "dependencies"
 
+  - package-ecosystem: "github-actions"
+    directory: "{{cookiecutter.package_name}}"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "ryankanno"
+    commit-message:
+      prefix: build(github)
+    labels:
+      - "github-actions"
+
+  - package-ecosystem: "pip"
+    directory: "{{cookiecutter.package_name}}"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "ryankanno"
+    commit-message:
+      prefix: build
+      include: scope
+    open-pull-requests-limit: 10
+    labels:
+      - "pip"
+      - "dependencies"
+
   - package-ecosystem: "docker"
-    directory: "/{{cookiecutter.package_name}}"
+    directory: "{{cookiecutter.package_name}}"
     schedule:
       interval: "daily"
     assignees:
