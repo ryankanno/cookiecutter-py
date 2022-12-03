@@ -25,6 +25,20 @@ updates:
       - "pip"
       - "dependencies"
 
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "ryankanno"
+    commit-message:
+      prefix: build
+      include: scope
+    open-pull-requests-limit: 10
+    labels:
+      - "pip"
+      - "dependencies"
+
   - package-ecosystem: "docker"
     directory: "/{{cookiecutter.package_name}}"
     schedule:
