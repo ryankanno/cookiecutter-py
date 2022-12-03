@@ -47,10 +47,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version:
-          - "{{ cookiecutter.python_version }}"
-          - "3.9"
-          - "3.10"
+        python-version: [ {{ cookiecutter.supported_python_versions }} ]
         os: [ubuntu-latest]
     runs-on: {% raw %}${{ matrix.os }}{% endraw %}
     steps:

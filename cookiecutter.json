@@ -13,6 +13,7 @@
   "version": "0.0.0",
 
   "python_version": "3.8",
+  "supported_python_versions": "3.8, 3.9, 3.10, 3.11",
   "poetry_version": "1.1.14",
 
   "should_create_author_files": "y",
