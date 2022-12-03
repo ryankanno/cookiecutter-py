@@ -81,6 +81,7 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - add licenses
 - add typeguard
 - add bandit
+- dynamic python versions in tox.ini / ci.yml
 - version releases
 - integrate [earthly](https://github.com/earthly/earthly)
 - darglint
