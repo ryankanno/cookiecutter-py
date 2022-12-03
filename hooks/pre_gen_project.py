@@ -9,8 +9,14 @@ import sys
 
 
 VALID_PYTHON_VERSION_PREFIXES = [
-    "3.7", "3.8", "3.9", "3.10", "3.11",
-    "pypy3.7", "pypy3.8", "pypy3.9"
+    "3.7",
+    "3.8",
+    "3.9",
+    "3.10",
+    "3.11",
+    "pypy3.7",
+    "pypy3.8",
+    "pypy3.9",
 ]
 
 supported_python_versions = '{{ cookiecutter.supported_python_versions }}'
@@ -21,7 +27,10 @@ supported_python_versions_list = [
 
 for version in supported_python_versions_list:
     if not version.startswith(tuple(VALID_PYTHON_VERSION_PREFIXES)):
-        print(f"ERROR: {version} is not a valid supported Python version. Supported are any Pythons that begin with the following prefixes: {VALID_PYTHON_VERSION_PREFIXES}")
+        print(
+            f"ERROR: {version} is not a valid supported Python version. "
+            f"Supported are any Pythons that begin with the following prefixes: {VALID_PYTHON_VERSION_PREFIXES}"  # noqa: B950
+        )
         sys.exit(1)
 
 
