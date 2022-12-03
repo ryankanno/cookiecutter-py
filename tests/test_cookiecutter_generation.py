@@ -45,6 +45,7 @@ EXPECTED_BASE_BAKED_FILES = [
     '/docs/index.rst',
     '/docs/make.bat',
     'logging.yaml',
+    'poetry.lock',
     'pyproject.toml',
     'tox.ini',
 ]
