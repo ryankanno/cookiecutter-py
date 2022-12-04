@@ -19,19 +19,26 @@ VALID_PYTHON_VERSION_PREFIXES = [
     "pypy3.9",
 ]
 
-supported_python_versions = '{{ cookiecutter.supported_python_versions }}'
 
-supported_python_versions_list = [
-    py_version.strip() for py_version in supported_python_versions.split(',')
-]
+def validate_supported_python_versions(supported_python_versions: str) -> None:
+    supported_python_versions_list = [
+        py_version.strip()
+        for py_version in supported_python_versions.split(',')
+    ]
 
-for version in supported_python_versions_list:
-    if not version.startswith(tuple(VALID_PYTHON_VERSION_PREFIXES)):
-        print(
-            f"ERROR: {version} is not a valid supported Python version. "
-            f"Supported are any Pythons that begin with the following prefixes: {VALID_PYTHON_VERSION_PREFIXES}"  # noqa: B950
-        )
-        sys.exit(1)
+    for version in supported_python_versions_list:
+        if not version.startswith(tuple(VALID_PYTHON_VERSION_PREFIXES)):
+            print(
+                f"ERROR: {version} is not a valid supported Python version. "
+                f"Supported are any Pythons that begin with the following prefixes: {VALID_PYTHON_VERSION_PREFIXES}"  # noqa: B950
+            )
+            sys.exit(1)
+
+
+if __name__ == '__main__':
+    validate_supported_python_versions(
+        '{{ cookiecutter.supported_python_versions }}'
+    )
 
 
 # vim: fenc=utf-8
