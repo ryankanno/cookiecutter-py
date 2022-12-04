@@ -367,6 +367,32 @@ def test_with_poetry_version(
                     pytest.fail('Should have appropriate poetry version')
 
 
+@pytest.mark.parametrize('version', ['42.0', '4.2.0'])
+def test_with_version(
+    cookies: Cookies,
+    default_context: typing.Dict[str, str],
+    version: str,
+) -> None:
+    default_context['version'] = version
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    for path in abs_baked_files:
+        if 'pyproject.toml' in path:
+            with open(path, 'rb', 0) as file, mmap.mmap(
+                file.fileno(), 0, access=mmap.ACCESS_READ
+            ) as s:
+                if s.find(f"version = \"{version}\"".encode()) == -1:
+                    pytest.fail(
+                        'pyproject.toml should have appropriate version'
+                    )
+
+
 def test_pyproject_with_default_configuration(
     cookies: Cookies,
     default_context: typing.Dict[str, str],

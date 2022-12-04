@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "{{cookiecutter.package_name}}"
-version = "{{ cookiecutter.version }}"
+version = "0.0.0"
 description = "{{ cookiecutter.project_short_description }}"
 authors = ["{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"]
 readme = "README.rst"
@@ -12,6 +12,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
+python = "^3.8"
 structlog = "^21.1.0"
 
 [tool.poetry.dev-dependencies]

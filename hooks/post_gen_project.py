@@ -47,6 +47,20 @@ def manage_github_files(
         remove_path(PROJECT_GITHUB)
 
 
+def update_pyproject_version(
+    version: str,
+) -> None:
+    pyproject_path = Path("pyproject.toml")
+    if pyproject_path.is_file():
+        with open(pyproject_path, "r") as f:
+            pyproject = f.read()
+        pyproject = pyproject.replace(
+            'version = "0.0.0"', f"version = \"{version}\""
+        )
+        with open(pyproject_path, "w") as f:
+            f.write(pyproject)
+
+
 if __name__ == '__main__':
     manage_author_files('{{ cookiecutter.should_create_author_files }}')
     manage_github_files(
@@ -54,6 +68,7 @@ if __name__ == '__main__':
         '{{ cookiecutter.should_install_github_actions}}',
         '{{ cookiecutter.should_publish_to_pypi }}',
     )
+    update_pyproject_version('{{ cookiecutter.version  }}')
 
 
 # vim: fenc=utf-8
