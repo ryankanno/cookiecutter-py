@@ -16,11 +16,13 @@ permissions:
 jobs:
   debug:
     name: Debug
+    runs-on: ubuntu-latest
     steps:
       - uses: hmarr/debug-action@v2
   auto-approve:
     name: Auto approve Dependabot PRs
     runs-on: ubuntu-latest
+    needs: debug
     if: |
       (
         github.event.pull_request.user.login == 'dependabot[bot]' ||
