@@ -29,12 +29,26 @@ def manage_author_files(should_create_author_files: str) -> None:
 
 def manage_github_files(
     should_install_github_dependabot: str,
+    should_automerge_autoapprove_github_dependabot: str,
     should_install_github_actions: str,
     should_publish_to_pypi: str,
 ) -> None:
 
     if not strtobool(should_install_github_dependabot):
         remove_path(PROJECT_GITHUB / Path("dependabot.yml"))
+        remove_path(
+            PROJECT_GITHUB
+            / Path("workflows")
+            / Path("auto-approve-merge-dependabot.yml")
+        )
+
+    if not strtobool(should_automerge_autoapprove_github_dependabot):
+        if strtobool(should_install_github_dependabot):
+            remove_path(
+                PROJECT_GITHUB
+                / Path("workflows")
+                / Path("auto-approve-merge-dependabot.yml")
+            )
 
     if not strtobool(should_install_github_actions):
         remove_path(PROJECT_GITHUB / Path("labeler.yml"))
@@ -65,6 +79,7 @@ if __name__ == '__main__':
     manage_author_files('{{ cookiecutter.should_create_author_files }}')
     manage_github_files(
         '{{ cookiecutter.should_install_github_dependabot }}',
+        '{{ cookiecutter.should_automerge_autoapprove_github_dependabot }}',
         '{{ cookiecutter.should_install_github_actions}}',
         '{{ cookiecutter.should_publish_to_pypi }}',
     )
