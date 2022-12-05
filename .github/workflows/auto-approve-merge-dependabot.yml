@@ -14,18 +14,29 @@ permissions:
   contents: write
 
 jobs:
+  debug:
+    name: Debug
+    steps:
+      - uses: hmarr/debug-action@v2
   auto-approve:
     name: Auto approve Dependabot PRs
     runs-on: ubuntu-latest
     if: |
-      github.actor == 'dependabot[bot]' ||
-      github.actor == 'dependabot' ||
-      github.actor == 'dependabot-preview[bot]' ||
-      github.actor == 'dependabot-preview'
+      (
+        github.event.pull_request.user.login == 'dependabot[bot]' ||
+        github.event.pull_request.user.login == 'dependabot' ||
+        github.event.pull_request.user.login == 'dependabot-preview[bot]' ||
+        github.event.pull_request.user.login == 'dependabot-preview'
+      ) && (
+        github.actor == 'dependabot[bot]' ||
+        github.actor == 'dependabot' ||
+        github.actor == 'dependabot-preview[bot]' ||
+        github.actor == 'dependabot-preview'
+      )
     steps:
-    - uses: hmarr/auto-approve-action@v2.0.0
-      with:
-        github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - uses: hmarr/auto-approve-action@v2.0.0
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
   auto-merge:
     name: Auto merge Dependabot PRs
     runs-on: ubuntu-latest
