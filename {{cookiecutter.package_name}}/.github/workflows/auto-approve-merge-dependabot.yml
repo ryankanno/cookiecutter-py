@@ -1,0 +1,66 @@
+name: auto approve + merge dependabot prs
+
+on:
+  pull_request_target:
+    branches:
+      - main
+  check_suite:
+    types:
+      - completed
+  status: {}
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  auto-approve:
+    name: Auto approve Dependabot PRs
+    runs-on: ubuntu-latest
+    needs: debug
+    if: |
+      (
+        github.event.pull_request.user.login == 'dependabot[bot]' ||
+        github.event.pull_request.user.login == 'dependabot' ||
+        github.event.pull_request.user.login == 'dependabot-preview[bot]' ||
+        github.event.pull_request.user.login == 'dependabot-preview'
+      ) && (
+        github.actor == 'dependabot[bot]' ||
+        github.actor == 'dependabot' ||
+        github.actor == 'dependabot-preview[bot]' ||
+        github.actor == 'dependabot-preview'
+      )
+    steps:
+      - uses: hmarr/auto-approve-action@v3.1.0
+        with:
+          github-token: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
+  auto-merge:
+    name: Auto merge Dependabot PRs
+    runs-on: ubuntu-latest
+    needs: auto-approve
+    if: |
+      github.actor == 'dependabot[bot]' ||
+      github.actor == 'dependabot' ||
+      github.actor == 'dependabot-preview[bot]' ||
+      github.actor == 'dependabot-preview'
+    steps:
+      - name: Retrieve Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v1.3.5
+        with:
+          github-token: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
+      - name: Auto merge
+        if: {% raw %}${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}{% endraw %}
+        id: automerge
+        uses: "pascalgn/automerge-action@v0.15.5"
+        env:
+          GITHUB_TOKEN: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
+          MERGE_LABELS: "!major"
+          MERGE_REMOVE_LABELS: ""
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "pull-request-title-and-description"
+          MERGE_FORKS: "false"
+          MERGE_RETRIES: "6"
+          MERGE_RETRY_SLEEP: "30000"
+          MERGE_REQUIRED_APPROVALS: "1"
+          UPDATE_METHOD: "rebase"

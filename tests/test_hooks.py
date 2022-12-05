@@ -16,6 +16,7 @@ import tempfile
 import pytest
 
 from hooks.post_gen_project import remove_path
+from hooks.pre_gen_project import validate_dependabot
 from hooks.pre_gen_project import validate_supported_python_versions
 
 
@@ -38,6 +39,39 @@ def test_with_supported_python_versions() -> None:
     validate_supported_python_versions(
         "3.7, 3.8, 3.9, 3.10, 3.11, pypy3.7, pypy3.8, pypy3.9"
     )  # noqa: B950
+
+
+def test_with_invalid_dependabot_settings() -> None:
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        validate_dependabot(False, True, True)
+
+    assert pytest_wrapped_e.type == SystemExit
+    assert pytest_wrapped_e.value.code == 1
+
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        validate_dependabot(False, True, False)
+
+    assert pytest_wrapped_e.type == SystemExit
+    assert pytest_wrapped_e.value.code == 1
+
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        validate_dependabot(True, True, False)
+
+    assert pytest_wrapped_e.type == SystemExit
+    assert pytest_wrapped_e.value.code == 1
+
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        validate_dependabot(False, True, False)
+
+    assert pytest_wrapped_e.type == SystemExit
+    assert pytest_wrapped_e.value.code == 1
+
+
+def test_with_valid_dependabot_settings() -> None:
+    validate_dependabot(True, True, True)
+    validate_dependabot(True, False, True)
+    validate_dependabot(True, False, False)
+    validate_dependabot(False, False, False)
 
 
 # vim: fenc=utf-8
