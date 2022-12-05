@@ -46,11 +46,21 @@ jobs:
     steps:
       - name: Retrieve Dependabot metadata
         id: dependabot-metadata
-        uses: dependabot/fetch-metadata@v1.3.5
+        uses: "dependabot/fetch-metadata@v1.3.5"
         with:
           github-token: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
+      - name: Wait for status checks
+        id: wait-for-status-checks
+        uses: "wyrihaximus/github-action-wait-for-status@v2"
+        with:
+          ignoreActions: "Auto merge Dependabot PRs"
+          checkInterval: 30
+        env:
+          GITHUB_TOKEN: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
       - name: Auto merge
-        if: {% raw %}${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}{% endraw %}
+        if: |
+          steps.wait-for-status-checks.outputs.status == 'success' &&
+          steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major'
         id: automerge
         uses: "pascalgn/automerge-action@v0.15.5"
         env:
