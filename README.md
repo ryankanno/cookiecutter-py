@@ -34,6 +34,7 @@ template is the tool that will help you do just that.
   - [`ci`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/ci.yml) workflow (leveraging [`tox`](https://tox.readthedocs.org/en/latest/))
     - optional [`codecov`](https://codecov.io) integration for code coverage
   - [`publish`](https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/publish.yml) workflow (to [test.pypi.org](https://test.pypi.org) / [pypi.org](https://pypi.org)) w/ [`release-drafter`](https://github.com/release-drafter/release-drafter) integration
+  - [`auto approve / merge`](https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/auto-approve-merge-dependabot.yml) workflow
   - in addition: [`codeql`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/codeql-analysis.yml), [`hadlint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/hadolint.yml), [`pr-size-labeling`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-size-labeler.yml), [`commitlint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/commitlint.yml) workflows
 
 ## Installation
@@ -49,6 +50,10 @@ After installing Cookiecutter, create the project:
 ```bash
 cookiecutter gh:ryankanno/cookiecutter-py
 ```
+
+**Note**: If you want to use the auto approve / merge Dependabot workflow, make
+sure to create tags `major`, `minor`, `patch` so that Dependabot can tag its
+PRs. The workflow won't merge anything with a `major` tag.
 
 ## Details
 
@@ -81,7 +86,6 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - add licenses
 - add typeguard
 - add bandit
-- dynamic python versions in tox.ini / ci.yml
 - version releases
 - integrate [earthly](https://github.com/earthly/earthly)
 - darglint
