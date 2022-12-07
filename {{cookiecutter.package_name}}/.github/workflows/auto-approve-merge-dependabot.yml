@@ -38,6 +38,7 @@ jobs:
     name: Auto merge Dependabot PRs
     runs-on: ubuntu-latest
     permissions:
+      checks: read
       contents: write
     needs: auto-approve
     if: |
