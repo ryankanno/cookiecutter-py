@@ -1,23 +1,23 @@
 name: auto approve + merge dependabot prs
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
       - main
+    types:
+      - labeled
+      - synchronize
   check_suite:
     types:
       - completed
   status: {}
 
-permissions:
-  pull-requests: write
-  contents: write
-
 jobs:
   auto-approve:
     name: Auto approve Dependabot PRs
     runs-on: ubuntu-latest
-    needs: debug
+    permissions:
+      pull-requests: write
     if: |
       (
         github.event.pull_request.user.login == 'dependabot[bot]' ||
@@ -37,6 +37,8 @@ jobs:
   auto-merge:
     name: Auto merge Dependabot PRs
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs: auto-approve
     if: |
       github.actor == 'dependabot[bot]' ||
