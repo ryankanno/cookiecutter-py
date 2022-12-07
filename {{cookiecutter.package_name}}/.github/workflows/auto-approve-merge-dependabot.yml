@@ -40,6 +40,8 @@ jobs:
     permissions:
       checks: read
       contents: write
+      pull-requests: write
+      statuses: read
     needs: auto-approve
     if: |
       github.actor == 'dependabot[bot]' ||
