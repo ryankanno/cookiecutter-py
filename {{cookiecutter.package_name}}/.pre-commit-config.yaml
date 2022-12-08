@@ -76,3 +76,5 @@ repos:
     rev: 1.7.4
     hooks:
     -   id: bandit
+        args: ["--configfile", "bandit.yaml", "--ini", ".bandit", "-r"]
+        pass_filenames: false
