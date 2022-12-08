@@ -27,6 +27,7 @@ RE_OBJ = re.compile(PATTERN)
 
 
 EXPECTED_BASE_BAKED_FILES = [
+    '.bandit',
     '.commitlint.config.js',
     '.dockerignore',
     '.flake8',
@@ -34,6 +35,7 @@ EXPECTED_BASE_BAKED_FILES = [
     '.konchrc',
     '.pre-commit-config.yaml',
     '.secrets.baseline',
+    'bandit.yaml',
     'Dockerfile',
     'docker-entrypoint.sh',
     'HISTORY.rst',

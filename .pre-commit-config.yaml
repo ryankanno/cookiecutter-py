@@ -67,3 +67,9 @@ repos:
     rev: 'v2.5'
     hooks:
       - id: vulture
+  - repo: https://github.com/pycqa/bandit
+    rev: 1.7.4
+    hooks:
+    -   id: bandit
+        args: ["--configfile", "bandit.yaml", "--ini", ".bandit", "-r"]
+        pass_filenames: false

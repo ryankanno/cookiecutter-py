@@ -1,0 +1,4 @@
+[bandit]
+targets = .
+exclude = ./.tox,./.git,./.github,./.pytest_cache
+quiet = true
