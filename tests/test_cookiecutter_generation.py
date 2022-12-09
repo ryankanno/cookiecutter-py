@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # Copyright © 2020 Ryan Kanno <ryankanno@localkinegrinds.com>
 #
@@ -12,14 +11,12 @@ Tests project generation
 import mmap
 import os
 import re
-
-from distutils.util import strtobool
 import typing
-
-from binaryornot.check import is_binary
-from pytest_cookies.plugin import Cookies
+from distutils.util import strtobool
 
 import pytest
+from binaryornot.check import is_binary
+from pytest_cookies.plugin import Cookies
 
 
 PATTERN = r"{{(\s?cookiecutter)[.](.*?)}}"

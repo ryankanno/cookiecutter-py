@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # Copyright © 2020 Ryan Kanno <ryankanno@localkinegrinds.com>
 #
 # Distributed under terms of the MIT license.
 
 from pathlib import Path
+
 from distutils.util import strtobool
 
 
@@ -66,7 +66,7 @@ def update_pyproject_version(
 ) -> None:
     pyproject_path = Path("pyproject.toml")
     if pyproject_path.is_file():
-        with open(pyproject_path, "r") as f:
+        with open(pyproject_path) as f:
             pyproject = f.read()
         pyproject = pyproject.replace(
             'version = "0.0.0"', f"version = \"{version}\""

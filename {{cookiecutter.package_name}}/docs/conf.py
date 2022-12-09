@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # type: ignore
 #
 # {{cookiecutter.package_name}} documentation build configuration file, created by
@@ -56,9 +55,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'{{cookiecutter.package_name}}'
-copyright = u'2015, {{cookiecutter.author_name}}'
-author = u'{{cookiecutter.author_name}}'
+project = '{{cookiecutter.package_name}}'
+copyright = '2015, {{cookiecutter.author_name}}'
+author = '{{cookiecutter.author_name}}'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -232,8 +231,8 @@ latex_documents = [
     (
         master_doc,
         '{{cookiecutter.package_name}}.tex',
-        u'{{cookiecutter.package_name}} Documentation',
-        u'{{cookiecutter.author_name}}',
+        '{{cookiecutter.package_name}} Documentation',
+        '{{cookiecutter.author_name}}',
         'manual',
     ),
 ]
@@ -267,7 +266,7 @@ man_pages = [
     (
         master_doc,
         '{{cookiecutter.package_name}}',
-        u'{{cookiecutter.package_name}} Documentation',
+        '{{cookiecutter.package_name}} Documentation',
         [author],
         1,
     )
@@ -286,7 +285,7 @@ texinfo_documents = [
     (
         master_doc,
         '{{cookiecutter.package_name}}',
-        u'{{cookiecutter.package_name}} Documentation',
+        '{{cookiecutter.package_name}} Documentation',
         author,
         '{{cookiecutter.package_name}}',
         'One line description of project.',

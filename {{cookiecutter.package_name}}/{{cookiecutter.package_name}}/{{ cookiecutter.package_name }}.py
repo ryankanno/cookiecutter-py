@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # Copyright © , {% now 'utc', '%Y' %}, {{cookiecutter.author_name }} <{{ cookiecutter.author_email }}>  # noqa: B950
 #
