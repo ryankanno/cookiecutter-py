@@ -1,12 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # Copyright © 2020 Ryan Kanno <ryankanno@localkinegrinds.com>
 #
 # Distributed under terms of the MIT license.
 
 import sys
-
 from distutils.util import strtobool
 
 

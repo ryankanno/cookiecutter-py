@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # Copyright © 2020 Ryan Kanno <ryankanno@localkinegrinds.com>
 #
@@ -10,8 +9,8 @@ Tests hooks
 """
 
 import os
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 import pytest
 

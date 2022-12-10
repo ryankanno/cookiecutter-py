@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # flake8: noqa
 
@@ -9,7 +8,7 @@ Tests for `{{ cookiecutter.package_name }}` package.
 
 # fmt: off
 
-from {{ cookiecutter.package_name }} import {{ cookiecutter.package_name }}
+from {{cookiecutter.package_name}} import {{ cookiecutter.package_name }}
 
 
 # fmt: on
