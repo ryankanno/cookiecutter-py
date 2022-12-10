@@ -128,7 +128,7 @@ known_third_party = [""]
 default_section = "THIRDPARTY"
 known_first_party = "{{ cookiecutter.package_name }}"
 sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
-skip = tests
+skip = "tests"
 
 [tool.vulture]
 make_whitelist = true
