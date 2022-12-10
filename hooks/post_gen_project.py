@@ -4,9 +4,8 @@
 #
 # Distributed under terms of the MIT license.
 
-from pathlib import Path
-
 from distutils.util import strtobool
+from pathlib import Path
 
 
 PROJECT_ROOT_DIR = Path.cwd().absolute()

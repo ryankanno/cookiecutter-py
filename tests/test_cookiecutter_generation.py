@@ -12,10 +12,10 @@ import mmap
 import os
 import re
 import typing
+from distutils.util import strtobool
 
 import pytest
 from binaryornot.check import is_binary
-from distutils.util import strtobool
 from pytest_cookies.plugin import Cookies
 
 

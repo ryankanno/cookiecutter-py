@@ -5,7 +5,6 @@
 # Distributed under terms of the MIT license.
 
 import sys
-
 from distutils.util import strtobool
 
 
