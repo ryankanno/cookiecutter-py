@@ -85,7 +85,6 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - add hypothesis example to template
 - add licenses
 - add typeguard
-- add bandit
 - version releases
 - integrate [earthly](https://github.com/earthly/earthly)
 - darglint
