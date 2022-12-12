@@ -499,7 +499,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "mutmut"
-version = "2.4.2"
+version = "2.4.3"
 description = "mutation testing for Python 3"
 category = "dev"
 optional = false
@@ -1160,7 +1160,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d8d3268ae95761f729eb1ab6db0f2cdd2d0d3cbda8158635b6cc24db66f6899a"
+content-hash = "f947010ca37e6ebdbc1c61e54fb1b3ab64d41ce725194fcc1a86a444e0f36f0c"
 
 [metadata.files]
 alabaster = [
@@ -1426,7 +1426,7 @@ mccabe = [
     {file = "mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325"},
 ]
 mutmut = [
-    {file = "mutmut-2.4.2.tar.gz", hash = "sha256:fb79411983a55de9f0271c1a3fa31be85ae30f33ade1ab04630f4c7e2dee65a7"},
+    {file = "mutmut-2.4.3.tar.gz", hash = "sha256:676c253ee4c87d4aa32e257827b3f6fdb4343925b29fa17aa3456ed9be5d93d4"},
 ]
 mypy = [
     {file = "mypy-0.991-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:7d17e0a9707d0772f4a7b878f04b4fd11f6f5bcb9b3813975a9b13c9332153ab"},
