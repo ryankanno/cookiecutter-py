@@ -71,6 +71,7 @@ EXPECTED_BAKED_GITHUB_ACTIONS_FILES = [
     '/.github/workflows/pr-labeler.yml',
     '/.github/workflows/pr-size-labeler.yml',
     '/.github/workflows/release-drafter.yml',
+    '/.github/workflows/trufflehog.yml',
 ]
 
 EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES = [

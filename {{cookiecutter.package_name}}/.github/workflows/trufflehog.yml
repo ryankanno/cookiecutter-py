@@ -16,6 +16,6 @@ jobs:
         uses: trufflesecurity/trufflehog@main
         with:
           path: ./
-          base: ${{ github.event.repository.default_branch }}
+          base: {% raw %}${{ github.event.repository.default_branch }}{% endraw %}
           head: HEAD
           extra_args: --debug --only-verified
