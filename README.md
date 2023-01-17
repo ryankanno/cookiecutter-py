@@ -25,7 +25,7 @@ template is the tool that will help you do just that.
 - [`sphinx`](http://www.sphinx-doc.org/en/master/) for docs
 - [`pdb++`](https://github.com/pdbpp/pdbpp) for debugging
 - [`konch`](http://konch.readthedocs.org/en/latest/) for shell configuration w/ [`ipython`](https://ipython.org) support
-- [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / flake8) configured
+- [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / flake8 / trufflehog) configured
 - [`dockerfile`](https://www.docker.com/) for development, testing, and production
 - [`dunamai`](https://github.com/mtkennerly/dunamai) for versioning
 - custom [`makefile`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.package_name%7D%7D/Makefile) (run make help)
@@ -35,7 +35,12 @@ template is the tool that will help you do just that.
     - optional [`codecov`](https://codecov.io) integration for code coverage
   - [`publish`](https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/publish.yml) workflow (to [test.pypi.org](https://test.pypi.org) / [pypi.org](https://pypi.org)) w/ [`release-drafter`](https://github.com/release-drafter/release-drafter) integration
   - [`auto approve / merge`](https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/auto-approve-merge-dependabot.yml) workflow
-  - in addition: [`codeql`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/codeql-analysis.yml), [`hadlint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/hadolint.yml), [`pr-size-labeling`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-size-labeler.yml), [`commitlint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/commitlint.yml) workflows
+  - with these additional workflows:
+    - [`codeql`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/codeql-analysis.yml)
+    - [`hadolint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/hadolint.yml)
+    - [`pr-size-labeling`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-size-labeler.yml)
+    - [`commitlint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/commitlint.yml)
+    - [`trufflehog`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/trufflehog.yml)
 
 ## Installation
 
@@ -83,6 +88,7 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 
 - add mutmut example to template
 - add hypothesis example to template
+- switch out flake8 w/ [ruff](https://github.com/charliermarsh/ruff)
 - add licenses
 - add typeguard
 - version releases
