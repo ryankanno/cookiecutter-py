@@ -21,7 +21,7 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.8.1"
 cookiecutter = "^2.1.1"
 
 [tool.poetry.dev-dependencies]
@@ -34,6 +34,9 @@ tox = "^4.3.1"
 mypy = "^0.991"
 pytest-cov = "^4.0.0"
 pytest-xdist = "^3.1.0"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
 
 [tool.mypy]
 python_version = "3.8"

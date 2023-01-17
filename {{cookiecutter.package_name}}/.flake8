@@ -9,4 +9,5 @@ exclude =
     docs/conf.py,
     build,
     dist,
-    .venv
+    .venv,
+    .tox

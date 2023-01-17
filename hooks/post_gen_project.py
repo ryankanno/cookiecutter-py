@@ -68,7 +68,7 @@ def update_pyproject_version(
         with open(pyproject_path) as f:
             pyproject = f.read()
         pyproject = pyproject.replace(
-            'version = "0.0.0"', f"version = \"{version}\""
+            'version = "0.0.0"', f"version = {version!r}"
         )
         with open(pyproject_path, "w") as f:
             f.write(pyproject)
