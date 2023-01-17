@@ -75,7 +75,7 @@ jobs:
       - name: set coverage mapping
         run: |
           MATRIX_PYTHON_VERSION=${{matrix.python-version}}
-          echo "TOX_COVERAGE_ENV=py${MATRIX_PYTHON_VERSION/./}" >> $GITHUB_ENV
+          echo "TOX_COVERAGE_ENV=py$(echo ${MATRIX_PYTHON_VERSION} | cut -d . -f -2)" >> $GITHUB_ENV
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
         with:
