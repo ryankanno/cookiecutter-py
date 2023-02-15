@@ -31,7 +31,7 @@ flake8 = "^6.0.0"
 black = "^23.1.0"
 pre-commit = "^2.21.0"
 tox = "^4.4.5"
-mypy = "^0.991"
+mypy = "^1.0"
 pytest-cov = "^4.0.0"
 pytest-xdist = "^3.2.0"
 
