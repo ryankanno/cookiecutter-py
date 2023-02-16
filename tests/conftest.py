@@ -38,7 +38,6 @@ def default_context(request: SubRequest) -> Dict[str, str]:
 
 @pytest.fixture(params=list(product(['y', 'n'], repeat=5)))
 def context(request: SubRequest) -> Dict[str, str]:
-
     should_create_author_files = request.param[0]
     should_install_github_dependabot = request.param[1]
     should_automerge_autoapprove_github_dependabot = request.param[2]

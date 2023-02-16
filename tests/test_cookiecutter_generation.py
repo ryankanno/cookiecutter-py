@@ -126,7 +126,6 @@ def check_paths_substitution(paths: typing.List[str]) -> None:
 def check_paths_exist(
     expected_paths: typing.List[str], baked_files: typing.List[str]
 ) -> None:
-
     baked_files_no_pycache = list(
         filter(lambda x: '__pycache__' not in x, baked_files)
     )
@@ -164,7 +163,6 @@ def test_with_default_configuration(
 def test_with_parameterized_configuration(  # noqa: C901
     cookies: Cookies, context: typing.Dict[str, str]
 ) -> None:
-
     if not bool(strtobool(context['should_install_github_dependabot'])):
         context['should_automerge_autoapprove_github_dependabot'] = 'n'
 
