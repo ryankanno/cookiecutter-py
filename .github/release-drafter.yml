@@ -1,0 +1,62 @@
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+
+categories:
+  - title: ":rocket: Features"
+    labels: [feature]
+  - title: ":wrench: Fixes & Refactoring"
+    labels: [fix, refactor]
+  - title: ":package: Build System & CI/CD"
+    labels: [build, ci/cd, github-actions]
+  - title: ":boom: Breaking Changes"
+    labels: [breaking]
+  - title: ":pencil: Documentation"
+    labels: [documentation]
+  - title: ":arrow_up: Updated Dependencies"
+    labels: [dependencies]
+  - title: ":rocket: Performance"
+    labels: [performance]
+
+
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
+
+template: |
+  ## What’s Changed
+
+  $CHANGES
+
+  $CONTRIBUTORS
+
+exclude-labels:
+  - "skip-changelog"
+
+autolabeler:
+  - label: "documentation"
+    branch:
+      - '/docs{0,1}\/.+/'
+  - label: "feature"
+    branch:
+      - '/feature\/.+/'
+      - '/feat\/.+/'
+  - label: "fix"
+    branch:
+      - '/fix\/.+/'
+  - label: "performance"
+    branch:
+      - '/perf\/.+/'
+  - label: "refactor"
+    branch:
+      - '/refactor\/.+/'
+  - label: "breaking"
+    branch:
+      - '/breaking\/.+/'
