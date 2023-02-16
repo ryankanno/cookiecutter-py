@@ -32,7 +32,6 @@ def manage_github_files(
     should_install_github_actions: str,
     should_publish_to_pypi: str,
 ) -> None:
-
     if not strtobool(should_install_github_dependabot):
         remove_path(PROJECT_GITHUB / Path("dependabot.yml"))
         remove_path(
