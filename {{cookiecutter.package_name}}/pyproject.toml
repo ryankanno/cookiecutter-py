@@ -12,7 +12,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^{{ cookiecutter.python_version }}"
 structlog = "^22.3.0"
 
 [tool.poetry.dev-dependencies]
@@ -37,7 +37,7 @@ hypothesis = "^6.68.1"
 mutmut = "^2.4.3"
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "{{ cookiecutter.python_version }}"
 check_untyped_defs = true
 disallow_any_generics = true
 disallow_incomplete_defs = true
