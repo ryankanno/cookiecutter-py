@@ -73,7 +73,7 @@ jobs:
           steps.wait-for-status-checks.outputs.status == 'success' &&
           steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major'
         id: automerge
-        uses: "pascalgn/automerge-action@v0.15.5"
+        uses: "pascalgn/automerge-action@v0.15.6"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "automerge,!major"
