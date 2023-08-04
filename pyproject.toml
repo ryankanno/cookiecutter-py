@@ -22,7 +22,7 @@ include = [
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
-cookiecutter = "^2.1.1"
+cookiecutter = "^2.3.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.3.1"
