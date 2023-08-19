@@ -5,7 +5,7 @@
 ---
 
 Each time you start a new Python project, you shouldn't start from scratch.
-Ideally, you'd start with a standard project structure and set of tools and
+Ideally, you'd start with a standard project structure and a set of tools and
 integrations to help facilitate writing quality Python code.
 
 This modern Python [Cookiecutter](https://github.com/audreyr/cookiecutter)
