@@ -21,22 +21,22 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8.16"
-cookiecutter = "^2.1.1"
+python = ">=3.9,<3.12"
+cookiecutter = "^2.4.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.3.1"
+pytest = "^7.4.2"
 pytest-cookies = "^0.7.0"
-flake8 = "^6.0.0"
-black = "^23.3.0"
-pre-commit = "^3.2.2"
-tox = "^4.4.11"
-mypy = "^1.2"
-pytest-cov = "^4.0.0"
-pytest-xdist = "^3.2.1"
+flake8 = "^6.1.0"
+black = "^23.9.1"
+pre-commit = "^3.5.0"
+tox = "^4.11.3"
+mypy = "^1.6.0"
+pytest-cov = "^4.1.0"
+pytest-xdist = "^3.3.1"
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.11"
 check_untyped_defs = true
 disallow_any_generics = true
 disallow_incomplete_defs = true
@@ -63,7 +63,7 @@ exclude = [
 [tool.black]
 line-length = 79
 skip-string-normalization = true
-target_version = ['py38']
+target_version = ['py311']
 include = '\.pyi?$'
 exclude = '''
 (
