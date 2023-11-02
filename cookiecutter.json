@@ -15,6 +15,7 @@
   "python_version": "3.8",
   "supported_python_versions": "3.8, 3.9, 3.10, 3.11",
   "poetry_version": "1.1.14",
+  "tox_version": "4.11.3",
 
   "should_create_author_files": "y",
   "should_install_github_dependabot": "y",
