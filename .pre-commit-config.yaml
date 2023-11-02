@@ -17,6 +17,7 @@ repos:
     rev: v0.1.3
     hooks:
     - id: ruff
+      args: ['--config', 'pyproject.toml']
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.15.0
     hooks:
