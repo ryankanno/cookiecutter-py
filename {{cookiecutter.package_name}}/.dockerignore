@@ -33,6 +33,7 @@ docker-compose*
 .dockerignore
 Makefile
 tox.ini
+.ruff_cache
 
 # python
 *__pycache__
