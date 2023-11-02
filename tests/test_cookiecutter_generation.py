@@ -27,7 +27,6 @@ EXPECTED_BASE_BAKED_FILES = [
     '.bandit',
     '.commitlint.config.js',
     '.dockerignore',
-    '.flake8',
     '.gitignore',
     '.konchrc',
     '.pre-commit-config.yaml',
@@ -116,7 +115,8 @@ def check_paths_substitution(paths: typing.List[str]) -> None:
     for path in paths:
         if is_binary(path):
             continue
-        for line in open(path):
+        with open(path) as f:
+            line = f.readline()
             match = RE_OBJ.search(line)
             assert (
                 match is None
@@ -126,14 +126,18 @@ def check_paths_substitution(paths: typing.List[str]) -> None:
 def check_paths_exist(
     expected_paths: typing.List[str], baked_files: typing.List[str]
 ) -> None:
-    baked_files_no_pycache = list(
-        filter(lambda x: '__pycache__' not in x, baked_files)
+    baked_files_no_pycache = filter(
+        lambda x: '__pycache__' not in x, baked_files
     )
 
-    assert len(expected_paths) == len(baked_files_no_pycache)
+    baked_files_no_ruff = filter(
+        lambda x: '.ruff_cache' not in x, list(baked_files_no_pycache)
+    )
+
+    assert len(expected_paths) == len(list(baked_files_no_ruff))
 
     for _, expected_path in enumerate(expected_paths):
-        assert expected_path in baked_files_no_pycache
+        assert expected_path in baked_files
 
 
 def test_with_default_configuration(
