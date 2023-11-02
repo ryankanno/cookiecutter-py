@@ -40,13 +40,14 @@ def manage_github_files(
             / Path("auto-approve-merge-dependabot.yml")
         )
 
-    if not strtobool(should_automerge_autoapprove_github_dependabot):
-        if strtobool(should_install_github_dependabot):
-            remove_path(
-                PROJECT_GITHUB
-                / Path("workflows")
-                / Path("auto-approve-merge-dependabot.yml")
-            )
+    if not strtobool(
+        should_automerge_autoapprove_github_dependabot
+    ) and strtobool(should_install_github_dependabot):
+        remove_path(
+            PROJECT_GITHUB
+            / Path("workflows")
+            / Path("auto-approve-merge-dependabot.yml")
+        )
 
     if not strtobool(should_install_github_actions):
         remove_path(PROJECT_GITHUB / Path("labeler.yml"))

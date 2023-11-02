@@ -89,11 +89,12 @@ exclude = '''
 '''
 
 [tool.pytest.ini_options]
-minversion = "7.0"
+minversion = "7.4"
 addopts = "-n auto"
 testpaths = [
-    "tests/",
+    "tests",
 ]
+norecursedirs = ["{{cookiecutter.package_name}}"]
 
 [tool.coverage.run]
 parallel = true
@@ -168,7 +169,6 @@ select = [
     "B",
     "ANN",
     "SIM",
-    "I",
 ]
 
 [build-system]

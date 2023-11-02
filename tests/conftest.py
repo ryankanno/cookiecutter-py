@@ -11,7 +11,7 @@ import pytest
 from _pytest.fixtures import SubRequest
 
 
-@pytest.fixture
+@pytest.fixture()
 def default_context(request: SubRequest) -> Dict[str, str]:
     """Creates default prompt vals."""
     return {
