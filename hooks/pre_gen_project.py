@@ -9,14 +9,12 @@ from distutils.util import strtobool
 
 
 VALID_PYTHON_VERSION_PREFIXES = [
-    "3.7",
-    "3.8",
     "3.9",
     "3.10",
     "3.11",
-    "pypy3.7",
-    "pypy3.8",
+    "3.12",
     "pypy3.9",
+    "pypy3.10",
 ]
 
 
