@@ -57,8 +57,8 @@ dist: clean ## Package {{ cookiecutter.package_name }}
 install: clean ## Install package to current Python's site-package
 	poetry install
 
-lint: ## Check style with flake8
-	poetry run flake8 {{ cookiecutter.package_name }} tests
+lint: ## Check style with ruff
+	poetry run ruff check {{ cookiecutter.package_name }} tests
 
 release: clean ## Package and upload a release
 	ls -al

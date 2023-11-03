@@ -17,10 +17,7 @@ structlog = "^22.3.0"
 
 [tool.poetry.dev-dependencies]
 dunamai = "^1.16.0"
-flake8 = "^5.0"
-flake8-isort = "^6.0.0"
 ipython = "^8.10.0"
-isort = "^5.12.0"
 konch = "^4.2.2"
 mypy = "^1.0"
 pdbpp = "^0.10.0"
@@ -35,6 +32,7 @@ tox = "^{{ cookiecutter.tox_version }}"
 black = "^23.1"
 hypothesis = "^6.68.2"
 mutmut = "^2.4.3"
+ruff = "^0.1.3"
 
 [tool.mypy]
 python_version = "{{ cookiecutter.python_version }}"
@@ -137,6 +135,32 @@ quiet = true
 
 [tool.bandit.assert_used]
 exclude = ["*/*_test.py", "*/test_*.py"]
+
+[tool.ruff]
+line-length = 79
+extend-exclude = ["docs"]
+
+[tool.ruff.mccabe]
+max-complexity = 10
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint]
+select = [
+    "C9",
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "W",
+    "G",
+    "A",
+    "PT",
+    "B",
+    "ANN",
+    "SIM",
+]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

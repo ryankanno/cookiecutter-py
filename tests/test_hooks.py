@@ -15,8 +15,10 @@ from pathlib import Path
 import pytest
 
 from hooks.post_gen_project import remove_path
-from hooks.pre_gen_project import validate_dependabot
-from hooks.pre_gen_project import validate_supported_python_versions
+from hooks.pre_gen_project import (
+    validate_dependabot,
+    validate_supported_python_versions,
+)
 
 
 def test_remove_path() -> None:

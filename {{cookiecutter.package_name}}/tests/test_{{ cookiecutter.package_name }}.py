@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 #
-# flake8: noqa
 
 """
 Tests for `{{ cookiecutter.package_name }}` package.
