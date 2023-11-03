@@ -90,10 +90,11 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - add licenses
 - add typeguard
 - version releases
-- integrate [earthly](https://github.com/earthly/earthly)
+- integrate [poethepoet](https://github.com/nat-n/poethepoet)
 - darglint
 - update details
   - include cookiecutter var descriptions
+- migrate to ruff formatter
 
 ## License
 
