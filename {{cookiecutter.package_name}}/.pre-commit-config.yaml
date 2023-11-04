@@ -70,11 +70,3 @@ repos:
     -   id: bandit
         args: ["--configfile", "bandit.yaml", "--ini", ".bandit", "-r"]
         pass_filenames: false
-  - repo: local
-    hooks:
-    - id: trufflehog
-      name: TruffleHog
-      description: Detect secrets in your data.
-      entry: bash -c 'docker run -v "$(pwd):/workdir" -i --rm trufflesecurity/trufflehog:latest git file:///workdir --since-commit HEAD --only-verified --fail'
-      language: system
-      stages: ["commit", "push"]

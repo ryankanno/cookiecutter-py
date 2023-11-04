@@ -25,7 +25,7 @@ template is the tool that will help you do just that.
 - [`sphinx`](http://www.sphinx-doc.org/en/master/) for docs
 - [`pdb++`](https://github.com/pdbpp/pdbpp) for debugging
 - [`konch`](http://konch.readthedocs.org/en/latest/) for shell configuration w/ [`ipython`](https://ipython.org) support
-- [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff) / trufflehog) configured [`dockerfile`](https://www.docker.com/) for development, testing, and production
+- [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff)) configured [`dockerfile`](https://www.docker.com/) for development, testing, and production
 - [`dunamai`](https://github.com/mtkennerly/dunamai) for versioning
 - custom [`makefile`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.package_name%7D%7D/Makefile) (run make help)
 - stay up-to-date w/ configured [`dependabot`](https://dependabot.com/)
