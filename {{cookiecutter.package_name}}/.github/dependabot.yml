@@ -3,19 +3,28 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     commit-message:
-      prefix: build(github)
+      prefix: "build(github)"
+    groups:
+      gha:
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
     labels:
       - "github-actions"
 
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     commit-message:
-      prefix: build
-      include: scope
+      prefix: "build"
+      include: "scope"
+    groups:
+      dev:
+        dependency-type: "development"
     open-pull-requests-limit: 10
     labels:
       - "automerge"
@@ -27,7 +36,7 @@ updates:
     schedule:
       interval: "daily"
     commit-message:
-      prefix: build(docker)
+      prefix: "build(docker)"
     labels:
       - "docker"
       - "dependencies"
