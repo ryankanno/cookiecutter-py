@@ -12,7 +12,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^{{ cookiecutter.python_version }}"
+# python = "^{{ cookiecutter.python_version }}"
 structlog = "^22.3.0"
 
 [tool.poetry.dev-dependencies]

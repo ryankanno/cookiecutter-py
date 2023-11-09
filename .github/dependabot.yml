@@ -7,19 +7,28 @@ updates:
     assignees:
       - "ryankanno"
     commit-message:
-      prefix: build(github)
+      prefix: "build(github)"
+    groups:
+      gha:
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
     labels:
       - "github-actions"
 
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     assignees:
       - "ryankanno"
     commit-message:
-      prefix: build
-      include: scope
+      prefix: "build"
+      include: "scope"
+    groups:
+      dev:
+        dependency-type: "development"
     open-pull-requests-limit: 10
     labels:
       - "automerge"
@@ -29,23 +38,29 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "{{cookiecutter.package_name}}"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     assignees:
       - "ryankanno"
     commit-message:
-      prefix: build(github)
+      prefix: "build(github)"
+    groups:
+      gha:
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
     labels:
       - "github-actions"
 
   - package-ecosystem: "pip"
     directory: "{{cookiecutter.package_name}}"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     assignees:
       - "ryankanno"
     commit-message:
-      prefix: build
-      include: scope
+      prefix: "build"
+      include: "scope"
     open-pull-requests-limit: 10
     labels:
       - "automerge"
@@ -55,11 +70,11 @@ updates:
   - package-ecosystem: "docker"
     directory: "{{cookiecutter.package_name}}"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     assignees:
       - "ryankanno"
     commit-message:
-      prefix: build(docker)
+      prefix: "build(docker)"
     labels:
       - "docker"
       - "dependencies"
