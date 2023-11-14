@@ -50,7 +50,7 @@ jobs:
       - name: Format Commitlint Messages
         id: format
         if: ${{ steps.commitlint.outcome == 'failure' }}
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -111,7 +111,7 @@ jobs:
 
       - name: Fail Job on Error
         if: ${{ steps.commitlint.outcome == 'failure' && steps.prTitle.outcome == 'failure' }}
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             core.setFailed("There were problems with this PR's commit messages")
