@@ -25,7 +25,8 @@ template is the tool that will help you do just that.
 - [`sphinx`](http://www.sphinx-doc.org/en/master/) for docs
 - [`pdb++`](https://github.com/pdbpp/pdbpp) for debugging
 - [`konch`](http://konch.readthedocs.org/en/latest/) for shell configuration w/ [`ipython`](https://ipython.org) support
-- [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff)) configured [`dockerfile`](https://www.docker.com/) for development, testing, and production
+- [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff))
+- [`dockerfile`](https://www.docker.com/) for development, testing, and production
 - [`dunamai`](https://github.com/mtkennerly/dunamai) for versioning
 - custom [`makefile`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.package_name%7D%7D/Makefile) (run make help)
 - stay up-to-date w/ configured [`dependabot`](https://dependabot.com/)
@@ -43,10 +44,14 @@ template is the tool that will help you do just that.
 
 ## Installation
 
-install [dependencies](https://cookiecutter.readthedocs.io/en/latest/installation.html)
+### Cookiecutter
+
+Install [Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/installation.html)
 
 ```bash
-python3 -m pip install --user cookiecutter
+pip install cookiecutter
+# poetry add cookiecutter
+# pipenv install cookiecutter
 ```
 
 After installing Cookiecutter, create the project:
@@ -54,10 +59,25 @@ After installing Cookiecutter, create the project:
 ```bash
 cookiecutter gh:ryankanno/cookiecutter-py
 ```
-
 **Note**: If you want to use the auto approve / merge Dependabot workflow, make
 sure to create tags `major`, `minor`, `patch` so that Dependabot can tag its
 PRs. The workflow won't merge anything with a `major` tag.
+
+### Cruft
+
+Install [Cruft](https://github.com/cruft/cruft)
+
+```bash
+pip install cruft
+# poetry add cruft
+# pipenv install cruft
+```
+
+After installing Cruft, create the project:
+
+```bash
+cruft https://github.com/ryankanno/cookiecutter-py/
+```
 
 ## Details
 
