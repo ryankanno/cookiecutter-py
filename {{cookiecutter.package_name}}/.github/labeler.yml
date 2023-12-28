@@ -1,28 +1,54 @@
-repo:
-  - ./*
-
 ci/cd:
-  - .github/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/**/*'
 
 dependencies:
-  - pyproject.toml
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'pyproject.toml'
 
 docker:
-  - Dockerfile*
-  - .dockerignore
-  - docker-compose.yml
-  - docker/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'Dockerfile*'
+      - '.dockerignore'
+      - 'docker-entrypoint.sh'
 
 docs:
-  - "docs/**/*"
-  - "**/README.*"
-  - "AUTHORS.*"
-  - "HISTORY.*"
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'docs/**/*'
+      - '**/README.*'
+      - 'AUTHORS.*'
+      - 'HISTORY.*'
+
+internal:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.bandit'
+      - '.commitlint.config.js'
+      - '.konchrc'
+      - '.pre-commit-config.yaml'
+      - '.secrets.baseline'
+      - 'bandit.yaml'
+      - 'tox.ini'
+
+python:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.py'
+      - 'pyproject.toml'
 
 source:
-- any: ['{{ cookiecutter.package_name }}/**/*', '!docs/*']
+  - all:
+    - changed-files:
+      - any-glob-to-any-file:
+        - '{{ cookiecutter.package_name }}/**/*'
+      - all-globs-to-all-files:
+        - '!docs/*'
 
-test:
-  - tests/**/*
-  - codecov.yml
-  - .coveragerc
+tests:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'tests/**/*'
