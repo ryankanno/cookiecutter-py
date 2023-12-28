@@ -1,18 +1,33 @@
-repo:
-  - ./*
-
 ci/cd:
-  - .github/**/*
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/**/*'
 
 dependencies:
-  - pyproject.toml
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'pyproject.toml'
 
 docs:
-  - "docs/**/*"
-  - "**/README.*"
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'docs/**/*'
+      - '**/README.*'
 
 source:
-- any: ['hooks/**/*', '!docs/*']
+  - all:
+    - changed-files:
+      - any-glob-to-any-file:
+        - 'hooks/**/*'
+      - all-globs-to-all-files:
+        - '!docs/*'
 
-test:
-  - tests/**/*
+tests:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'tests/**/*'
+
+python:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.py'
