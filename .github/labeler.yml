@@ -1,18 +1,27 @@
-repo:
-  - ./*
-
-ci/cd:
-  - .github/**/*
+ci:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/**/*'
+      - '.pre-commit-config.yml'
 
 dependencies:
-  - pyproject.toml
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'pyproject.toml'
 
 docs:
-  - "docs/**/*"
-  - "**/README.*"
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'docs/**/*'
+      - '**/README*'
 
 source:
-- any: ['hooks/**/*', '!docs/*']
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'hooks/**/*'
+      - '!docs/*'
 
-test:
-  - tests/**/*
+tests:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'tests/**/*'
