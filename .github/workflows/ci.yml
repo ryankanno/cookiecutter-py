@@ -76,7 +76,7 @@ jobs:
           MATRIX_PYTHON_VERSION=${{matrix.python-version}}
           echo "TOX_COVERAGE_ENV=py$(echo ${MATRIX_PYTHON_VERSION} | cut -d . -f -2 | sed -e 's/\.//g')" >> $GITHUB_ENV
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: ./.tox/.coverage.${{ env.TOX_COVERAGE_ENV }}.xml
           verbose: true
