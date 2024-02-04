@@ -78,6 +78,7 @@ jobs:
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: ./.tox/.coverage.${{ env.TOX_COVERAGE_ENV }}.xml
           verbose: true
           fail_ci_if_error: true
