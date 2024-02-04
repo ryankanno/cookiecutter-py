@@ -17,7 +17,7 @@ jobs:
     name: Debug
     runs-on: ubuntu-latest
     steps:
-      - uses: hmarr/debug-action@v2
+      - uses: hmarr/debug-action@v3
   auto-approve:
     name: Auto approve Dependabot PRs
     runs-on: ubuntu-latest
@@ -37,7 +37,7 @@ jobs:
         github.actor == 'dependabot-preview'
       )
     steps:
-      - uses: hmarr/auto-approve-action@v3.2.1
+      - uses: hmarr/auto-approve-action@v4.0.0
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
   auto-merge:
