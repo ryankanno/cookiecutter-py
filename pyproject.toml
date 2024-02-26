@@ -25,15 +25,15 @@ python = ">=3.9,<3.12"
 cookiecutter = "^2.5.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^8.0.0"
+pytest = "^8.0.2"
 pytest-cookies = "^0.7.0"
-black = "^24.1.1"
-pre-commit = "^3.6.0"
-tox = "^4.12.1"
+black = "^24.2.0"
+pre-commit = "^3.6.2"
+tox = "^4.13.0"
 mypy = "^1.8.0"
 pytest-cov = "^4.1.0"
 pytest-xdist = "^3.5.0"
-ruff = "^0.2.0"
+ruff = "^0.2.2"
 
 [tool.mypy]
 python_version = "3.11"
