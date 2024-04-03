@@ -103,9 +103,11 @@ def build_files_list(
 ) -> typing.List[str]:
     """Build a list containing abs/relative paths to the generated files."""
     return [
-        os.path.join(dirpath, file_path)
-        if is_absolute
-        else os.path.join(dirpath[len(root_dir) :], file_path)
+        (
+            os.path.join(dirpath, file_path)
+            if is_absolute
+            else os.path.join(dirpath[len(root_dir) :], file_path)
+        )
         for dirpath, subdirs, files in os.walk(root_dir)
         for file_path in files
     ]
@@ -402,9 +404,10 @@ def test_with_codecov(
 
     for path in abs_baked_files:
         if 'ci.yml' in path:
-            with open(path, 'rb', 0) as file, mmap.mmap(
-                file.fileno(), 0, access=mmap.ACCESS_READ
-            ) as s:
+            with (
+                open(path, 'rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
                 if s.find(b'codecov') == -1 and codecov == 'y':
                     pytest.fail('Should have codecov')
                 elif s.find(b'codecov') != -1 and codecov == 'n':
@@ -428,9 +431,10 @@ def test_with_poetry_version(
 
     for path in abs_baked_files:
         if 'Dockerfile' in path:
-            with open(path, 'rb', 0) as file, mmap.mmap(
-                file.fileno(), 0, access=mmap.ACCESS_READ
-            ) as s:
+            with (
+                open(path, 'rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
                 if s.find(f"POETRY_VERSION={poetry_version}".encode()) == -1:
                     pytest.fail('Should have appropriate poetry version')
 
@@ -452,9 +456,10 @@ def test_with_tox_version(
 
     for path in abs_baked_files:
         if 'ci.yml' in path:
-            with open(path, 'rb', 0) as file, mmap.mmap(
-                file.fileno(), 0, access=mmap.ACCESS_READ
-            ) as s:
+            with (
+                open(path, 'rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
                 if s.find(f"tox=={tox_version}".encode()) == -1:
                     pytest.fail('Should have appropriate tox version')
 
@@ -476,9 +481,10 @@ def test_with_version(
 
     for path in abs_baked_files:
         if 'pyproject.toml' in path:
-            with open(path, 'rb', 0) as file, mmap.mmap(
-                file.fileno(), 0, access=mmap.ACCESS_READ
-            ) as s:
+            with (
+                open(path, 'rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
                 if s.find(f"version = {version!r}".encode()) == -1:
                     pytest.fail(
                         'pyproject.toml should have appropriate version'
@@ -499,9 +505,10 @@ def test_pyproject_with_default_configuration(
 
     for path in abs_baked_files:
         if 'pyproject.toml' in path:
-            with open(path, 'rb', 0) as file, mmap.mmap(
-                file.fileno(), 0, access=mmap.ACCESS_READ
-            ) as s:
+            with (
+                open(path, 'rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
                 if s.find(b'[tool.mypy]') == -1:
                     pytest.fail('Should have mypy configuration section')
 
