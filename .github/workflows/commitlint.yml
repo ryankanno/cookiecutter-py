@@ -32,11 +32,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: wagoid/commitlint-github-action@v5
+      - uses: wagoid/commitlint-github-action@v6
         id: commitlint
         continue-on-error: true
         with:
-          configFile: .commitlint.config.js
+          configFile: .commitlint.config.mjs
 
       - name: Validate PR Title
         id: prTitle
