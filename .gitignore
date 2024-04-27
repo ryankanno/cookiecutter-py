@@ -68,3 +68,6 @@ target/
 
 # mutmut
 .mutmut-cache
+
+# direnv
+.direnv/
