@@ -25,7 +25,7 @@ python = ">=3.9,<3.12"
 cookiecutter = "^2.6.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^8.2.0"
+pytest = "^8.2.1"
 pytest-cookies = "^0.7.0"
 black = "^24.4.2"
 pre-commit = "^3.7.1"
