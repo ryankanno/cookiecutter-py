@@ -25,9 +25,8 @@ permissions:
 jobs:
   pr-title:
     runs-on: ubuntu-latest
-
+    if: github.actor != 'dependabot[bot]'
     steps:
-
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
