@@ -73,5 +73,5 @@ repos:
     rev: 1.7.8
     hooks:
     -   id: bandit
-        args: ["--configfile", "bandit.yaml", "--ini", ".bandit", "-r"]
-        pass_filenames: false
+        args: ["--configfile", "pyproject.toml"]
+        additional_dependencies: ["bandit[toml]"]

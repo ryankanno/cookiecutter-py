@@ -24,14 +24,12 @@ RE_OBJ = re.compile(PATTERN)
 
 
 EXPECTED_BASE_BAKED_FILES = [
-    '.bandit',
     '.commitlint.config.js',
     '.dockerignore',
     '.gitignore',
     '.konchrc',
     '.pre-commit-config.yaml',
     '.secrets.baseline',
-    'bandit.yaml',
     'Dockerfile',
     'docker-entrypoint.sh',
     'HISTORY.rst',
@@ -499,6 +497,7 @@ def test_pyproject_with_default_configuration(
 
     assert baked_project.exit_code == 0
     assert baked_project.exception is None
+    assert baked_project.project_path
     assert baked_project.project_path.is_dir()
 
     abs_baked_files = build_files_list(str(baked_project.project_path))
@@ -511,6 +510,12 @@ def test_pyproject_with_default_configuration(
             ):
                 if s.find(b'[tool.mypy]') == -1:
                     pytest.fail('Should have mypy configuration section')
+                if s.find(b'[tool.bandit]') == -1:
+                    pytest.fail('Should have bandit configuration section')
+                if s.find(b'[tool.bandit.assert_used]') == -1:
+                    pytest.fail(
+                        'Should have bandit assert_used configuration section'
+                    )
 
 
 # vim: fenc=utf-8
