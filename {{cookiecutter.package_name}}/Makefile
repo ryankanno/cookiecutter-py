@@ -1,3 +1,5 @@
+SHELL = bash
+
 .PHONY: help
 
 export PYTHONPATH=$(shell pwd)
