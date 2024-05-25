@@ -57,9 +57,10 @@ repos:
     -   id: detect-secrets
         args: ['--baseline', '.secrets.baseline']
   - repo: https://github.com/crate-ci/typos
-    rev: v1.13.4
+    rev: v1.21.0
     hooks:
       - id: typos
+        args: ["--config", "_typos.toml", "--force-exclude"]
   - repo: https://github.com/jendrikseipp/vulture
     rev: v2.7
     hooks:
