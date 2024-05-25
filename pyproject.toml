@@ -139,7 +139,7 @@ sort_by_size = true
 
 [tool.bandit]
 targets = ["."]
-exclude = ["./.tox", "./.git", "./.github", "./.pytest_cache"]
+exclude = ["./.tox", "./.git", "./.github", "./.pytest_cache", "./.ruff_cache", "./.direnv"]
 quiet = true
 
 [tool.bandit.assert_used]
