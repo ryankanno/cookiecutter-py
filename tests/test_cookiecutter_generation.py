@@ -44,6 +44,7 @@ EXPECTED_BASE_BAKED_FILES = [
     'poetry.lock',
     'pyproject.toml',
     'tox.ini',
+    '_typos.toml',
 ]
 
 EXPECTED_BAKED_AUTHORS_FILES = [
