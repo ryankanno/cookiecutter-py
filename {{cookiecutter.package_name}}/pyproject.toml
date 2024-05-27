@@ -127,14 +127,6 @@ min_confidence = 80
 paths = ["{{ cookiecutter.package_name }}/", "tests/"]
 sort_by_size = true
 
-[tool.bandit]
-targets = ["."]
-exclude = ["./.tox", "./.git", "./.github", "./.pytest_cache", "./.ruff_cache", "./.direnv"]
-quiet = true
-
-[tool.bandit.assert_used]
-skips = ["*/*_test.py", "*/test_*.py"]
-
 [tool.ruff]
 line-length = 79
 extend-exclude = ["docs"]
@@ -180,6 +172,9 @@ select = [
 ]
 ignore = [
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/test_*.py" = ["S101"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

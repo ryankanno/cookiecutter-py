@@ -70,9 +70,3 @@ repos:
     rev: v2.11
     hooks:
       - id: vulture
-  - repo: https://github.com/pycqa/bandit
-    rev: 1.7.8
-    hooks:
-    -   id: bandit
-        args: ["--configfile", "pyproject.toml"]
-        additional_dependencies: ["bandit[toml]"]
