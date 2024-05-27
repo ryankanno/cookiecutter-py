@@ -519,12 +519,8 @@ def test_pyproject_with_default_configuration(
             ):
                 if s.find(b'[tool.mypy]') == -1:
                     pytest.fail('Should have mypy configuration section')
-                if s.find(b'[tool.bandit]') == -1:
-                    pytest.fail('Should have bandit configuration section')
-                if s.find(b'[tool.bandit.assert_used]') == -1:
-                    pytest.fail(
-                        'Should have bandit assert_used configuration section'
-                    )
+                if s.find(b'[tool.ruff.lint]') == -1:
+                    pytest.fail('Should have ruff lint configuration')
 
 
 # vim: fenc=utf-8

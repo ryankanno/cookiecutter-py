@@ -138,14 +138,6 @@ min_confidence = 80
 paths = ["hooks", "tests"]
 sort_by_size = true
 
-[tool.bandit]
-targets = ["."]
-exclude = ["./.tox", "./.git", "./.github", "./.pytest_cache", "./.ruff_cache", "./.direnv"]
-quiet = true
-
-[tool.bandit.assert_used]
-skips = ["*/*_test.py", "*/test_*.py"]
-
 [tool.ruff]
 extend-exclude = ['[{][{]cookiecutter.package_name[}][}]']
 line-length = 79
@@ -183,6 +175,7 @@ select = [
     "PTH",  # pathlib usage
     "RET",  # return statements (flake8-return)
     "RSE",  # exception raise statements (flake8-raise)
+    "S",    # security testing (flake8-bandit)
     "SIM",  # code simplicity (flake8-simplify)
     "T20",  # for any print statements
     "TRY",  # exception handling anti-patterns (tryceratops)
@@ -194,6 +187,9 @@ ignore = [
     "D103",
     "D104",
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/test_*.py" = ["S101"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
