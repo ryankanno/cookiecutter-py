@@ -12,7 +12,7 @@ from _pytest.fixtures import SubRequest
 
 
 @pytest.fixture()
-def default_context(_request: SubRequest) -> Dict[str, str]:
+def default_context(request: SubRequest) -> Dict[str, str]:  # noqa: ARG001
     """Creates default prompt vals."""
     return {
         "author_name": "Ryan Kanno",
