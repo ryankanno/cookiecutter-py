@@ -4,6 +4,7 @@
 #
 # Distributed under terms of the MIT license.
 
+import logging
 import sys
 from distutils.util import strtobool
 
@@ -26,9 +27,11 @@ def validate_supported_python_versions(supported_python_versions: str) -> None:
 
     for version in supported_python_versions_list:
         if not version.startswith(tuple(VALID_PYTHON_VERSION_PREFIXES)):
-            print(
-                f"ERROR: {version} is not a valid supported Python version. "
-                f"Supported are any Pythons that begin with the following prefixes: {VALID_PYTHON_VERSION_PREFIXES}"  # noqa: B950
+            logging.error(
+                "ERROR: %s is not a valid supported Python version. "
+                "Supported are any Pythons that begin with the following prefixes: %s ",  # noqa: B950, E501
+                version,
+                VALID_PYTHON_VERSION_PREFIXES,
             )
             sys.exit(1)
 
@@ -39,13 +42,13 @@ def validate_dependabot(
     should_install_gh_actions: bool,
 ) -> None:
     if not should_install_dependabot and should_install_automerge:
-        print(
-            "ERROR: You must install dependabot if you want to install the automerge workflow."  # noqa: B950
+        logging.error(
+            "ERROR: You must install dependabot if you want to install the automerge workflow."  # noqa: B950, E501
         )
         sys.exit(1)
     elif not should_install_gh_actions and should_install_automerge:
-        print(
-            "ERROR: You must install Github Actions if you want to install the Dependabot automerge workflow."  # noqa: B950
+        logging.error(
+            "ERROR: You must install Github Actions if you want to install the Dependabot automerge workflow."  # noqa: B950, E501
         )
         sys.exit(1)
 
@@ -58,9 +61,9 @@ if __name__ == '__main__':
         bool(strtobool('{{ cookiecutter.should_install_github_dependabot }}')),
         bool(
             strtobool(
-                '{{ cookiecutter.should_automerge_autoapprove_github_dependabot }}'
+                '{{ cookiecutter.should_automerge_autoapprove_github_dependabot }}'  # noqa: B950, E501
             )
-        ),  # noqa: B950
+        ),
         bool(strtobool('{{ cookiecutter.should_install_github_actions }}')),
     )
 

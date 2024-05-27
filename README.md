@@ -114,7 +114,6 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - darglint
 - update details
   - include cookiecutter var descriptions
-- migrate to ruff formatter
 
 ## License
 

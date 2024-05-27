@@ -4,21 +4,22 @@
 #
 # Distributed under terms of the MIT license.
 
-"""
-Tests project generation
-"""
+"""Tests project generation."""
 
+import logging
 import mmap
 import os
 import re
 import typing
 from distutils.util import strtobool
+from pathlib import Path
 
 import pytest
 from binaryornot.check import is_binary
 from pytest_cookies.plugin import Cookies
 
 
+LOGGER = logging.getLogger(__name__)
 PATTERN = r"{{(\s?cookiecutter)[.](.*?)}}"
 RE_OBJ = re.compile(PATTERN)
 
@@ -103,9 +104,9 @@ def build_files_list(
     """Build a list containing abs/relative paths to the generated files."""
     return [
         (
-            os.path.join(dirpath, file_path)
+            str(Path(dirpath) / file_path)
             if is_absolute
-            else os.path.join(dirpath[len(root_dir) :], file_path)
+            else str(Path(dirpath[len(root_dir) :]) / file_path)
         )
         for dirpath, subdirs, files in os.walk(root_dir)
         for file_path in files
@@ -116,7 +117,7 @@ def check_paths_substitution(paths: typing.List[str]) -> None:
     for path in paths:
         if is_binary(path):
             continue
-        with open(path) as f:
+        with Path(path).open() as f:
             line = f.readline()
             match = RE_OBJ.search(line)
             assert (
@@ -148,6 +149,7 @@ def test_with_default_configuration(
 
     assert baked_project.exit_code == 0
     assert baked_project.exception is None
+    assert baked_project.project_path
     assert baked_project.project_path.is_dir()
 
     abs_baked_files = build_files_list(str(baked_project.project_path))
@@ -165,7 +167,7 @@ def test_with_default_configuration(
     )
 
 
-def test_with_parameterized_configuration(  # noqa: C901
+def test_with_parameterized_configuration(  # noqa: C901, PLR0912, PLR0915
     cookies: Cookies, context: typing.Dict[str, str]
 ) -> None:
     if not bool(strtobool(context['should_install_github_dependabot'])):
@@ -178,6 +180,7 @@ def test_with_parameterized_configuration(  # noqa: C901
 
     assert baked_project.exit_code == 0
     assert baked_project.exception is None
+    assert baked_project.project_path
     assert baked_project.project_path.is_dir()
 
     abs_baked_files = build_files_list(str(baked_project.project_path))
@@ -189,13 +192,14 @@ def test_with_parameterized_configuration(  # noqa: C901
     )
     assert rel_baked_files
 
-    print(f"author file: {context['should_create_author_files']}")
-    print(f"dependabot: {context['should_install_github_dependabot']}")
-    print(
-        f"automerge_autoapprove_dependabot: {context['should_automerge_autoapprove_github_dependabot']}"  # noqa: B950
+    LOGGER.info("author file: %s", context['should_create_author_files'])
+    LOGGER.info("dependabot: %s", context['should_install_github_dependabot'])
+    LOGGER.info(
+        "automerge_autoapprove_dependabot: %s",
+        context['should_automerge_autoapprove_github_dependabot'],
     )
-    print(f"gh actions: {context['should_install_github_actions']}")
-    print(f"pypi: {context['should_publish_to_pypi']}")
+    LOGGER.info("gh actions: %s", context['should_install_github_actions'])
+    LOGGER.info("pypi: %s", context['should_publish_to_pypi'])
 
     if (
         strtobool(context['should_create_author_files'])
@@ -397,6 +401,7 @@ def test_with_codecov(
 
     assert baked_project.exit_code == 0
     assert baked_project.exception is None
+    assert baked_project.project_path
     assert baked_project.project_path.is_dir()
 
     abs_baked_files = build_files_list(str(baked_project.project_path))
@@ -404,7 +409,7 @@ def test_with_codecov(
     for path in abs_baked_files:
         if 'ci.yml' in path:
             with (
-                open(path, 'rb', 0) as file,
+                Path(path).open('rb', 0) as file,
                 mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
             ):
                 if s.find(b'codecov') == -1 and codecov == 'y':
@@ -424,6 +429,7 @@ def test_with_poetry_version(
 
     assert baked_project.exit_code == 0
     assert baked_project.exception is None
+    assert baked_project.project_path
     assert baked_project.project_path.is_dir()
 
     abs_baked_files = build_files_list(str(baked_project.project_path))
@@ -431,7 +437,7 @@ def test_with_poetry_version(
     for path in abs_baked_files:
         if 'Dockerfile' in path:
             with (
-                open(path, 'rb', 0) as file,
+                Path(path).open('rb', 0) as file,
                 mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
             ):
                 if s.find(f"POETRY_VERSION={poetry_version}".encode()) == -1:
@@ -449,6 +455,7 @@ def test_with_tox_version(
 
     assert baked_project.exit_code == 0
     assert baked_project.exception is None
+    assert baked_project.project_path
     assert baked_project.project_path.is_dir()
 
     abs_baked_files = build_files_list(str(baked_project.project_path))
@@ -456,7 +463,7 @@ def test_with_tox_version(
     for path in abs_baked_files:
         if 'ci.yml' in path:
             with (
-                open(path, 'rb', 0) as file,
+                Path(path).open('rb', 0) as file,
                 mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
             ):
                 if s.find(f"tox=={tox_version}".encode()) == -1:
@@ -474,6 +481,7 @@ def test_with_version(
 
     assert baked_project.exit_code == 0
     assert baked_project.exception is None
+    assert baked_project.project_path
     assert baked_project.project_path.is_dir()
 
     abs_baked_files = build_files_list(str(baked_project.project_path))
@@ -481,7 +489,7 @@ def test_with_version(
     for path in abs_baked_files:
         if 'pyproject.toml' in path:
             with (
-                open(path, 'rb', 0) as file,
+                Path(path).open('rb', 0) as file,
                 mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
             ):
                 if s.find(f"version = {version!r}".encode()) == -1:
@@ -506,7 +514,7 @@ def test_pyproject_with_default_configuration(
     for path in abs_baked_files:
         if 'pyproject.toml' in path:
             with (
-                open(path, 'rb', 0) as file,
+                Path(path).open('rb', 0) as file,
                 mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
             ):
                 if s.find(b'[tool.mypy]') == -1:

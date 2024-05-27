@@ -65,12 +65,12 @@ def update_pyproject_version(
 ) -> None:
     pyproject_path = Path("pyproject.toml")
     if pyproject_path.is_file():
-        with open(pyproject_path) as f:
+        with pyproject_path.open() as f:
             pyproject = f.read()
         pyproject = pyproject.replace(
             'version = "0.0.0"', f"version = {version!r}"
         )
-        with open(pyproject_path, "w") as f:
+        with pyproject_path.open("w") as f:
             f.write(pyproject)
 
 

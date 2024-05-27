@@ -68,7 +68,8 @@ include = '\.pyi?$'
 exclude = '''
 (
   /(
-      \.direnv
+     \.ruff_cache
+     | \.direnv
      | \.eggs
      | \.git
      | \.hg
@@ -157,18 +158,41 @@ convention = "google"
 
 [tool.ruff.lint]
 select = [
-    "C9",
-    "E4",
-    "E7",
-    "E9",
-    "F",
-    "W",
-    "G",
-    "A",
-    "PT",
-    "B",
-    "ANN",
-    "SIM",
+    "A",    # python builtins being used as variables or parameters
+    "ANN",  # annotations
+    "ARG",  # unused function arguments
+    "B",    # common design problems (flake8-bugbear)
+    "BLE",  # blind exception catching
+    "C4",   # proper comprehensions
+    "C9",   # mccabe complexity
+    "D",    # docstring conventions (pydocstyle)
+    "D417", # missing args in docstrings
+    "DTZ",  # unsafe naive datetime use (flake8-datetimez)
+    "E",    # code style conventions (pycodestyle)
+    "EM",   # raw literals inside exception (flake8-errmsg)
+    "F",    # python source code for errors (pyflakes)
+    "FIX",  # temporary developer notes (flake8-fixme)
+    "FURB", # code improvements (refurb)
+    "G",    # logging string formatting (flake8-logging-format)
+    "LOG",  # logging module usage (flake8-logging)
+    "PERF", # performance anti-patterns (perflint)
+    "PGH",  # pygrep hooks
+    "PIE",  # misc (flake8-pie)
+    "PL",   # code errors and smells (pylint)
+    "PT",   # common pytest issues
+    "PTH",  # pathlib usage
+    "RET",  # return statements (flake8-return)
+    "RSE",  # exception raise statements (flake8-raise)
+    "SIM",  # code simplicity (flake8-simplify)
+    "T20",  # for any print statements
+    "TRY",  # exception handling anti-patterns (tryceratops)
+    "UP",   # outdated syntax (pyupgrade)
+    "W",    # code style conventions (pycodestyle)
+]
+ignore = [
+    "D100",
+    "D103",
+    "D104",
 ]
 
 [build-system]

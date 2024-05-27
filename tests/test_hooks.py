@@ -4,11 +4,8 @@
 #
 # Distributed under terms of the MIT license.
 
-"""
-Tests hooks
-"""
+"""Tests hooks."""
 
-import os
 import tempfile
 from pathlib import Path
 
@@ -23,9 +20,10 @@ from hooks.pre_gen_project import (
 
 def test_remove_path() -> None:
     temp = tempfile.NamedTemporaryFile(delete=False)
-    remove_path(Path(temp.name))
+    temp_path = Path(temp.name)
+    remove_path(temp_path)
 
-    assert not os.path.exists(temp.name)
+    assert not temp_path.exists()
 
 
 def test_with_unsupported_python_versions() -> None:
