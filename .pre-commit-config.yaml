@@ -41,10 +41,7 @@ repos:
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
     hooks:
-      - id: python-check-blanket-noqa
       - id: python-check-mock-methods
-      - id: python-no-eval
-      - id: python-no-log-warn
       - id: rst-backticks
   - repo: https://github.com/openstack/bashate
     rev: 2.1.1
