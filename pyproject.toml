@@ -68,7 +68,8 @@ include = '\.pyi?$'
 exclude = '''
 (
   /(
-      \.direnv
+     \.ruff_cache
+     | \.direnv
      | \.eggs
      | \.git
      | \.hg
@@ -189,6 +190,7 @@ select = [
     "W",    # code style conventions (pycodestyle)
 ]
 ignore = [
+    "D100",
     "D103",
     "D104",
 ]
