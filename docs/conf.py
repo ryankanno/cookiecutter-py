@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = '{{cookiecutter.package_name}}'
-copyright = '2024, {{cookiecutter.author_name}}'
-author = '{{cookiecutter.author_name}}'
+project = 'cookiecutter-py'
+copyright = '2024, Ryan Kanno'
+author = 'Ryan Kanno'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
