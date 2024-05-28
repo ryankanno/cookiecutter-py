@@ -117,7 +117,7 @@ def check_paths_substitution(paths: typing.List[str]) -> None:
     for path in paths:
         if is_binary(path):
             continue
-        with Path(path).open() as f:
+        with Path(path).open(encoding="utf-8") as f:
             line = f.readline()
             match = RE_OBJ.search(line)
             assert (
@@ -138,7 +138,7 @@ def check_paths_exist(
 
     assert len(expected_paths) == len(list(baked_files_no_ruff))
 
-    for _, expected_path in enumerate(expected_paths):
+    for expected_path in expected_paths:
         assert expected_path in baked_files
 
 

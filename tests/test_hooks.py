@@ -30,7 +30,7 @@ def test_with_unsupported_python_versions() -> None:
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         validate_supported_python_versions("foo")
 
-    assert pytest_wrapped_e.type == SystemExit
+    assert isinstance(pytest_wrapped_e.value, SystemExit)
     assert pytest_wrapped_e.value.code == 1
 
 
@@ -44,25 +44,25 @@ def test_with_invalid_dependabot_settings() -> None:
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         validate_dependabot(False, True, True)
 
-    assert pytest_wrapped_e.type == SystemExit
+    assert isinstance(pytest_wrapped_e.value, SystemExit)
     assert pytest_wrapped_e.value.code == 1
 
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         validate_dependabot(False, True, False)
 
-    assert pytest_wrapped_e.type == SystemExit
+    assert isinstance(pytest_wrapped_e.value, SystemExit)
     assert pytest_wrapped_e.value.code == 1
 
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         validate_dependabot(True, True, False)
 
-    assert pytest_wrapped_e.type == SystemExit
+    assert isinstance(pytest_wrapped_e.value, SystemExit)
     assert pytest_wrapped_e.value.code == 1
 
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         validate_dependabot(False, True, False)
 
-    assert pytest_wrapped_e.type == SystemExit
+    assert isinstance(pytest_wrapped_e.value, SystemExit)
     assert pytest_wrapped_e.value.code == 1
 
 
