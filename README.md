@@ -76,7 +76,7 @@ pip install cruft
 After installing Cruft, create the project:
 
 ```bash
-cruft https://github.com/ryankanno/cookiecutter-py/
+cruft create https://github.com/ryankanno/cookiecutter-py/
 ```
 
 ## Details
