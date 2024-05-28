@@ -139,7 +139,7 @@ paths = ["hooks", "tests"]
 sort_by_size = true
 
 [tool.ruff]
-extend-exclude = ['[{][{]cookiecutter.package_name[}][}]']
+extend-exclude = ['[{][{]cookiecutter.package_name[}][}]/docs']
 line-length = 79
 
 [tool.ruff.mccabe]

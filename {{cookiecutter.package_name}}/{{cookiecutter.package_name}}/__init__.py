@@ -9,7 +9,7 @@ __author__ = '{{ cookiecutter.author_name }}'
 __email__ = '{{ cookiecutter.author_email }}'
 __license__ = '{{ cookiecutter.project_license }}'
 # fmt: off
-__copyright__ = "Copyright (c) {% now 'utc', '%Y' %}, {{cookiecutter.author_name}}"
+__copyright__ = "Copyright (c) {% now 'utc', '%Y' %}, {{cookiecutter.author_name}}"  # noqa: B950, E501
 # fmt: on
 
 
