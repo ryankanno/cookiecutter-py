@@ -32,7 +32,7 @@ template is the tool that will help you do just that.
 - [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff))
 - [`dockerfile`](https://www.docker.com/) for development, testing, and production
 - [`dunamai`](https://github.com/mtkennerly/dunamai) for versioning
-- custom [`makefile`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.package_name%7D%7D/Makefile) (run make help)
+- custom [`Justfile`](https://github.com/casey/just) (run `just`)
 - stay up-to-date w/ configured [`dependabot`](https://dependabot.com/)
 - [`github-actions`](https://github.com/features/actions) with ci (leveraging [`tox`](https://tox.readthedocs.org/en/latest/)), publish to pypi workflows w/ [`release-drafter`](https://github.com/release-drafter/release-drafter) integration
 
@@ -120,7 +120,6 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - add typeguard
 - version releases
 - integrate [poethepoet](https://github.com/nat-n/poethepoet)
-- migrate Makefile to Justfile
 - darglint
 - update details
   - include cookiecutter var descriptions
