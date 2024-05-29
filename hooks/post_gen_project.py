@@ -83,6 +83,8 @@ def uncomment_pyproject_python_dependency() -> None:
                 if line.strip().startswith('# python'):
                     new_line = line.replace('# python', 'python')
                     print(new_line, end='')  # noqa: T201
+                else:
+                    print(line, end='')  # noqa: T201
 
 
 if __name__ == '__main__':
