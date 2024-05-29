@@ -119,10 +119,15 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - add typeguard
 - version releases
 - integrate [poethepoet](https://github.com/nat-n/poethepoet)
+- migrate Makefile to Justfile
 - darglint
 - update details
   - include cookiecutter var descriptions
 - add sphinx theme selection
+- update docs
+- update default/initial template doc structure
+- add deploy to readthedocs
+- plan for 1.0
 
 ## License
 
