@@ -17,12 +17,16 @@ template is the tool that will help you do just that.
 - [`structlog`](https://www.structlog.org/en/stable) for logging
 - [`mypy`](https://mypy-lang.org) for static typing
 - [`pytest`](https://github.com/pytest-dev/pytest), [`hypothesis`](https://github.com/HypothesisWorks/hypothesis), [`mutmut`](https://github.com/boxed/mutmut) for testing
+
   - [`pytest-cov`](https://pytest-cov.readthedocs.io/en/latest/) for coverage reports
   - [`pytest-mock`](https://github.com/pytest-dev/pytest-mock/) for mocks
   - [`pytest-xdist`](https://github.com/pytest-dev/pytest-xdist) for distributed testing
   - [`pytest-randomly`](https://github.com/pytest-dev/pytest-randomly) to randomly order tests
+
 - [`tox`](https://tox.readthedocs.org/en/latest/) for testing automation
 - [`sphinx`](http://www.sphinx-doc.org/en/master/) for docs
+  - [`myst-parser`](https://github.com/executablebooks/MyST-Parser) for markdown docs
+  - [`furo`](https://github.com/pradyunsg/furo) theme
 - [`pdb++`](https://github.com/pdbpp/pdbpp) for debugging
 - [`konch`](http://konch.readthedocs.org/en/latest/) for shell configuration w/ [`ipython`](https://ipython.org) support
 - [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff))
@@ -31,11 +35,15 @@ template is the tool that will help you do just that.
 - custom [`makefile`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/master/%7B%7Bcookiecutter.package_name%7D%7D/Makefile) (run make help)
 - stay up-to-date w/ configured [`dependabot`](https://dependabot.com/)
 - [`github-actions`](https://github.com/features/actions) with ci (leveraging [`tox`](https://tox.readthedocs.org/en/latest/)), publish to pypi workflows w/ [`release-drafter`](https://github.com/release-drafter/release-drafter) integration
+
   - [`ci`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/ci.yml) workflow (leveraging [`tox`](https://tox.readthedocs.org/en/latest/))
+
     - optional [`codecov`](https://codecov.io) integration for code coverage
+
   - [`publish`](https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/publish.yml) workflow (to [test.pypi.org](https://test.pypi.org) / [pypi.org](https://pypi.org)) w/ [`release-drafter`](https://github.com/release-drafter/release-drafter) integration
   - [`auto approve / merge`](https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/auto-approve-merge-dependabot.yml) workflow
   - with these additional workflows:
+
     - [`codeql`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/codeql-analysis.yml)
     - [`hadolint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/hadolint.yml)
     - [`pr-size-labeling`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-size-labeler.yml)
@@ -101,7 +109,7 @@ docker run <image_id or tag> python -m surf.surf
 
 If you enable the PyPi workflow, versioning will happen via [`dunamai`](https://github.com/mtkennerly/dunamai) within the Github pipeline.
 
-If instead, you prefer to version your package, please do it via ```poetry version $(dunamai from any)``` as recommended in their [documentation](https://github.com/mtkennerly/dunamai#integration).
+If instead, you prefer to version your package, please do it via ```poetry version $(dunamai from any)``` as recommended in their [documentation](https://github.com/mtkennerly/dunamai#user-content-integration).
 
 ## TODO
 
@@ -114,6 +122,7 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - darglint
 - update details
   - include cookiecutter var descriptions
+- add sphinx theme selection
 
 ## License
 

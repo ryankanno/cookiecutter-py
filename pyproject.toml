@@ -35,6 +35,15 @@ pytest-cov = "^5.0.0"
 pytest-xdist = "^3.6.1"
 ruff = "^0.4.5"
 
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^7.3.7"
+sphinx-autobuild = "^2024.4.16"
+furo = "^2024.5.6"
+myst-parser = {extras = ["linkify"], version = "^3.0.1"}
+
 [tool.mypy]
 python_version = "3.11"
 check_untyped_defs = true
@@ -139,7 +148,7 @@ paths = ["hooks", "tests"]
 sort_by_size = true
 
 [tool.ruff]
-extend-exclude = ['[{][{]cookiecutter.package_name[}][}]/docs']
+extend-exclude = ['[{][{]cookiecutter.package_name[}][}]/docs', 'docs']
 line-length = 79
 
 [tool.ruff.mccabe]
