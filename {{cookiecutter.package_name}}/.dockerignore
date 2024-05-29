@@ -32,6 +32,7 @@ Dockerfile*
 docker-compose*
 .dockerignore
 Makefile
+Justfile
 tox.ini
 .ruff_cache
 
