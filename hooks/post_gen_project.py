@@ -17,9 +17,15 @@ def remove_path(path: Path) -> None:
     if path.is_file() or path.is_symlink():
         path.unlink()
         return
-    for p in path.iterdir():
-        remove_path(p)
-    path.rmdir()
+    if path.exists():
+        for p in path.iterdir():
+            remove_path(p)
+        path.rmdir()
+
+
+def manage_direnv_files(should_use_direnv: str) -> None:
+    if not strtobool(should_use_direnv):
+        remove_path(PROJECT_ROOT_DIR / Path(".envrc"))
 
 
 def manage_author_files(should_create_author_files: str) -> None:
@@ -88,6 +94,7 @@ def uncomment_pyproject_python_dependency() -> None:
 
 
 if __name__ == '__main__':
+    manage_direnv_files('{{ cookiecutter.should_use_direnv }}')
     manage_author_files('{{ cookiecutter.should_create_author_files }}')
     manage_github_files(
         '{{ cookiecutter.should_install_github_dependabot }}',

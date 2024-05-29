@@ -17,6 +17,7 @@
   "poetry_version": "1.7.1",
   "tox_version": "4.12.1",
 
+  "should_use_direnv": "y",
   "should_create_author_files": "y",
   "should_install_github_dependabot": "y",
   "should_automerge_autoapprove_github_dependabot": "y",
