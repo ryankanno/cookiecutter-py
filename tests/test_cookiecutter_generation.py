@@ -49,6 +49,8 @@ EXPECTED_BASE_BAKED_FILES = [
     '_typos.toml',
 ]
 
+EXPECTED_BAKED_DIRENV_FILES = ['.envrc']
+
 EXPECTED_BAKED_AUTHORS_FILES = [
     'AUTHORS.rst',
 ]
@@ -86,17 +88,6 @@ def get_expected_baked_files(package_name: str) -> typing.List[str]:
         '/tests/__init__.py',
         f'/tests/test_{package_name}.py',
     ]
-
-
-def get_expected_baked_default_files(package_name: str) -> typing.List[str]:
-    return (
-        get_expected_baked_files(package_name)
-        + EXPECTED_BAKED_AUTHORS_FILES
-        + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
-        + EXPECTED_BAKED_GITHUB_AUTOAPPROVE_AUTOMERGE_DEPENDABOT_FILES
-        + EXPECTED_BAKED_GITHUB_ACTIONS_FILES
-        + EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES
-    )
 
 
 def build_files_list(
@@ -137,10 +128,12 @@ def check_paths_exist(
         lambda x: '.ruff_cache' not in x, list(baked_files_no_pycache)
     )
 
-    assert len(expected_paths) == len(list(baked_files_no_ruff))
+    expected_baked_files = list(baked_files_no_ruff)
+
+    assert len(expected_paths) == len(expected_baked_files)
 
     for expected_path in expected_paths:
-        assert expected_path in baked_files
+        assert expected_path in expected_baked_files
 
 
 def test_with_default_configuration(
@@ -162,10 +155,17 @@ def test_with_default_configuration(
     )
     assert rel_baked_files
 
-    check_paths_exist(
-        get_expected_baked_default_files(default_context['package_name']),
-        rel_baked_files,
+    expected_files = (
+        get_expected_baked_files(default_context['package_name'])
+        + EXPECTED_BAKED_AUTHORS_FILES
+        + EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES
+        + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
+        + EXPECTED_BAKED_DIRENV_FILES
+        + EXPECTED_BAKED_GITHUB_AUTOAPPROVE_AUTOMERGE_DEPENDABOT_FILES
+        + EXPECTED_BAKED_GITHUB_ACTIONS_FILES
     )
+
+    check_paths_exist(expected_files, rel_baked_files)
 
 
 def test_with_parameterized_configuration(  # noqa: C901, PLR0912, PLR0915
@@ -201,193 +201,44 @@ def test_with_parameterized_configuration(  # noqa: C901, PLR0912, PLR0915
     )
     LOGGER.info("gh actions: %s", context['should_install_github_actions'])
     LOGGER.info("pypi: %s", context['should_publish_to_pypi'])
+    LOGGER.info("direnv: %s", context['should_use_direnv'])
 
-    if (
-        strtobool(context['should_create_author_files'])
-        and strtobool(context['should_install_github_dependabot'])
-        and strtobool(context['should_install_github_actions'])
-        and strtobool(context['should_publish_to_pypi'])
-    ):
+    expected_files = get_expected_baked_files(context['package_name'])
+
+    if strtobool(context['should_create_author_files']):
+        expected_files += EXPECTED_BAKED_AUTHORS_FILES
+
+    if strtobool(context['should_publish_to_pypi']):
+        expected_files += EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES
+
+    if strtobool(context['should_install_github_dependabot']):
+        expected_files += EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
+
+    if strtobool(context['should_use_direnv']):
+        expected_files += EXPECTED_BAKED_DIRENV_FILES
+
+    if strtobool(context['should_install_github_actions']):
         if strtobool(
             context['should_automerge_autoapprove_github_dependabot']
         ):  # noqa: B950
             check_paths_exist(
-                get_expected_baked_default_files(context['package_name']),
-                rel_baked_files,
-            )
-        else:
-            check_paths_exist(
-                list(
-                    set(
-                        get_expected_baked_default_files(
-                            context['package_name']
-                        )
-                    )
-                    - set(
-                        EXPECTED_BAKED_GITHUB_AUTOAPPROVE_AUTOMERGE_DEPENDABOT_FILES
-                    )
-                ),  # noqa: B950
-                rel_baked_files,
-            )
-    elif (
-        strtobool(context['should_create_author_files'])
-        and strtobool(context['should_install_github_dependabot'])
-        and strtobool(context['should_install_github_actions'])
-        and not strtobool(context['should_publish_to_pypi'])
-    ):
-        if strtobool(
-            context['should_automerge_autoapprove_github_dependabot']
-        ):  # noqa: B950
-            check_paths_exist(
-                get_expected_baked_files(context['package_name'])
-                + EXPECTED_BAKED_AUTHORS_FILES
-                + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
+                expected_files
                 + EXPECTED_BAKED_GITHUB_AUTOAPPROVE_AUTOMERGE_DEPENDABOT_FILES
                 + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
                 rel_baked_files,
             )
         else:
             check_paths_exist(
-                get_expected_baked_files(context['package_name'])
-                + EXPECTED_BAKED_AUTHORS_FILES
-                + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
-                + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
+                expected_files + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
                 rel_baked_files,
             )
-    elif (
-        strtobool(context['should_create_author_files'])
-        and strtobool(context['should_install_github_dependabot'])
-        and not strtobool(context['should_install_github_actions'])
-    ):
+    elif not strtobool(context['should_install_github_actions']):
         check_paths_exist(
-            get_expected_baked_files(context['package_name'])
-            + EXPECTED_BAKED_AUTHORS_FILES
-            + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES,
+            list(
+                set(expected_files)
+                - set(EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES)
+            ),
             rel_baked_files,
-        )
-    elif (
-        strtobool(context['should_create_author_files'])
-        and not strtobool(context['should_install_github_dependabot'])
-        and strtobool(context['should_install_github_actions'])
-        and strtobool(context['should_publish_to_pypi'])
-    ):
-        check_paths_exist(
-            get_expected_baked_files(context['package_name'])
-            + EXPECTED_BAKED_AUTHORS_FILES
-            + EXPECTED_BAKED_GITHUB_ACTIONS_FILES
-            + EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES,
-            rel_baked_files,
-        )
-    elif (
-        strtobool(context['should_create_author_files'])
-        and not strtobool(context['should_install_github_dependabot'])
-        and strtobool(context['should_install_github_actions'])
-        and not strtobool(context['should_publish_to_pypi'])
-    ):
-        check_paths_exist(
-            get_expected_baked_files(context['package_name'])
-            + EXPECTED_BAKED_AUTHORS_FILES
-            + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
-            rel_baked_files,
-        )
-    elif (
-        strtobool(context['should_create_author_files'])
-        and not strtobool(context['should_install_github_dependabot'])
-        and not strtobool(context['should_install_github_actions'])
-    ):
-        check_paths_exist(
-            get_expected_baked_files(context['package_name'])
-            + EXPECTED_BAKED_AUTHORS_FILES,
-            rel_baked_files,
-        )
-    elif (
-        not strtobool(context['should_create_author_files'])
-        and strtobool(context['should_install_github_dependabot'])
-        and strtobool(context['should_install_github_actions'])
-        and strtobool(context['should_publish_to_pypi'])
-    ):
-        if strtobool(
-            context['should_automerge_autoapprove_github_dependabot']
-        ):  # noqa: B950
-            check_paths_exist(
-                get_expected_baked_files(context['package_name'])
-                + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
-                + EXPECTED_BAKED_GITHUB_AUTOAPPROVE_AUTOMERGE_DEPENDABOT_FILES
-                + EXPECTED_BAKED_GITHUB_ACTIONS_FILES
-                + EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES,
-                rel_baked_files,
-            )
-        else:
-            check_paths_exist(
-                get_expected_baked_files(context['package_name'])
-                + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
-                + EXPECTED_BAKED_GITHUB_ACTIONS_FILES
-                + EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES,
-                rel_baked_files,
-            )
-    elif (
-        not strtobool(context['should_create_author_files'])
-        and strtobool(context['should_install_github_dependabot'])
-        and strtobool(context['should_install_github_actions'])
-        and not strtobool(context['should_publish_to_pypi'])
-    ):
-        if strtobool(
-            context['should_automerge_autoapprove_github_dependabot']
-        ):  # noqa: B950
-            check_paths_exist(
-                get_expected_baked_files(context['package_name'])
-                + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
-                + EXPECTED_BAKED_GITHUB_AUTOAPPROVE_AUTOMERGE_DEPENDABOT_FILES
-                + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
-                rel_baked_files,
-            )
-        else:
-            check_paths_exist(
-                get_expected_baked_files(context['package_name'])
-                + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES
-                + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
-                rel_baked_files,
-            )
-    elif (
-        not strtobool(context['should_create_author_files'])
-        and strtobool(context['should_install_github_dependabot'])
-        and not strtobool(context['should_install_github_actions'])
-    ):
-        check_paths_exist(
-            get_expected_baked_files(context['package_name'])
-            + EXPECTED_BAKED_GITHUB_DEPENDABOT_FILES,
-            rel_baked_files,
-        )
-    elif (
-        not strtobool(context['should_create_author_files'])
-        and not strtobool(context['should_install_github_dependabot'])
-        and strtobool(context['should_install_github_actions'])
-        and strtobool(context['should_publish_to_pypi'])
-    ):
-        check_paths_exist(
-            get_expected_baked_files(context['package_name'])
-            + EXPECTED_BAKED_GITHUB_ACTIONS_FILES
-            + EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES,
-            rel_baked_files,
-        )
-    elif (
-        not strtobool(context['should_create_author_files'])
-        and not strtobool(context['should_install_github_dependabot'])
-        and strtobool(context['should_install_github_actions'])
-        and not strtobool(context['should_publish_to_pypi'])
-    ):
-        check_paths_exist(
-            get_expected_baked_files(context['package_name'])
-            + EXPECTED_BAKED_GITHUB_ACTIONS_FILES,
-            rel_baked_files,
-        )
-    elif (
-        not strtobool(context['should_create_author_files'])
-        and not strtobool(context['should_install_github_dependabot'])
-        and not strtobool(context['should_install_github_actions'])
-    ):
-        check_paths_exist(
-            get_expected_baked_files(context['package_name']), rel_baked_files
         )
     else:
         pytest.fail('eeps. missed a case')
