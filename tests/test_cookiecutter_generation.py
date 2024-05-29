@@ -523,6 +523,11 @@ def test_pyproject_with_default_configuration(
                 if s.find(b'[tool.ruff.lint]') == -1:
                     pytest.fail('Should have ruff lint configuration')
 
+                for line in iter(s.readline, b""):
+                    trim_line = line.decode().strip()
+                    if trim_line.startswith('# python'):
+                        pytest.fail('Should not have commented out python')
+
 
 # vim: fenc=utf-8
 # vim: filetype=python

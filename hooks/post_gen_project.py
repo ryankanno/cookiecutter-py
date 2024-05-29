@@ -4,6 +4,7 @@
 #
 # Distributed under terms of the MIT license.
 
+import fileinput
 from distutils.util import strtobool
 from pathlib import Path
 
@@ -74,6 +75,18 @@ def update_pyproject_version(
             f.write(pyproject)
 
 
+def uncomment_pyproject_python_dependency() -> None:
+    pyproject_path = Path("pyproject.toml")
+    if pyproject_path.is_file():
+        with fileinput.input(pyproject_path, inplace=True) as file:
+            for line in file:
+                if line.strip().startswith('# python'):
+                    new_line = line.replace('# python', 'python')
+                    print(new_line, end='')  # noqa: T201
+                else:
+                    print(line, end='')  # noqa: T201
+
+
 if __name__ == '__main__':
     manage_author_files('{{ cookiecutter.should_create_author_files }}')
     manage_github_files(
@@ -83,6 +96,7 @@ if __name__ == '__main__':
         '{{ cookiecutter.should_publish_to_pypi }}',
     )
     update_pyproject_version('{{ cookiecutter.version  }}')
+    uncomment_pyproject_python_dependency()
 
 
 # vim: fenc=utf-8
