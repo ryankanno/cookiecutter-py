@@ -49,8 +49,9 @@ coverage:
     open htmlcov/index.html
 
 # Generate Sphinx documentation (tox:docs)
+[no-quiet]
 docs: clean-docs
-    just tox -e docs
+    just tox run -e docs
 
 # Package
 dist: clean
@@ -62,20 +63,20 @@ install: clean
 
 # Lint (tox:lint)
 lint:
-    just tox -e lint
+    just tox run -e lint
 
 # Lint fix (tox:lint-fix)
 lint-fix:
-    just tox -e lint-fix
+    just tox run -e lint-fix
 
 # Runs tests (tox:tests)
 tests:
-    just tox -m tests
+    just tox run-parallel -m tests
 
 # Runs pre-commit (tox:pre-commit)
 pre-commit:
-    just tox -e pre-commit
+    just tox run -e pre-commit
 
-# Runs tox run-parallel
+# Runs tox
 tox *TOX_ARGS:
-    {{ "{{" }}poetry{{ "}}" }} run tox run-parallel {{ "{{" }}TOX_ARGS{{ "}}" }}
+    {{ "{{" }}poetry{{ "}}" }} run tox {{ "{{" }}TOX_ARGS{{ "}}" }}
