@@ -35,7 +35,7 @@ EXPECTED_BASE_BAKED_FILES = [
     'docker-entrypoint.sh',
     'HISTORY.rst',
     'LICENSE',
-    'Makefile',
+    'Justfile',
     'README.rst',
     '/docs/Makefile',
     '/docs/conf.py',
