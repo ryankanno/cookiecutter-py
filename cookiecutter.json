@@ -16,6 +16,7 @@
   "supported_python_versions": "3.9, 3.10, 3.11, 3.12, pypy3.9, pypy3.10",
   "poetry_version": "1.7.1",
   "tox_version": "4.12.1",
+  "direnv_pyenv_python_version": "3.11.0",
 
   "should_use_direnv": "y",
   "should_create_author_files": "y",
