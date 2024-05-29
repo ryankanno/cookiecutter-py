@@ -26,6 +26,7 @@ template is the tool that will help you do just that.
 - [`tox`](https://tox.readthedocs.org/en/latest/) for testing automation
 - [`sphinx`](http://www.sphinx-doc.org/en/master/) for docs
   - [`myst-parser`](https://github.com/executablebooks/MyST-Parser) for markdown docs
+  - [`furo`](https://github.com/pradyunsg/furo) theme
 - [`pdb++`](https://github.com/pdbpp/pdbpp) for debugging
 - [`konch`](http://konch.readthedocs.org/en/latest/) for shell configuration w/ [`ipython`](https://ipython.org) support
 - [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff))
@@ -121,6 +122,7 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - darglint
 - update details
   - include cookiecutter var descriptions
+- add sphinx theme selection
 
 ## License
 
