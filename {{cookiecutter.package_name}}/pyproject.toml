@@ -39,8 +39,24 @@ optional = true
 [tool.poetry.group.docs.dependencies]
 sphinx = "^7.3.7"
 sphinx-autobuild = "^2024.4.16"
-furo = "^2024.5.6"
 myst-parser = {extras = ["linkify"], version = "^3.0.1"}
+{% if cookiecutter.sphinx_theme == "furo" %}
+furo = "^2024.5.6"
+{% elif cookiecutter.sphinx_theme == "sphinx-rtd-theme" %}
+sphinx-rtd-theme = "^2.0.0"
+{% elif cookiecutter.sphinx_theme == "sphinx-book-theme" %}
+sphinx-book-theme = "^1.1.2"
+{% elif cookiecutter.sphinx_theme == "pydata-sphinx-theme" %}
+pydata-sphinx-theme = "^0.15.3"
+{% elif cookiecutter.sphinx_theme == "sphinx-press-theme" %}
+sphinx-press-theme = "^0.9.1"
+{% elif cookiecutter.sphinx_theme == "piccolo-theme" %}
+piccolo-theme = "^0.22.0"
+{% elif cookiecutter.sphinx_theme == "sphinxawesome-theme" %}
+sphinxawesome-theme = "^5.1.6"
+{% elif cookiecutter.sphinx_theme == "sphinx-wagtail-theme" %}
+sphinx-wagtail-theme = "^6.3.0"
+{% endif %}
 
 [tool.mypy]
 python_version = "{{ cookiecutter.python_version }}"

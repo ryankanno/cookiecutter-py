@@ -93,6 +93,7 @@ exclude = '''
      | build
      | dist
      | __pypackages__
+     | \{\{cookiecutter\.package_name\}\}\/docs
      | \{\{cookiecutter\.package_name\}\}\/tests
  )/
 )
