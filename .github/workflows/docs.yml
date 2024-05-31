@@ -43,6 +43,18 @@ jobs:
           tox
         shell: bash
         env: ${{ matrix.env }}
+      - name: Prepare docs artifact
+        if: always()
+        shell: bash
+        run: |
+          mkdir artifact
+          cp -a .tox/docs_out/ artifact/html_docs
+      - name: Upload docs artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: html_docs
+          path: ./artifact
       - name: Deploy to gh pages
         if: ${{ github.event_name == 'push' && github.ref_name ==  github.event.repository.default_branch }}
         uses: peaceiris/actions-gh-pages@v4
