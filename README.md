@@ -119,14 +119,12 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - add licenses
 - add typeguard
 - version releases
-- integrate [poethepoet](https://github.com/nat-n/poethepoet)
-- update details
-  - include cookiecutter var descriptions
 - update docs
+  - include cookiecutter var descriptions
 - update default/initial template doc structure
-- add deploy to readthedocs
+- add docs.yml github workflows
+  - deploy to gh-pages / readthedocs
 - investigate uv
-- add docs.yaml / docs-pr.yaml workflows
 - plan for 1.0
 
 ## License
