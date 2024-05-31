@@ -122,7 +122,6 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - integrate [poethepoet](https://github.com/nat-n/poethepoet)
 - update details
   - include cookiecutter var descriptions
-- add sphinx theme selection
 - update docs
 - update default/initial template doc structure
 - add deploy to readthedocs
