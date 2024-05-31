@@ -126,7 +126,6 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - update docs
 - update default/initial template doc structure
 - add deploy to readthedocs
-- add poetry pre-commit
 - investigate uv
 - add docs.yaml / docs-pr.yaml workflows
 - plan for 1.0
