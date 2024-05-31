@@ -22,6 +22,9 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'myst_parser',
+    {% if cookiecutter.sphinx_theme == 'sphinx-wagtail-theme' %}
+    '{{ cookiecutter.sphinx_theme|replace('-', '_') }}',
+    {% endif %}
 ]
 
 templates_path = ['_templates']
@@ -50,8 +53,6 @@ myst_enable_extensions = [
 
 {% if cookiecutter.sphinx_theme == 'sphinx-press-theme' %}
 html_theme = 'press'
-{% elif cookiecutter.sphinx_theme == 'sphinx-wagtail-theme' %}
-html_theme = 'wagtail'
 {% else %}
 html_theme = '{{ cookiecutter.sphinx_theme|replace('-', '_') }}'
 {% endif %}
