@@ -86,7 +86,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## 📝 License
 
-Distributed under the {{ cookiecutter.project_license }} License. See `LICENSE` for more information.
+Distributed under the {{ cookiecutter.project_license }} License. See [`LICENSE`]({{ cookiecutter.project_url }}/blog/main/LICENSE) for more information.
 
 <!-- CONTACT -->
 ## 📫 Contact
