@@ -3,7 +3,7 @@
 <div align="center">
   [![GitHub Issues][github-issues-shield]][github-issues-url]
   [![GitHub Pull Requests][github-prs-shield]][github-prs-url]
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+  [![License][license-shield]][license-url]
 </div>
 
 🐍 Modern Python project Cookiecutter template
@@ -132,10 +132,6 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - investigate uv
 - plan for 1.0
 
-## License
-
 ## 📝 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
-
-MIT. See [LICENSE](https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE) for deets.
+Distributed under the MIT License. See `[LICENSE](https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE)` for more information.
