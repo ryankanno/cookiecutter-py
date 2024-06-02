@@ -1,6 +1,8 @@
 <h3 align="center">cookiecutter-py</h3>
 
-🐍 Modern Python project Cookiecutter template
+<div align="center">
+  <p>🐍 Modern Python project Cookiecutter template</p>
+</div>
 
 <div align="center">
   [![GitHub Issues][github-issues-shield]][github-issues-url]
@@ -21,7 +23,7 @@ integrations to help facilitate writing quality Python code.
 This modern Python [Cookiecutter](https://github.com/audreyr/cookiecutter)
 template is the tool that will help you do just that.
 
-## Features
+## ✨Features
 
 - [`poetry`](https://poetry.eustace.io) to manage dependencies
 - [`structlog`](https://www.structlog.org/en/stable) for logging
@@ -61,44 +63,47 @@ template is the tool that will help you do just that.
     - [`trufflehog`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/trufflehog.yml)
 - optional [`direnv`](https://github.com/direnv/direnv) .envrc (with pyenv layout)
 
-## Installation
+<!-- GETTING STARTED -->
+## 🚀 Getting Started
 
-### Cookiecutter
+### Prerequisites
 
 Install [Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/installation.html)
 
-```bash
+```sh
 pip install cookiecutter
 # poetry add cookiecutter
 # pipenv install cookiecutter
 ```
 
-After installing Cookiecutter, create the project:
+**Optional**: Install [Cruft](https://github.com/cruft/cruft)
 
-```bash
-cookiecutter gh:ryankanno/cookiecutter-py
-```
-**Note**: If you want to use the auto approve / merge Dependabot workflow, make
-sure to create tags `major`, `minor`, `patch` so that Dependabot can tag its
-PRs. The workflow won't merge anything with a `major` tag.
-
-### Cruft
-
-Install [Cruft](https://github.com/cruft/cruft)
-
-```bash
+```sh
 pip install cruft
 # poetry add cruft
 # pipenv install cruft
 ```
 
-After installing Cruft, create the project:
+## 🛠️ Usage
 
-```bash
+Using Cookiecutter, create the project:
+
+```sh
+cookiecutter gh:ryankanno/cookiecutter-py
+```
+
+**Note**: If you want to use the auto approve / merge Dependabot workflow, make
+sure to create tags `major`, `minor`, `patch` so that Dependabot can tag its
+PRs. The workflow won't merge anything with a `major` tag.
+
+**Optional**: Using Cruft, create the project:
+
+```sh
 cruft create https://github.com/ryankanno/cookiecutter-py/
 ```
 
-## Details
+<!-- DETAILS -->
+## 🔍 Details
 
 Coming soon to a README near you!
 
@@ -106,13 +111,13 @@ Coming soon to a README near you!
 
 To build the container:
 
-```bash
+```sh
 DOCKER_BUILDKIT=1 docker build .
 ```
 
 To run the container (if you've installed the defaults):
 
-```bash
+```sh
 docker run <image_id or tag> python -m surf.surf
 ```
 
@@ -122,20 +127,57 @@ If you enable the PyPi workflow, versioning will happen via [`dunamai`](https://
 
 If instead, you prefer to version your package, please do it via ```poetry version $(dunamai from any)``` as recommended in their [documentation](https://github.com/mtkennerly/dunamai#user-content-integration).
 
-## TODO
+<!-- ROADMAP -->
+## 🚧 Roadmap
 
-- add mutmut example to template
-- add hypothesis example to template
-- add licenses
-- add typeguard
-- version releases
-- update docs
-  - include cookiecutter var descriptions
-- update default/initial template doc structure
-- add publish docs workflow
-- investigate uv
-- plan for 1.0
+See the [open issues](https://github.com/roshanlam/ReadMeTemplate/issues) for a list of proposed features (and known issues).
 
+<!-- TODO -->
+## ☑️ TODO
+
+- [ ] add mutmut example to template
+- [ ] add hypothesis example to template
+- [ ] add licenses
+- [ ] add typeguard
+- [ ] version releases
+- [ ] update docs
+  - [ ] include cookiecutter var descriptions
+- [ ] update default/initial template doc structure
+- [ ] add publish docs workflow
+- [ ] investigate uv
+- [ ] plan for 1.0
+
+<!-- CONTRIBUTING -->
+## 🤝 Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **extremely appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<!-- LICENSE -->
 ## 📝 License
 
 Distributed under the MIT License. See `[LICENSE](https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE)` for more information.
+
+<!-- CONTACT -->
+## 📫 Contact
+
+Ryan Kanno - @ryankanno
+
+Project Link: [https://github.com/ryankanno/cookiecutter-py](https://github.com/ryankanno/cookiecutter-py)
+
+<!-- ACKNOWLEDGEMENTS -->
+## 🙏 Acknowledgements
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[github-issues-shield]: https://img.shields.io/github/issues//ReadMeTemplate?style=for-the-badge
+[github-issues-url]: https://github.com/roshanlam/ReadMeTemplate/issues
+[github-prs-shield]: https://img.shields.io/github/issues//ReadMeTemplate?style=for-the-badge
+[github-prs-url]: https://github.com/roshanlam/ReadMeTemplate/issues
+[license-shield]: https://img.shields.io/github/issues//ReadMeTemplate?style=for-the-badge
+[license-url]: https://github.com/roshanlam/ReadMeTemplate/issues

@@ -1,9 +1,17 @@
 <h3 align="center">{{cookiecutter.project_name}}</h3>
 
 <div align="center">
+  <p>{{ cookiecutter.project_short_description }}</p>
+</div>
+
+<div align="center">
   [![GitHub Issues][github-issues-shield]][github-issues-url]
   [![GitHub Pull Requests][github-prs-shield]][github-prs-url]
   [![License][license-shield]][license-url]
+</div>
+
+<div align="center">
+  <p><a href="http://{{ cookiecutter.github_repository_owner }}.github.io/{{ cookiecutter.  }}/latest"><strong>Explore the latest docs »</strong></a></p>
 </div>
 
 <!-- PROJECT -->
@@ -21,8 +29,10 @@
   </p>
 </p>
 
+---
+
 <!-- FEATURES -->
-## Features
+##   Features
 
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
@@ -51,7 +61,7 @@ const API_KEY = 'ENTER YOUR API';
 ```
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## 🛠️ Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
