@@ -1,12 +1,16 @@
 <h3 align="center">cookiecutter-py</h3>
 
+🐍 Modern Python project Cookiecutter template
+
 <div align="center">
   [![GitHub Issues][github-issues-shield]][github-issues-url]
   [![GitHub Pull Requests][github-prs-shield]][github-prs-url]
   [![License][license-shield]][license-url]
 </div>
 
-🐍 Modern Python project Cookiecutter template
+<div align="center">
+  <p><a href="http://ryankanno.github.io/cookiecutter-py/latest"><strong>Explore the latest docs »</strong></a></p>
+</div>
 
 ---
 

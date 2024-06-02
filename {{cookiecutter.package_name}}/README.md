@@ -3,12 +3,12 @@
 <div align="center">
   [![GitHub Issues][github-issues-shield]][github-issues-url]
   [![GitHub Pull Requests][github-prs-shield]][github-prs-url]
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+  [![License][license-shield]][license-url]
 </div>
 
 <!-- PROJECT -->
 <p align="center">
-    <a href="https://github.com/roshanlam/ReadMeTemplate/"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/roshanlam/ReadMeTemplate/"><strong>Explore the latest docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/roshanlam/ReadMeTemplate/">View Demo</a>
@@ -20,6 +20,9 @@
     <a href="https://github.com/roshanlam/ReadMeTemplate/pulls">Send a Pull Request</a>
   </p>
 </p>
+
+<!-- FEATURES -->
+## Features
 
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
@@ -87,11 +90,9 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[forks-shield]: https://img.shields.io/github/forks/roshanlam/ReadMeTemplate?style=for-the-badge
-[forks-url]: https://github.com/roshanlam/ReadMeTemplate/network/members
-[stars-shield]: https://img.shields.io/github/stars/roshanlam/ReadMeTemplate?style=for-the-badge
-[stars-url]: https://github.com/roshanlam/ReadMeTemplate/stargazers
-[issues-shield]: https://img.shields.io/github/issues/roshanlam/ReadMeTemplate?style=for-the-badge
-[issues-url]: https://github.com/roshanlam/ReadMeTemplate/issues
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/roshan-lamichhane
+[github-issues-shield]: https://img.shields.io/github/issues//ReadMeTemplate?style=for-the-badge
+[github-issues-url]: https://github.com/roshanlam/ReadMeTemplate/issues
+[github-prs-shield]: https://img.shields.io/github/issues//ReadMeTemplate?style=for-the-badge
+[github-prs-url]: https://github.com/roshanlam/ReadMeTemplate/issues
+[license-shield]: https://img.shields.io/github/issues//ReadMeTemplate?style=for-the-badge
+[license-url]: https://github.com/roshanlam/ReadMeTemplate/issues
