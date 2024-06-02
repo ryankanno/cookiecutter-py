@@ -1,0 +1,10 @@
+cookiecutter\_py package
+========================
+
+Module contents
+---------------
+
+.. automodule:: cookiecutter_py
+   :members:
+   :undoc-members:
+   :show-inheritance:
