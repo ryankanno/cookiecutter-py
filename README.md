@@ -1,4 +1,10 @@
-# cookiecutter-py
+<h3 align="center">cookiecutter-py</h3>
+
+<div align="center">
+  [![GitHub Issues][github-issues-shield]][github-issues-url]
+  [![GitHub Pull Requests][github-prs-shield]][github-prs-url]
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+</div>
 
 🐍 Modern Python project Cookiecutter template
 
@@ -127,5 +133,9 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 - plan for 1.0
 
 ## License
+
+## 📝 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
 
 MIT. See [LICENSE](https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE) for deets.

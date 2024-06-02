@@ -1,0 +1,97 @@
+<h3 align="center">{{cookiecutter.project_name}}</h3>
+
+<div align="center">
+  [![GitHub Issues][github-issues-shield]][github-issues-url]
+  [![GitHub Pull Requests][github-prs-shield]][github-prs-url]
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+</div>
+
+<!-- PROJECT -->
+<p align="center">
+    <a href="https://github.com/roshanlam/ReadMeTemplate/"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/roshanlam/ReadMeTemplate/">View Demo</a>
+    ·
+    <a href="https://github.com/roshanlam/ReadMeTemplate/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/roshanlam/ReadMeTemplate/issues">Request Feature</a>
+    ·
+    <a href="https://github.com/roshanlam/ReadMeTemplate/pulls">Send a Pull Request</a>
+  </p>
+</p>
+
+<!-- GETTING STARTED -->
+## 🚀 Getting Started
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+* npm
+```sh
+npm install npm@latest -g
+```
+### Installation
+
+1. Get a free API Key at [https://example.com](https://example.com)
+2. Clone the repo
+```sh
+git clone https://github.com/your_username_/Project-Name.git
+```
+3. Install NPM packages
+```sh
+npm install
+```
+4. Enter your API in `config.js`
+```JS
+const API_KEY = 'ENTER YOUR API';
+```
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+
+_For more examples, please refer to the [Documentation](https://example.com)_
+
+<!-- ROADMAP -->
+## 🚧 Roadmap
+
+See the [open issues](https://github.com/roshanlam/ReadMeTemplate/issues) for a list of proposed features (and known issues).
+
+<!-- CONTRIBUTING -->
+## 🤝 Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **extremely appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<!-- LICENSE -->
+## 📝 License
+
+Distributed under the {{ cookiecutter.project_license }} License. See `LICENSE` for more information.
+
+<!-- CONTACT -->
+## 📫 Contact
+
+{{ cookiecutter.author_name }} - {{ cookiecutter.author_email }}
+
+Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+
+<!-- ACKNOWLEDGEMENTS -->
+## 🙏 Acknowledgements
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[forks-shield]: https://img.shields.io/github/forks/roshanlam/ReadMeTemplate?style=for-the-badge
+[forks-url]: https://github.com/roshanlam/ReadMeTemplate/network/members
+[stars-shield]: https://img.shields.io/github/stars/roshanlam/ReadMeTemplate?style=for-the-badge
+[stars-url]: https://github.com/roshanlam/ReadMeTemplate/stargazers
+[issues-shield]: https://img.shields.io/github/issues/roshanlam/ReadMeTemplate?style=for-the-badge
+[issues-url]: https://github.com/roshanlam/ReadMeTemplate/issues
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/roshan-lamichhane
