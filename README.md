@@ -23,7 +23,7 @@ integrations to help facilitate writing quality Python code.
 This modern Python [Cookiecutter](https://github.com/audreyr/cookiecutter)
 template is the tool that will help you do just that.
 
-## ✨Features
+## ✨ Features
 
 - [`poetry`](https://poetry.eustace.io) to manage dependencies
 - [`structlog`](https://www.structlog.org/en/stable) for logging

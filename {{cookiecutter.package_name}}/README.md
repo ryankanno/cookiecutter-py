@@ -32,7 +32,7 @@
 ---
 
 <!-- FEATURES -->
-##   Features
+## ✨ Features
 
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
