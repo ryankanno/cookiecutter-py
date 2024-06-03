@@ -20,12 +20,14 @@
 
 ---
 
-Each time you start a new Python project, you shouldn't start from scratch.
+> Each time you start a new Python project, you shouldn't start from scratch.
 Ideally, you'd start with a standard project structure and set of tools and
 integrations to help facilitate writing quality Python code.
 
 This modern Python [Cookiecutter](https://github.com/audreyr/cookiecutter)
 template is the tool that will help you do just that.
+
+---
 
 <!-- FEATURES -->
 ## ✨ Features
@@ -76,16 +78,16 @@ template is the tool that will help you do just that.
 Install [Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/installation.html)
 
 ```sh
-pip install cookiecutter
-# poetry add cookiecutter
+poetry add cookiecutter
+# pip install cookiecutter
 # pipenv install cookiecutter
 ```
 
 **Optional**: Install [Cruft](https://github.com/cruft/cruft)
 
 ```sh
-pip install cruft
-# poetry add cruft
+poetry add cruft
+# pip install cruft
 # pipenv install cruft
 ```
 
