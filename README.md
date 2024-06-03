@@ -14,7 +14,7 @@
 
 <div align="center">
 
-**Explore the latest docs »**[project-docs]
+[**Explore the latest docs »**][project-docs]
 
 </div>
 
