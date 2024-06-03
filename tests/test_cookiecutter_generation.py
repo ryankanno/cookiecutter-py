@@ -69,6 +69,7 @@ EXPECTED_BAKED_GITHUB_ACTIONS_FILES = [
     '/.github/workflows/ci.yml',
     '/.github/workflows/codeql-analysis.yml',
     '/.github/workflows/commitlint.yml',
+    '/.github/workflows/docs.yml',
     '/.github/workflows/hadolint.yml',
     '/.github/workflows/pr-labeler.yml',
     '/.github/workflows/pr-size-labeler.yml',
