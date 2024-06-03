@@ -23,6 +23,7 @@ integrations to help facilitate writing quality Python code.
 This modern Python [Cookiecutter](https://github.com/audreyr/cookiecutter)
 template is the tool that will help you do just that.
 
+<!-- FEATURES -->
 ## ✨ Features
 
 - [`poetry`](https://poetry.eustace.io) to manage dependencies
@@ -130,7 +131,7 @@ If instead, you prefer to version your package, please do it via ```poetry versi
 <!-- ROADMAP -->
 ## 🚧 Roadmap
 
-See the [open issues](https://github.com/roshanlam/ReadMeTemplate/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/ryankanno/cookiecutter-py/issues) for a list of proposed features (and known issues).
 
 <!-- TODO -->
 ## ☑️ TODO
@@ -175,9 +176,9 @@ Project Link: [https://github.com/ryankanno/cookiecutter-py](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[github-issues-shield]: https://img.shields.io/github/issues//ReadMeTemplate?style=for-the-badge
-[github-issues-url]: https://github.com/roshanlam/ReadMeTemplate/issues
-[github-prs-shield]: https://img.shields.io/github/issues//ReadMeTemplate?style=for-the-badge
-[github-prs-url]: https://github.com/roshanlam/ReadMeTemplate/issues
-[license-shield]: https://img.shields.io/github/issues//ReadMeTemplate?style=for-the-badge
-[license-url]: https://github.com/roshanlam/ReadMeTemplate/issues
+[github-issues-shield]: https://img.shields.io/github/issues/ryankanno/cookiecutter-py
+[github-issues-url]: https://github.com/ryankanno/cookiecutter-py/issues
+[github-prs-shield]: https://img.shields.io/github/issues-pr/ryankanno/cookiecutter-py
+[github-prs-url]: https://github.com/ryankanno/cookiecutter-py/pulls
+[license-shield]: https://img.shields.io/github/license/ryankanno/cookiecutter-py
+[license-url]: https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE
