@@ -9,6 +9,7 @@
 [![GitHub Issues][github-issues-shield]][github-issues-url]
 [![GitHub Pull Requests][github-prs-shield]][github-prs-url]
 [![License][license-shield]][license-url]
+
 </div>
 
 <div align="center">
@@ -88,7 +89,7 @@ pip install cruft
 
 ## 🛠️ Usage
 
-Using Cookiecutter, create the project:
+### Cookiecutter
 
 ```sh
 cookiecutter gh:ryankanno/cookiecutter-py
@@ -98,7 +99,7 @@ cookiecutter gh:ryankanno/cookiecutter-py
 sure to create tags `major`, `minor`, `patch` so that Dependabot can tag its
 PRs. The workflow won't merge anything with a `major` tag.
 
-**Optional**: Using Cruft, create the project:
+### Cruft (Optional)
 
 ```sh
 cruft create https://github.com/ryankanno/cookiecutter-py/
