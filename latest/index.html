@@ -254,17 +254,28 @@
 <h1>Welcome to cookiecutter-py’s documentation!<a class="headerlink" href="#welcome-to-cookiecutter-py-s-documentation" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="cookiecutter-py">
-<h2>cookiecutter-py<a class="headerlink" href="#cookiecutter-py" title="Link to this heading">¶</a></h2>
-<p>🐍 Modern Python project Cookiecutter template</p>
+<h3 align="center">cookiecutter-py</h3>
+<div align="center">
+  <p>🐍 Modern Python project Cookiecutter template</p>
+</div>
+<div align="center">
+<p><a class="reference external" href="https://github.com/ryankanno/cookiecutter-py/issues"><img alt="GitHub Issues" src="https://img.shields.io/github/issues/ryankanno/cookiecutter-py" /></a>
+<a class="reference external" href="https://github.com/ryankanno/cookiecutter-py/pulls"><img alt="GitHub Pull Requests" src="https://img.shields.io/github/issues-pr/ryankanno/cookiecutter-py" /></a>
+<a class="reference external" href="https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/ryankanno/cookiecutter-py" /></a></p>
+</div>
+<div align="center">
+<p><a class="reference external" href="https://ryankanno.github.io/cookiecutter-py/latest"><strong>Explore the latest docs »</strong></a></p>
+</div>
 <hr class="docutils" />
 <p>Each time you start a new Python project, you shouldn’t start from scratch.
 Ideally, you’d start with a standard project structure and set of tools and
 integrations to help facilitate writing quality Python code.</p>
 <p>This modern Python <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a>
 template is the tool that will help you do just that.</p>
+<hr class="docutils" />
+<!-- FEATURES -->
 <section id="features">
-<h3>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h3>
+<h2>✨ Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://poetry.eustace.io"><code class="docutils literal notranslate"><span class="pre">poetry</span></code></a> to manage dependencies</p></li>
 <li><p><a class="reference external" href="https://www.structlog.org/en/stable"><code class="docutils literal notranslate"><span class="pre">structlog</span></code></a> for logging</p></li>
@@ -313,82 +324,112 @@ template is the tool that will help you do just that.</p>
 </li>
 <li><p>optional <a class="reference external" href="https://github.com/direnv/direnv"><code class="docutils literal notranslate"><span class="pre">direnv</span></code></a> .envrc (with pyenv layout)</p></li>
 </ul>
+<!-- GETTING STARTED -->
 </section>
-<section id="installation">
-<h3>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h3>
-<section id="cookiecutter">
-<h4>Cookiecutter<a class="headerlink" href="#cookiecutter" title="Link to this heading">¶</a></h4>
+<section id="getting-started">
+<h2>🚀 Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h2>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h3>
 <p>Install <a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/installation.html">Cookiecutter</a></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>cookiecutter
-<span class="c1"># poetry add cookiecutter</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>add<span class="w"> </span>cookiecutter
+<span class="c1"># pip install cookiecutter</span>
 <span class="c1"># pipenv install cookiecutter</span>
 </pre></div>
 </div>
-<p>After installing Cookiecutter, create the project:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cookiecutter<span class="w"> </span>gh:ryankanno/cookiecutter-py
+<p><strong>Optional</strong>: Install <a class="reference external" href="https://github.com/cruft/cruft">Cruft</a></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>add<span class="w"> </span>cruft
+<span class="c1"># pip install cruft</span>
+<span class="c1"># pipenv install cruft</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="usage">
+<h2>🛠️ Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<section id="cookiecutter">
+<h3>Cookiecutter<a class="headerlink" href="#cookiecutter" title="Link to this heading">¶</a></h3>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cookiecutter<span class="w"> </span>gh:ryankanno/cookiecutter-py
 </pre></div>
 </div>
 <p><strong>Note</strong>: If you want to use the auto approve / merge Dependabot workflow, make
 sure to create tags <code class="docutils literal notranslate"><span class="pre">major</span></code>, <code class="docutils literal notranslate"><span class="pre">minor</span></code>, <code class="docutils literal notranslate"><span class="pre">patch</span></code> so that Dependabot can tag its
 PRs. The workflow won’t merge anything with a <code class="docutils literal notranslate"><span class="pre">major</span></code> tag.</p>
 </section>
-<section id="cruft">
-<h4>Cruft<a class="headerlink" href="#cruft" title="Link to this heading">¶</a></h4>
-<p>Install <a class="reference external" href="https://github.com/cruft/cruft">Cruft</a></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>cruft
-<span class="c1"># poetry add cruft</span>
-<span class="c1"># pipenv install cruft</span>
+<section id="cruft-optional">
+<h3>Cruft (Optional)<a class="headerlink" href="#cruft-optional" title="Link to this heading">¶</a></h3>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cruft<span class="w"> </span>create<span class="w"> </span>https://github.com/ryankanno/cookiecutter-py/
 </pre></div>
 </div>
-<p>After installing Cruft, create the project:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cruft<span class="w"> </span>create<span class="w"> </span>https://github.com/ryankanno/cookiecutter-py/
-</pre></div>
-</div>
+<!-- DETAILS -->
 </section>
 </section>
 <section id="details">
-<h3>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<h2>🔍 Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h2>
 <p>Coming soon to a README near you!</p>
 <section id="docker">
-<h4>Docker<a class="headerlink" href="#docker" title="Link to this heading">¶</a></h4>
+<h3>Docker<a class="headerlink" href="#docker" title="Link to this heading">¶</a></h3>
 <p>To build the container:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>.
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>.
 </pre></div>
 </div>
 <p>To run the container (if you’ve installed the defaults):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>&lt;image_id<span class="w"> </span>or<span class="w"> </span>tag&gt;<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>surf.surf
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>&lt;image_id<span class="w"> </span>or<span class="w"> </span>tag&gt;<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>surf.surf
 </pre></div>
 </div>
 </section>
 <section id="versioning">
-<h4>Versioning<a class="headerlink" href="#versioning" title="Link to this heading">¶</a></h4>
+<h3>Versioning<a class="headerlink" href="#versioning" title="Link to this heading">¶</a></h3>
 <p>If you enable the PyPi workflow, versioning will happen via <a class="reference external" href="https://github.com/mtkennerly/dunamai"><code class="docutils literal notranslate"><span class="pre">dunamai</span></code></a> within the Github pipeline.</p>
 <p>If instead, you prefer to version your package, please do it via <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">version</span> <span class="pre">$(dunamai</span> <span class="pre">from</span> <span class="pre">any)</span></code> as recommended in their <a class="reference external" href="https://github.com/mtkennerly/dunamai#user-content-integration">documentation</a>.</p>
+<!-- ROADMAP -->
 </section>
+</section>
+<section id="roadmap">
+<h2>🚧 Roadmap<a class="headerlink" href="#roadmap" title="Link to this heading">¶</a></h2>
+<p>See the <a class="reference external" href="https://github.com/ryankanno/cookiecutter-py/issues">open issues</a> for a list of proposed features (and known issues).</p>
+<!-- TODO -->
 </section>
 <section id="todo">
-<h3>TODO<a class="headerlink" href="#todo" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>add mutmut example to template</p></li>
-<li><p>add hypothesis example to template</p></li>
-<li><p>add licenses</p></li>
-<li><p>add typeguard</p></li>
-<li><p>version releases</p></li>
-<li><p>update docs</p>
-<ul>
-<li><p>include cookiecutter var descriptions</p></li>
+<h2>☑️ TODO<a class="headerlink" href="#todo" title="Link to this heading">¶</a></h2>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> add mutmut example to template</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> add hypothesis example to template</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> add licenses</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> add typeguard</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> version releases</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> update docs</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> include cookiecutter var descriptions</p></li>
 </ul>
 </li>
-<li><p>update default/initial template doc structure</p></li>
-<li><p>add publish docs workflow</p></li>
-<li><p>investigate uv</p></li>
-<li><p>plan for 1.0</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> update default/initial template doc structure</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> add publish docs workflow</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> investigate uv</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> plan for 1.0</p></li>
 </ul>
+<!-- CONTRIBUTING -->
+</section>
+<section id="contributing">
+<h2>🤝 Contributing<a class="headerlink" href="#contributing" title="Link to this heading">¶</a></h2>
+<p>Contributions are very much appreciated.</p>
+<ol class="arabic simple">
+<li><p>Fork the project</p></li>
+<li><p>Create your feature branch (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">feature/new-cookiecutter-feature</span></code>)</p></li>
+<li><p>Commit your changes (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">'Added</span> <span class="pre">a</span> <span class="pre">new</span> <span class="pre">feature'</span></code>)</p></li>
+<li><p>Push to the feature branch (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">feature/new-cookiecutter-feature</span></code>)</p></li>
+<li><p>Open a PR! 🎆</p></li>
+</ol>
+<!-- LICENSE -->
 </section>
 <section id="license">
-<h3>License<a class="headerlink" href="#license" title="Link to this heading">¶</a></h3>
-<p>MIT. See <a class="reference external" href="https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE">LICENSE</a> for deets.</p>
+<h2>📝 License<a class="headerlink" href="#license" title="Link to this heading">¶</a></h2>
+<p>Distributed under the MIT License. See <a class="reference external" href="https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE"><code class="docutils literal notranslate"><span class="pre">LICENSE</span></code></a> for more information.</p>
+<!-- CONTACT -->
 </section>
+<section id="contact">
+<h2>📫 Contact<a class="headerlink" href="#contact" title="Link to this heading">¶</a></h2>
+<p>Ryan Kanno - <a class="reference external" href="https://twitter.com/ryankanno">&#64;ryankanno</a></p>
+<p>Project Link: <a class="reference external" href="https://github.com/ryankanno/cookiecutter-py">https://github.com/ryankanno/cookiecutter-py</a></p>
 </section>
 <p>The MIT License (MIT)</p>
 <p>Copyright (c) 2015 Ryan Kanno</p>
@@ -455,22 +496,26 @@ SOFTWARE.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Welcome to cookiecutter-py’s documentation!</a><ul>
-<li><a class="reference internal" href="#cookiecutter-py">cookiecutter-py</a><ul>
-<li><a class="reference internal" href="#features">Features</a></li>
-<li><a class="reference internal" href="#installation">Installation</a><ul>
-<li><a class="reference internal" href="#cookiecutter">Cookiecutter</a></li>
-<li><a class="reference internal" href="#cruft">Cruft</a></li>
+<li><a class="reference internal" href="#features">✨ Features</a></li>
+<li><a class="reference internal" href="#getting-started">🚀 Getting Started</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#details">Details</a><ul>
+<li><a class="reference internal" href="#usage">🛠️ Usage</a><ul>
+<li><a class="reference internal" href="#cookiecutter">Cookiecutter</a></li>
+<li><a class="reference internal" href="#cruft-optional">Cruft (Optional)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#details">🔍 Details</a><ul>
 <li><a class="reference internal" href="#docker">Docker</a></li>
 <li><a class="reference internal" href="#versioning">Versioning</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#todo">TODO</a></li>
-<li><a class="reference internal" href="#license">License</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#roadmap">🚧 Roadmap</a></li>
+<li><a class="reference internal" href="#todo">☑️ TODO</a></li>
+<li><a class="reference internal" href="#contributing">🤝 Contributing</a></li>
+<li><a class="reference internal" href="#license">📝 License</a></li>
+<li><a class="reference internal" href="#contact">📫 Contact</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
