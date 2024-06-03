@@ -8,12 +8,14 @@
 
 [![GitHub Issues][github-issues-shield]][github-issues-url]
 [![GitHub Pull Requests][github-prs-shield]][github-prs-url]
-[![License][license-shield]][license-url]
+[![License][project-license-shield]][project-license-url]
 
 </div>
 
 <div align="center">
-  <p><a href="http://ryankanno.github.io/cookiecutter-py/latest"><strong>Explore the latest docs »</strong></a></p>
+
+**Explore the latest docs »**[project-docs]
+
 </div>
 
 ---
@@ -171,14 +173,15 @@ Distributed under the MIT License. See [`LICENSE`](https://github.com/ryankanno/
 
 Ryan Kanno - [@ryankanno][twitter-ryankanno-url]
 
-Project Link: [https://github.com/ryankanno/cookiecutter-py](https://github.com/ryankanno/cookiecutter-py)
+Project Link: [https://github.com/ryankanno/cookiecutter-py][project-url]
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[project-url]: https://github.com/ryankanno/cookiecutter-py
+[project-docs]: https://ryankanno.github.io/cookiecutter-py/latest
+[project-license-shield]: https://img.shields.io/github/license/ryankanno/cookiecutter-py
+[project-license-url]: https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE
 [github-issues-shield]: https://img.shields.io/github/issues/ryankanno/cookiecutter-py
 [github-issues-url]: https://github.com/ryankanno/cookiecutter-py/issues
 [github-prs-shield]: https://img.shields.io/github/issues-pr/ryankanno/cookiecutter-py
 [github-prs-url]: https://github.com/ryankanno/cookiecutter-py/pulls
-[license-shield]: https://img.shields.io/github/license/ryankanno/cookiecutter-py
-[license-url]: https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE
 [twitter-ryankanno-url]: https://twitter.com/ryankanno
