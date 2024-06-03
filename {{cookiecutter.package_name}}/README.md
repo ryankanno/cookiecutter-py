@@ -83,7 +83,7 @@ Distributed under the {{ cookiecutter.project_license }} License. See [`LICENSE`
 <!-- CONTACT -->
 ## 📫 Contact
 
-{{ cookiecutter.author_name }} - {{ cookiecutter.author_email }}
+{{ cookiecutter.author_name }}
 
 Project Link: [{{ cookiecutter.project_url }}][project-url]
 
