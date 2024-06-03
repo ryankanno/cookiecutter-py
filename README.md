@@ -169,12 +169,9 @@ Distributed under the MIT License. See [`LICENSE`](https://github.com/ryankanno/
 <!-- CONTACT -->
 ## 📫 Contact
 
-Ryan Kanno - @ryankanno
+Ryan Kanno - [@ryankanno][twitter-ryankanno-url]
 
 Project Link: [https://github.com/ryankanno/cookiecutter-py](https://github.com/ryankanno/cookiecutter-py)
-
-<!-- ACKNOWLEDGEMENTS -->
-## 🙏 Acknowledgements
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -184,3 +181,4 @@ Project Link: [https://github.com/ryankanno/cookiecutter-py](https://github.com/
 [github-prs-url]: https://github.com/ryankanno/cookiecutter-py/pulls
 [license-shield]: https://img.shields.io/github/license/ryankanno/cookiecutter-py
 [license-url]: https://github.com/ryankanno/cookiecutter-py/blob/main/LICENSE
+[twitter-ryankanno-url]: https://twitter.com/ryankanno
