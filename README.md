@@ -20,7 +20,7 @@
 
 ---
 
-> Each time you start a new Python project, you shouldn't start from scratch.
+Each time you start a new Python project, you shouldn't start from scratch.
 Ideally, you'd start with a standard project structure and set of tools and
 integrations to help facilitate writing quality Python code.
 
