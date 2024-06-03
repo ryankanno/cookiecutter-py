@@ -8,13 +8,19 @@
 
   [![GitHub Issues][github-issues-shield]][github-issues-url]
   [![GitHub Pull Requests][github-prs-shield]][github-prs-url]
-  [![License][license-shield]][license-url]
+  [![License][project-license-shield]][project-license-url]
 
 </div>
 
 <div align="center">
-  <p><a href="http://{{ cookiecutter.project_url.split('/')[-2] }}.github.io/{{ cookiecutter.project_url.split('/')[-1] }}/latest"><strong>Explore the latest docs »</strong></a></p>
+
+[**Explore the latest docs »**][project-docs-url]
+
 </div>
+
+---
+
+Detailed description about {{ cookiecutter.project_name }} goes here.
 
 ---
 
@@ -26,38 +32,33 @@
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+* [poetry](https://python-poetry.org/docs/#installing-with-the-official-installer)
 ```sh
-npm install npm@latest -g
+curl -sSL https://install.python-poetry.org | python3 -
 ```
+
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
 ```sh
-git clone https://github.com/your_username_/Project-Name.git
+git clone {{ cookiecutter.project_url }}.git
 ```
-3. Install NPM packages
+2. Install
 ```sh
-npm install
-```
-4. Enter your API in `config.js`
-```JS
-const API_KEY = 'ENTER YOUR API';
+poetry install
 ```
 
 <!-- USAGE EXAMPLES -->
 ## 🛠️ Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Show a few examples of how a project is to be used.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples, please refer to the [documentation][project-docs-url]_
 
 <!-- ROADMAP -->
 ## 🚧 Roadmap
 
-See the [open issues]({{ cookiecutter.project_url }}/issues) for a list of proposed features (and known issues).
+See the [open issues][github-issues-url] for a list of proposed features (and known issues).
 
 <!-- TODO -->
 ## ☑️ TODO
@@ -77,23 +78,26 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## 📝 License
 
-Distributed under the {{ cookiecutter.project_license }} License. See [`LICENSE`]({{ cookiecutter.project_url }}/blog/main/LICENSE) for more information.
+Distributed under the {{ cookiecutter.project_license }} License. See [`LICENSE`][project-license-url] for more information.
 
 <!-- CONTACT -->
 ## 📫 Contact
 
 {{ cookiecutter.author_name }} - {{ cookiecutter.author_email }}
 
-Project Link: [{{ cookiecutter.project_url }}]({{ cookiecutter.project_url }})
+Project Link: [{{ cookiecutter.project_url }}][project-url]
 
 <!-- ACKNOWLEDGEMENTS -->
 ## 🙏 Acknowledgements
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+Anyone you'd like to thank?
+
+<!-- MARKDOWN REFERENCE LINKS -->
+[project-url]: {{ cookiecutter.project_url }}
+[project-docs-url]: https://{{ cookiecutter.project_url.split('/')[-2] }}.github.io/{{ cookiecutter.project_url.split('/')[-1] }}/latest
+[project-license-shield]: https://img.shields.io/github/license/{{ cookiecutter.project_url.split('/')[-2] }}/{{ cookiecutter.project_url.split('/')[-1] }}
+[project-license-url]: {{ cookiecutter.project_url }}/blob/main/LICENSE
 [github-issues-shield]: https://img.shields.io/github/issues/{{ cookiecutter.project_url.split('/')[-2] }}/{{ cookiecutter.project_url.split('/')[-1] }}
 [github-issues-url]: https://github.com/{{ cookiecutter.project_url.split('/')[-2] }}/{{ cookiecutter.project_url.split('/')[-1] }}/issues
 [github-prs-shield]: https://img.shields.io/github/issues-pr/{{ cookiecutter.project_url.split('/')[-2] }}/{{ cookiecutter.project_url.split('/')[-1] }}
 [github-prs-url]: https://github.com/{{ cookiecutter.project_url.split('/')[-2] }}/{{ cookiecutter.project_url.split('/')[-1] }}/pulls
-[license-shield]: https://img.shields.io/github/license/{{ cookiecutter.project_url.split('/')[-2] }}/{{ cookiecutter.project_url.split('/')[-1] }}
-[license-url]: {{ cookiecutter.project_url }}/blob/main/LICENSE
