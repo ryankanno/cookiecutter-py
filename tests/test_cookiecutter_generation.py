@@ -36,7 +36,7 @@ EXPECTED_BASE_BAKED_FILES = [
     'HISTORY.rst',
     'LICENSE',
     'Justfile',
-    'README.rst',
+    'README.md',
     '/docs/Makefile',
     '/docs/conf.py',
     '/docs/index.rst',
