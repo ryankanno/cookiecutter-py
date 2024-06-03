@@ -1,24 +1,24 @@
 <h3 align="center">cookiecutter-py</h3>
 
 <div align="center">
-  <p>🐍 Modern Python project Cookiecutter template</p>
+  🐍 Modern Python project Cookiecutter template
 </div>
 
 <div align="center">
-  [github-issues-url](https://google.com)
   [![GitHub Issues][github-issues-shield]][github-issues-url]
   [![GitHub Pull Requests][github-prs-shield]][github-prs-url]
   [![License][license-shield]][license-url]
 </div>
 
+[![GitHub Issues][github-issues-shield]][github-issues-url]
+[![GitHub Pull Requests][github-prs-shield]][github-prs-url]
+[![License][license-shield]][license-url]
+
 <div align="center">
-  <p><a href="http://ryankanno.github.io/cookiecutter-py/latest"><strong>Explore the latest docs »</strong></a></p>
+  <a href="http://ryankanno.github.io/cookiecutter-py/latest"><strong>Explore the latest docs »</strong></a>
 </div>
 
 ---
-
-[HI][github-issues-url]
-[![GitHub Issues][github-issues-shield]][github-issues-url]
 
 Each time you start a new Python project, you shouldn't start from scratch.
 Ideally, you'd start with a standard project structure and set of tools and
