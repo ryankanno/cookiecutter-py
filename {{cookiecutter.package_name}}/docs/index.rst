@@ -15,7 +15,7 @@ Welcome to {{cookiecutter.package_name}}'s documentation!
     roadmap <roadmap/roadmap>
     todo <todo/todo>
 
-{{cookiecutter.short_description}}
+{{cookiecutter.project_short_description}}
 
 .. include:: ../README.md
    :parser: myst_parser.sphinx_
