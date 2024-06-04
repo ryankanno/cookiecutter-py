@@ -67,8 +67,8 @@ html_static_path = ['_static']
 
 {% if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' %}
 html_context = {
-    "display_github": True, # Integrate GitHub
-    "github_user": "{{ cookiecutter.project_url.split('/')[-2] }}"
+    "display_github": True,
+    "github_user": "{{ cookiecutter.project_url.split('/')[-2] }}",
     "github_repo": "{{ cookiecutter.project_url.split('/')[-1] }}"
 }
 {% endif %}
