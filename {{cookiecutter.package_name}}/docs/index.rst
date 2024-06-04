@@ -10,7 +10,17 @@ Welcome to {{cookiecutter.package_name}}'s documentation!
    :maxdepth: 2
    :caption: Contents:
 
-.. include:: ../README.rst
+    getting_started <getting_started/getting_started>
+    usage <usage/usage>
+    roadmap <roadmap/roadmap>
+    todo <todo/todo>
+
+{{cookiecutter.short_description}}
+
+.. include:: ../README.md
+   :parser: myst_parser.sphinx_
+   :start-after: Features
+   :end-before: ## 🚀 Getting Started
 .. include:: ../LICENSE
 
 
