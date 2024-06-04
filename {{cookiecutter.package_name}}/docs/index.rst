@@ -19,7 +19,7 @@ Welcome to {{cookiecutter.package_name}}'s documentation!
 
 .. include:: ../README.md
    :parser: myst_parser.sphinx_
-   :start-after: Features
+   :start-after: ## ✨ Features
    :end-before: ## 🚀 Getting Started
 .. include:: ../LICENSE
 
