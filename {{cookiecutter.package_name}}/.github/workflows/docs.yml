@@ -23,6 +23,8 @@ jobs:
         env:
           - TOXENV: "docs"
     runs-on: {% raw %}${{ matrix.os }}{% endraw %}
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Configure Python {% raw %}${{ matrix.python-version }}{% endraw %}
