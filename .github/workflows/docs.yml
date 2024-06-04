@@ -23,6 +23,8 @@ jobs:
         env:
           - TOXENV: "docs"
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Configure Python ${{ matrix.python-version }}
