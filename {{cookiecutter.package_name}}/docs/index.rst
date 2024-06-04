@@ -8,19 +8,28 @@ Welcome to {{cookiecutter.package_name}}'s documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :hidden:
 
-    getting_started <getting_started/getting_started>
-    usage <usage/usage>
-    roadmap <roadmap/roadmap>
-    todo <todo/todo>
+    Getting Started <getting_started/getting_started>
+    Usage <usage/usage>
+    Roadmap <roadmap/roadmap>
+    TODO <todo/todo>
 
 {{cookiecutter.project_short_description}}
+
+============
+✨ Features
+============
 
 .. include:: ../README.md
    :parser: myst_parser.sphinx_
    :start-after: ## ✨ Features
    :end-before: ## 🚀 Getting Started
+
+============
+📝 License
+============
+
 .. include:: ../LICENSE
 
 
