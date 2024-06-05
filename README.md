@@ -149,7 +149,7 @@ See the [open issues](https://github.com/ryankanno/cookiecutter-py/issues) for a
 - [ ] version releases
 - [ ] update docs
   - [ ] include cookiecutter var descriptions
-- [ ] update default/initial template doc structure
+- [X] update default/initial template doc structure
 - [ ] add publish docs workflow
 - [ ] investigate uv
 - [ ] plan for 1.0

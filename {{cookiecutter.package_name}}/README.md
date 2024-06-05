@@ -27,6 +27,10 @@ Detailed description about {{ cookiecutter.project_name }} goes here.
 <!-- FEATURES -->
 ## ✨ Features
 
+* Ability to avoid kill screens
+* Hic Sunt Pokémon
+* Speaks mystical incantations when errors are encountered
+
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 

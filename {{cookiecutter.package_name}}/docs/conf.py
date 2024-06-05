@@ -62,4 +62,13 @@ html_theme = 'press'
 {% else %}
 html_theme = '{{ cookiecutter.sphinx_theme|replace('-', '_') }}'
 {% endif %}
+
 html_static_path = ['_static']
+
+{% if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' %}
+html_context = {
+    "display_github": True,
+    "github_user": "{{ cookiecutter.project_url.split('/')[-2] }}",
+    "github_repo": "{{ cookiecutter.project_url.split('/')[-1] }}"
+}
+{% endif %}
