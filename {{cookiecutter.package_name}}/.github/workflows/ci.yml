@@ -49,7 +49,7 @@ jobs:
       matrix:
         python-version:
         {%- for python_version in cookiecutter.supported_python_versions.split(',') %}
-          - "{{ python_version }}"
+          - "{{ python_version|trim }}"
         {%- endfor %}
         os: [ubuntu-latest]
     runs-on: {% raw %}${{ matrix.os }}{% endraw %}
