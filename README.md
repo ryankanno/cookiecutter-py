@@ -152,6 +152,7 @@ See the [open issues](https://github.com/ryankanno/cookiecutter-py/issues) for a
 - [X] update default/initial template doc structure
 - [ ] add publish docs workflow
 - [ ] investigate uv
+- [ ] investigate switching off poetry to pdm/hatch/rye
 - [ ] plan for 1.0
 
 <!-- CONTRIBUTING -->
