@@ -1,18 +1,18 @@
-FROM python:{{ cookiecutter.python_version }}-slim-buster as base
+FROM python:{{ cookiecutter.python_version }}-slim-buster AS base
 
 ENV PYTHONFAULTHANDLER=1 \
-  PYTHONUNBUFFERED=1 \
-  PYTHONHASHSEED=random
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random
 
 FROM base as builder
 
 ENV PIP_NO_CACHE_DIR=off \
-  PIP_DISABLE_PIP_VERSION_CHECK=on \
-  PIP_DEFAULT_TIMEOUT=100 \
-  PATH="~/.local/bin:/venv/bin:${PATH}" \
-  VIRTUAL_ENV="/venv" \
-  POETRY_VERSION={{ cookiecutter.poetry_version }} \
-  POETRY_VIRTUALENVS_CREATE=false
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    PATH="~/.local/bin:/venv/bin:${PATH}" \
+    VIRTUAL_ENV="/venv" \
+    POETRY_VERSION={{ cookiecutter.poetry_version }} \
+    POETRY_VIRTUALENVS_CREATE=false
 
 WORKDIR /app
 
@@ -31,7 +31,7 @@ RUN poetry install --no-dev --no-interaction --no-ansi --no-root
 COPY . ./
 RUN poetry install --no-interaction --no-ansi
 
-FROM base as final
+FROM base AS final
 
 ARG REPOSITORY={{ cookiecutter.project_url }}
 ARG BUILD_DATETIME
@@ -39,14 +39,14 @@ ARG VERSION
 ARG REVISION
 ARG BRANCH
 
-ENV REPOSITORY ${REPOSITORY}
-ENV BUILD_DATETIME ${BUILD_DATETIME:-null}
-ENV VERSION ${VERSION:-null}
-ENV REVISION ${REVISION:-null}
-ENV BRANCH ${BRANCH:-main}
+ENV REPOSITORY=${REPOSITORY}
+ENV BUILD_DATETIME=${BUILD_DATETIME:-null}
+ENV VERSION=${VERSION:-null}
+ENV REVISION=${REVISION:-null}
+ENV BRANCH=${BRANCH:-main}
 
 ENV PATH="/venv/bin:${PATH}" \
-  VIRTUAL_ENV="/venv"
+    VIRTUAL_ENV="/venv"
 
 LABEL maintainers="{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"
 
