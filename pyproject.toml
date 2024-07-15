@@ -33,13 +33,13 @@ tox = "^4.16.0"
 mypy = "^1.10.1"
 pytest-cov = "^5.0.0"
 pytest-xdist = "^3.6.1"
-ruff = "^0.5.1"
+ruff = "^0.5.2"
 
 [tool.poetry.group.docs]
 optional = true
 
 [tool.poetry.group.docs.dependencies]
-sphinx = "^7.3.7"
+sphinx = "^7.4.0"
 sphinx-autobuild = "^2024.4.16"
 furo = "^2024.5.6"
 myst-parser = {extras = ["linkify"], version = "^3.0.1"}
