@@ -149,13 +149,13 @@ paths = ["hooks", "tests"]
 sort_by_size = true
 
 [tool.ruff]
-extend-exclude = ['[{][{]cookiecutter.package_name[}][}]/docs', 'docs']
+extend-exclude = ['[{][{]cookiecutter.package_name[}][}]/tests', '[{][{]cookiecutter.package_name[}][}]/docs', 'docs']
 line-length = 79
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 10
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [tool.ruff.lint]

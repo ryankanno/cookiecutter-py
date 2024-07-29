@@ -156,10 +156,10 @@ sort_by_size = true
 line-length = 79
 extend-exclude = ["docs"]
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 10
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [tool.ruff.lint]
