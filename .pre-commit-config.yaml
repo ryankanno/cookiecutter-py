@@ -11,14 +11,14 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.11.0
+    rev: v1.11.2
     hooks:
       - id: mypy
         exclude: |
           (?x)(cookiecutter\.package_name)
         additional_dependencies: [pytest==7.1.2]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.5.5
+    rev: v0.6.5
     hooks:
     - id: ruff
       args: ['--config', 'pyproject.toml']
@@ -27,7 +27,7 @@ repos:
       stages: [manual]
       args: ['--config', 'pyproject.toml', '--fix', '--exit-non-zero-on-fix']
   - repo: https://github.com/python/black
-    rev: 24.4.2
+    rev: 24.8.0
     hooks:
       - id: black
         args: ['--config', 'pyproject.toml']
@@ -52,7 +52,7 @@ repos:
     hooks:
       - id: bashate
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v9.16.0
+    rev: v9.18.0
     hooks:
       - id: commitlint
         stages: [commit-msg]
@@ -63,7 +63,7 @@ repos:
     -   id: detect-secrets
         args: ['--baseline', '.secrets.baseline']
   - repo: https://github.com/crate-ci/typos
-    rev: v1.23.5
+    rev: v1.24.5
     hooks:
       - id: typos
         args: ["--config", "_typos.toml", "--force-exclude"]
