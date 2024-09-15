@@ -19,11 +19,10 @@ from hooks.pre_gen_project import (
 
 
 def test_remove_path() -> None:
-    temp = tempfile.NamedTemporaryFile(delete=False)
-    temp_path = Path(temp.name)
-    remove_path(temp_path)
-
-    assert not temp_path.exists()
+    with tempfile.NamedTemporaryFile(delete=False) as ntf:
+        temp_path = Path(ntf.name)
+        remove_path(temp_path)
+        assert not temp_path.exists()
 
 
 def test_with_unsupported_python_versions() -> None:
