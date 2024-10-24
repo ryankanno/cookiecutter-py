@@ -88,8 +88,8 @@ EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES = [
 
 def get_expected_baked_files(package_name: str) -> typing.List[str]:
     return EXPECTED_BASE_BAKED_FILES + [
-        f'/{package_name}/__init__.py',
-        f'/{package_name}/{package_name}.py',
+        f'/src/{package_name}/__init__.py',
+        f'/src/{package_name}/{package_name}.py',
         '/tests/__init__.py',
         f'/tests/test_{package_name}.py',
     ]

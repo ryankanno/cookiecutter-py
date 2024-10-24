@@ -103,7 +103,7 @@ exclude = '''
      | build
      | dist
      | __pypackages__
-     | {{cookiecutter.package_name}}\tests
+     | tests
  )/
 )
 '''
@@ -118,7 +118,7 @@ testpaths = [
 [tool.coverage.run]
 parallel = true
 branch = true
-source = ["{{ cookiecutter.package_name }}"]
+source = ["src/{{ cookiecutter.package_name }}"]
 omit = [
     "*/python?.?/*",
     "*/tests/*"
@@ -149,7 +149,7 @@ sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 [tool.vulture]
 make_whitelist = true
 min_confidence = 80
-paths = ["{{ cookiecutter.package_name }}/", "tests/"]
+paths = ["./src/{{ cookiecutter.package_name }}/", "./tests/"]
 sort_by_size = true
 
 [tool.ruff]
