@@ -28,9 +28,9 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'myst_parser',
-    {% if cookiecutter.sphinx_theme == 'sphinx-wagtail-theme' %}
-    '{{ cookiecutter.sphinx_theme|replace('-', '_') }}',
-    {% endif %}
+    {%- if cookiecutter.sphinx_theme == 'sphinx-wagtail-theme' -%}
+    '{{ cookiecutter.sphinx_theme|replace('-', '_') }}'
+    {%- endif %}
 ]
 
 templates_path = ['_templates']
@@ -64,11 +64,10 @@ html_theme = '{{ cookiecutter.sphinx_theme|replace('-', '_') }}'
 {% endif %}
 
 html_static_path = ['_static']
-
-{% if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' %}
+{% if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' -%}
 html_context = {
     "display_github": True,
     "github_user": "{{ cookiecutter.project_url.split('/')[-2] }}",
     "github_repo": "{{ cookiecutter.project_url.split('/')[-1] }}"
 }
-{% endif %}
+{% endif -%}
