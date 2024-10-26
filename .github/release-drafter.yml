@@ -1,5 +1,5 @@
-name-template: "$RESOLVED_VERSION"
 tag-template: "$RESOLVED_VERSION"
+name-template: "$RESOLVED_VERSION"
 
 categories:
   - title: ":rocket: Features"
@@ -51,6 +51,10 @@ template: |
 exclude-labels:
   - "skip-changelog"
 
+exclude-contributors:
+  - dependabot
+  - dependabot[bot]
+
 autolabeler:
   - label: "documentation"
     branch:
@@ -74,3 +78,4 @@ autolabeler:
   - label: "breaking"
     branch:
       - '/breaking\/.+/'
+
