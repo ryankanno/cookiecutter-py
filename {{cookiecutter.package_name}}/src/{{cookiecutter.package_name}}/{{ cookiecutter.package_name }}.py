@@ -6,6 +6,11 @@
 
 """Default module for {{ cookiecutter.package_name }}."""
 
+import structlog
+
+
+LOGGER = structlog.get_logger(__name__)
+
 
 def hello_world() -> str:
     return "Hello World"

@@ -67,7 +67,8 @@ repos:
     hooks:
       - id: typos
         args: ["--config", "_typos.toml", "--force-exclude"]
-  - repo: https://github.com/jendrikseipp/vulture
-    rev: v2.11
+  - repo: https://github.com/fpgmaas/deptry.git
+    rev: "0.20.0"
     hooks:
-      - id: vulture
+      - id: deptry
+        args: ["--ignore", "DEP001,DEP002"]

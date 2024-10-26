@@ -48,7 +48,7 @@ template is the tool that will help you do just that.
   - selectable theme
 - [`pdb++`](https://github.com/pdbpp/pdbpp) for debugging
 - [`konch`](http://konch.readthedocs.org/en/latest/) for shell configuration w/ [`ipython`](https://ipython.org) support
-- [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff))
+- [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff) / [`deptry`](https://github.com/fpgmaas/deptry))
 - [`dockerfile`](https://www.docker.com/) for development, testing, and production
 - [`dunamai`](https://github.com/mtkennerly/dunamai) for versioning
 - custom [`Justfile`](https://github.com/casey/just) (run `just`)
