@@ -11,6 +11,8 @@
 .idea
 
 # tools
+.cruft.json
+.direnv
 .ipynb_checkpoints
 .husky
 .coverage
@@ -27,14 +29,18 @@ pytest.ini
 .konchrc
 .mypy_cache
 .pytest_cache
-commitlint.config.ts
+.python-version
+.ruff_cache
+*commitlint.config.*
 Dockerfile*
 docker-compose*
 .dockerignore
 Makefile
 Justfile
 tox.ini
-.ruff_cache
+.tox
+_typos.toml
+.secrets.baseline
 
 # python
 *__pycache__
