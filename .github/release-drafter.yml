@@ -3,24 +3,24 @@ tag-template: "$RESOLVED_VERSION"
 
 categories:
   - title: ":rocket: Features"
-    collapse-after:5
+    collapse-after: 5
     labels: [feature]
   - title: ":wrench: Fixes & Refactoring"
-    collapse-after:3
+    collapse-after: 3
     labels: [fix, refactor]
   - title: ":package: Build System & CI/CD"
-    collapse-after:3
+    collapse-after: 3
     labels: [build]
   - title: ":boom: Breaking Changes"
     labels: [breaking]
   - title: ":pencil: Documentation"
-    collapse-after:3
+    collapse-after: 3
     labels: [documentation]
   - title: ":arrow_up: Updated Dependencies"
-    collapse-after:1
+    collapse-after: 1
     labels: [dependencies]
   - title: ":rocket: Performance"
-    collapse-after:3
+    collapse-after: 3
     labels: [performance]
 
 
