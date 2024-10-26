@@ -78,4 +78,3 @@ autolabeler:
   - label: "breaking"
     branch:
       - '/breaking\/.+/'
-
