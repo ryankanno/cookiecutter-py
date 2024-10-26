@@ -34,7 +34,7 @@ jobs:
         id: version
         with:
           command: dunamai from git
-          args: --no-metadata --format "{base}" --pattern "(?P<base>\d\d\d\d\.\d\d\.\d\d)"
+          args: --no-metadata --format "{base}" --pattern "(?P<base>\d\d\d\d\.\d+\.\d+)"
 
       - run: echo ${{ steps.version.outputs.version }}
       - run: poetry version ${{ steps.version.outputs.version }}
@@ -42,7 +42,7 @@ jobs:
       - name: poetry build
         run: poetry build
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: poetry_build
           path: dist/
