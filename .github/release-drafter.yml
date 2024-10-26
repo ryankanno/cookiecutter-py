@@ -1,39 +1,50 @@
-name-template: "v$RESOLVED_VERSION"
-tag-template: "v$RESOLVED_VERSION"
+name-template: "$RESOLVED_VERSION"
+tag-template: "$RESOLVED_VERSION"
 
 categories:
   - title: ":rocket: Features"
+    collapse-after:5
     labels: [feature]
   - title: ":wrench: Fixes & Refactoring"
+    collapse-after:3
     labels: [fix, refactor]
   - title: ":package: Build System & CI/CD"
-    labels: [build, ci/cd, github-actions]
+    collapse-after:3
+    labels: [build]
   - title: ":boom: Breaking Changes"
     labels: [breaking]
   - title: ":pencil: Documentation"
+    collapse-after:3
     labels: [documentation]
   - title: ":arrow_up: Updated Dependencies"
+    collapse-after:1
     labels: [dependencies]
   - title: ":rocket: Performance"
+    collapse-after:3
     labels: [performance]
 
 
 version-resolver:
-  major:
-    labels:
-      - 'major'
   minor:
     labels:
-      - 'minor'
+      - 'breaking'
+      - 'feature'
   patch:
     labels:
-      - 'patch'
+      - 'fix'
+      - 'refactor'
+      - 'build'
+      - 'documentation'
+      - 'dependencies'
+      - 'performance'
   default: patch
 
 template: |
   ## What’s Changed
 
   $CHANGES
+
+  ### This release is brought to you by the following wonderful contributors:
 
   $CONTRIBUTORS
 
@@ -48,6 +59,9 @@ autolabeler:
     branch:
       - '/feature\/.+/'
       - '/feat\/.+/'
+  - label: "build"
+    branch:
+      - '/build\/.+/'
   - label: "fix"
     branch:
       - '/fix\/.+/'
