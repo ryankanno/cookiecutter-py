@@ -1,7 +1,7 @@
 name: auto approve + merge dependabot prs
 
 on:
-  pull_request:
+  pull_request_target:
     branches:
       - main
     types:
