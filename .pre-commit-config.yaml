@@ -18,7 +18,7 @@ repos:
           (?x)(cookiecutter\.package_name)
         additional_dependencies: [pytest==7.1.2]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.1
+    rev: v0.7.3
     hooks:
     - id: ruff
       args: ['--config', 'pyproject.toml']
@@ -63,12 +63,12 @@ repos:
     -   id: detect-secrets
         args: ['--baseline', '.secrets.baseline']
   - repo: https://github.com/crate-ci/typos
-    rev: v1.26.8
+    rev: typos-dict-v0.11.34
     hooks:
       - id: typos
         args: ["--config", "_typos.toml", "--force-exclude"]
   - repo: https://github.com/fpgmaas/deptry.git
-    rev: "0.20.0"
+    rev: "0.21.0"
     hooks:
       - id: deptry
         args: ["--ignore", "DEP001,DEP002"]
