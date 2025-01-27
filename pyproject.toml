@@ -28,13 +28,13 @@ cookiecutter = "^2.6.0"
 pytest = "^8.3.4"
 pytest-cookies = "^0.7.0"
 black = "^24.10.0"
-pre-commit = "^4.0.1"
-tox = "^4.23.2"
+pre-commit = "^4.1.0"
+tox = "^4.24.1"
 mypy = "^1.14.1"
 pytest-cov = "^6.0.0"
 pytest-xdist = "^3.6.1"
-ruff = "^0.9.1"
-deptry = "^0.22.0"
+ruff = "^0.9.3"
+deptry = "^0.23.0"
 
 [tool.poetry.group.docs]
 optional = true
