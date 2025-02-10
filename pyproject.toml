@@ -30,10 +30,10 @@ pytest-cookies = "^0.7.0"
 black = "^25.1.0"
 pre-commit = "^4.1.0"
 tox = "^4.24.1"
-mypy = "^1.14.1"
+mypy = "^1.15.0"
 pytest-cov = "^6.0.0"
 pytest-xdist = "^3.6.1"
-ruff = "^0.9.4"
+ruff = "^0.9.5"
 deptry = "^0.23.0"
 
 [tool.poetry.group.docs]
