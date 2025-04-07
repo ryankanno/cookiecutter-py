@@ -31,9 +31,9 @@ black = "^25.1.0"
 pre-commit = "^4.2.0"
 tox = "^4.25.0"
 mypy = "^1.15.0"
-pytest-cov = "^6.0.0"
+pytest-cov = "^6.1.1"
 pytest-xdist = "^3.6.1"
-ruff = "^0.11.2"
+ruff = "^0.11.4"
 deptry = "^0.23.0"
 
 [tool.poetry.group.docs]
