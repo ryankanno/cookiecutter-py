@@ -33,7 +33,7 @@ tox = "^4.25.0"
 mypy = "^1.15.0"
 pytest-cov = "^6.1.1"
 pytest-xdist = "^3.6.1"
-ruff = "^0.11.4"
+ruff = "^0.11.5"
 deptry = "^0.23.0"
 
 [tool.poetry.group.docs]
