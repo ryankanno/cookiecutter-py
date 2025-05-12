@@ -1,49 +1,64 @@
-[tool.poetry]
+[project]
 name = "cookiecutter-py"
 version = "0.0.0"
 description = "🐍 Modern Python project Cookiecutter template"
-authors = ["Ryan <ryankanno@localkinegrinds.com>"]
-maintainers = ["Ryan <ryankanno@localkinegrinds.com>"]
+authors = [{ name = "Ryan", email = "ryankanno@localkinegrinds.com" }]
+requires-python = ">=3.9,<3.12"
 readme = "README.md"
-repository = "https://github.com/ryankanno/cookiecutter-py"
-keywords = ["cookiecutter"]
 license = "MIT"
-classifiers = [
-    "Programming Language :: Python",
+maintainers = [{ name = "Ryan", email = "ryankanno@localkinegrinds.com" }]
+keywords = ["cookiecutter"]
+classifiers = ["Programming Language :: Python"]
+dependencies = ["cookiecutter>=2.6.0,<3"]
+
+[project.urls]
+Repository = "https://github.com/ryankanno/cookiecutter-py"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5,<9",
+    "pytest-cookies>=0.7.0,<0.8",
+    "black>=25.1.0,<26",
+    "pre-commit>=4.2.0,<5",
+    "tox>=4.25.0,<5",
+    "mypy>=1.15.0,<2",
+    "pytest-cov>=6.1.1,<7",
+    "pytest-xdist>=3.6.1,<4",
+    "ruff>=0.11.7,<0.12",
+    "deptry>=0.23.0,<0.24",
 ]
-packages = [
-  {include = "cookiecutter_py"}
+docs = [
+    "sphinx>=7.4.7,<8",
+    "sphinx-autobuild>=2024.10.3,<2025",
+    "furo>=2024.8.6,<2025",
+    "myst-parser[linkify]>=3.0.1,<4",
 ]
+
+[tool.uv]
+default-groups = [
+    "dev",
+    "docs",
+]
+
+[tool.hatch.build.targets.sdist]
 include = [
-  '{{cookiecutter.package_name}}/**/*',
-  'cookiecutter.json',
-  'hooks/*'
+    "cookiecutter_py",
+    "{{cookiecutter.package_name}}/**/*",
+    "cookiecutter.json",
+    "hooks/*",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.9,<3.12"
-cookiecutter = "^2.6.0"
+[tool.hatch.build.targets.wheel]
+include = [
+    "cookiecutter_py",
+    "{{cookiecutter.package_name}}/**/*",
+    "cookiecutter.json",
+    "hooks/*",
+]
 
-[tool.poetry.dev-dependencies]
-pytest = "^8.3.5"
-pytest-cookies = "^0.7.0"
-black = "^25.1.0"
-pre-commit = "^4.2.0"
-tox = "^4.25.0"
-mypy = "^1.15.0"
-pytest-cov = "^6.1.1"
-pytest-xdist = "^3.6.1"
-ruff = "^0.11.7"
-deptry = "^0.23.0"
-
-[tool.poetry.group.docs]
-optional = true
-
-[tool.poetry.group.docs.dependencies]
-sphinx = "^7.4.7"
-sphinx-autobuild = "^2024.10.3"
-furo = "^2024.8.6"
-myst-parser = {extras = ["linkify"], version = "^3.0.1"}
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.mypy]
 python_version = "3.11"
@@ -196,7 +211,3 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/test_*.py" = ["S101"]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
