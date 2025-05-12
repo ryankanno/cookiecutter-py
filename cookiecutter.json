@@ -14,8 +14,8 @@
 
   "python_version": "3.11",
   "supported_python_versions": "3.9, 3.10, 3.11, 3.12, pypy3.9, pypy3.10",
-  "poetry_version": "1.8.4",
-  "tox_version": "4.23.2",
+  "uv_version": "0.7.3",
+  "tox_version": "4.25.0",
   "direnv_pyenv_python_version": "3.11.0",
   "sphinx_theme": ["furo", "sphinx-rtd-theme", "sphinx-book-theme", "pydata-sphinx-theme", "sphinx-press-theme", "piccolo-theme", "sphinxawesome-theme", "sphinx-wagtail-theme", "alabaster", "agogo", "bizstyle", "classic", "haiku", "nature", "pyramid", "scrolls", "sphinxdoc", "traditional"],
   "should_use_direnv": "y",
