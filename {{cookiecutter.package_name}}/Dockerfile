@@ -13,7 +13,7 @@ ENV UV_LINK_MODE=copy \
     UV_PROJECT_ENVIRONMENT=/app \
     UV_VERSION={{ cookiecutter.uv_version }} \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100 \
+    PIP_DEFAULT_TIMEOUT=100
 
 SHELL ["/bin/bash", "-exo", "pipefail",  "-c"]
 
