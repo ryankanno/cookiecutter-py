@@ -33,7 +33,7 @@ jobs:
       - name: Install uv {% raw %}${{ env.UV_VERSION }}{% endraw %}
         uses: astral-sh/setup-uv@v6
         with:
-          version: ${{ env.UV_VERSION }}
+          version: {% raw %}${{ env.UV_VERSION }}{% endraw %}
           enable-cache: true
           cache-suffix: uv_publish
 
