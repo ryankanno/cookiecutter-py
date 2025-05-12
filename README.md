@@ -32,7 +32,7 @@ template is the tool that will help you do just that.
 <!-- FEATURES -->
 ## ✨ Features
 
-- [`poetry`](https://poetry.eustace.io) to manage dependencies
+- [`uv`](https://github.com/astral-sh/uv) to manage dependencies
 - [`structlog`](https://www.structlog.org/en/stable) for logging
 - [`mypy`](https://mypy-lang.org) for static typing
 - [`pytest`](https://github.com/pytest-dev/pytest), [`hypothesis`](https://github.com/HypothesisWorks/hypothesis), [`mutmut`](https://github.com/boxed/mutmut) for testing
@@ -78,7 +78,7 @@ template is the tool that will help you do just that.
 Install [Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/installation.html)
 
 ```sh
-poetry add cookiecutter
+uv add cookiecutter
 # pip install cookiecutter
 # pipenv install cookiecutter
 ```
@@ -86,7 +86,7 @@ poetry add cookiecutter
 **Optional**: Install [Cruft](https://github.com/cruft/cruft)
 
 ```sh
-poetry add cruft
+uv add cruft
 # pip install cruft
 # pipenv install cruft
 ```
@@ -132,7 +132,7 @@ docker run <image_id or tag> python -m surf.surf
 
 If you enable the PyPi workflow, versioning will happen via [`dunamai`](https://github.com/mtkennerly/dunamai) within the Github pipeline.
 
-If instead, you prefer to version your package, please do it via ```poetry version $(dunamai from any)``` as recommended in their [documentation](https://github.com/mtkennerly/dunamai#user-content-integration).
+If instead, you prefer to version your package, please do it via ```uv version $(dunamai from any)``` as recommended in their [documentation](https://github.com/mtkennerly/dunamai#user-content-integration).
 
 <!-- ROADMAP -->
 ## 🚧 Roadmap
