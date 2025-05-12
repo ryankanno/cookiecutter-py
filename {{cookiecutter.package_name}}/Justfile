@@ -15,7 +15,7 @@ clean-build:
     rm -fr dist/
     rm -fr .eggs/
     find . -name '*.egg-info' -exec rm -fr {} +
-    find . -name '*.egg' -exec rm -f {} +
+    find . -name '*.egg' -exec rm -fr {} +
 
 # Remove Python artifacts (.pyc, .pyo, __pycache__)
 [private]
@@ -59,7 +59,7 @@ dist: clean
 
 # Install package to current Python's site-package
 install: clean
-    {{ "{{" }}runner_cmd{{ "}}" }} install
+    {{ "{{" }}runner_cmd{{ "}}" }} sync
 
 # Lint (tox:lint)
 lint:
