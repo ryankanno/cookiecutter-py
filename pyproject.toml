@@ -19,7 +19,6 @@ dev = [
     "pytest>=8.3.5,<9",
     "pytest-cookies>=0.7.0,<0.8",
     "black>=25.1.0,<26",
-    "pre-commit>=4.2.0,<5",
     "tox>=4.25.0,<5",
     "mypy>=1.15.0,<2",
     "pytest-cov>=6.1.1,<7",
@@ -27,6 +26,7 @@ dev = [
     "ruff>=0.11.7,<0.12",
     "deptry>=0.23.0,<0.24",
     "tox-uv>=1.25.0",
+    "pre-commit-uv>=4.1.4",
 ]
 docs = [
     "sphinx>=7.4.7,<8",
