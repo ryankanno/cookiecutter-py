@@ -7,7 +7,7 @@ dependencies:
   - changed-files:
     - any-glob-to-any-file:
       - 'pyproject.toml'
-      - 'poetry.lock'
+      - 'uv.lock'
 
 docs:
   - changed-files:
