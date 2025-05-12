@@ -10,7 +10,6 @@ import logging
 import mmap
 import os
 import re
-import typing
 from distutils.util import strtobool
 from pathlib import Path
 
@@ -86,7 +85,7 @@ EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES = [
 ]
 
 
-def get_expected_baked_files(package_name: str) -> typing.List[str]:
+def get_expected_baked_files(package_name: str) -> list[str]:
     return EXPECTED_BASE_BAKED_FILES + [
         f'/src/{package_name}/__init__.py',
         f'/src/{package_name}/{package_name}.py',
@@ -95,9 +94,7 @@ def get_expected_baked_files(package_name: str) -> typing.List[str]:
     ]
 
 
-def build_files_list(
-    root_dir: str, is_absolute: bool = True
-) -> typing.List[str]:
+def build_files_list(root_dir: str, is_absolute: bool = True) -> list[str]:
     """Build a list containing abs/relative paths to the generated files."""
     return [
         (
@@ -110,7 +107,7 @@ def build_files_list(
     ]
 
 
-def check_paths_substitution(paths: typing.List[str]) -> None:
+def check_paths_substitution(paths: list[str]) -> None:
     for path in paths:
         if is_binary(path):
             continue
@@ -123,7 +120,7 @@ def check_paths_substitution(paths: typing.List[str]) -> None:
 
 
 def check_paths_exist(
-    expected_paths: typing.List[str], baked_files: typing.List[str]
+    expected_paths: list[str], baked_files: list[str]
 ) -> None:
     baked_files_no_pycache = filter(
         lambda x: '__pycache__' not in x, baked_files
@@ -142,7 +139,7 @@ def check_paths_exist(
 
 
 def test_with_default_configuration(
-    cookies: Cookies, default_context: typing.Dict[str, str]
+    cookies: Cookies, default_context: dict[str, str]
 ) -> None:
     baked_project = cookies.bake(extra_context=default_context)
 
@@ -174,7 +171,7 @@ def test_with_default_configuration(
 
 
 def test_with_parameterized_configuration(  # noqa: C901, PLR0912, PLR0915
-    cookies: Cookies, context: typing.Dict[str, str]
+    cookies: Cookies, context: dict[str, str]
 ) -> None:
     if not bool(strtobool(context['should_install_github_dependabot'])):
         context['should_automerge_autoapprove_github_dependabot'] = 'n'
@@ -251,7 +248,7 @@ def test_with_parameterized_configuration(  # noqa: C901, PLR0912, PLR0915
 
 @pytest.mark.parametrize('codecov', ['y', 'n'])
 def test_with_codecov(
-    cookies: Cookies, default_context: typing.Dict[str, str], codecov: str
+    cookies: Cookies, default_context: dict[str, str], codecov: str
 ) -> None:
     default_context['should_upload_coverage_to_codecov'] = codecov
     baked_project = cookies.bake(extra_context=default_context)
@@ -278,7 +275,7 @@ def test_with_codecov(
 @pytest.mark.parametrize('poetry_version', ['8.0.8', '4.2.0'])
 def test_with_poetry_version(
     cookies: Cookies,
-    default_context: typing.Dict[str, str],
+    default_context: dict[str, str],
     poetry_version: str,
 ) -> None:
     default_context['poetry_version'] = poetry_version
@@ -304,7 +301,7 @@ def test_with_poetry_version(
 @pytest.mark.parametrize('tox_version', ['8.0.8', '4.2.0'])
 def test_with_tox_version(
     cookies: Cookies,
-    default_context: typing.Dict[str, str],
+    default_context: dict[str, str],
     tox_version: str,
 ) -> None:
     default_context['tox_version'] = tox_version
@@ -330,7 +327,7 @@ def test_with_tox_version(
 @pytest.mark.parametrize('version', ['42.0', '4.2.0'])
 def test_with_version(
     cookies: Cookies,
-    default_context: typing.Dict[str, str],
+    default_context: dict[str, str],
     version: str,
 ) -> None:
     default_context['version'] = version
@@ -357,7 +354,7 @@ def test_with_version(
 
 def test_pyproject_with_default_configuration(
     cookies: Cookies,
-    default_context: typing.Dict[str, str],
+    default_context: dict[str, str],
 ) -> None:
     baked_project = cookies.bake(extra_context=default_context)
 
