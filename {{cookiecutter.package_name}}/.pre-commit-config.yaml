@@ -1,8 +1,8 @@
 repos:
-  - repo: https://github.com/python-poetry/poetry
-    rev: {{ cookiecutter.poetry_version }}
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: {{ cookiecutter.uv_version }}
     hooks:
-      - id: poetry-check
+      - id: uv-lock
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
@@ -24,11 +24,12 @@ repos:
     - id: ruff
       args: ['--config', 'pyproject.toml', '--fix', '--exit-non-zero-on-fix']
       stages: [manual]
-  - repo: https://github.com/python/black
+  - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 24.10.0
     hooks:
       - id: black
         args: [--safe, --quiet]
+        language_version: python{{cookiecutter.python_version}}
   - repo: https://github.com/adamchainz/blacken-docs
     rev: 1.19.1
     hooks:

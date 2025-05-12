@@ -6,63 +6,81 @@ ENV PYTHONFAULTHANDLER=1 \
 
 FROM base as builder
 
-ENV PIP_NO_CACHE_DIR=off \
+ENV UV_LINK_MODE=copy \
+    UV_COMPILE_BYTECODE=1 \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_PYTHON={{ cookiecutter.python_version }} \
+    UV_PROJECT_ENVIRONMENT=/app \
+    UV_VERSION={{ cookiecutter.uv_version }} \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    PATH="~/.local/bin:/venv/bin:${PATH}" \
-    VIRTUAL_ENV="/venv" \
-    POETRY_VERSION={{ cookiecutter.poetry_version }} \
-    POETRY_VIRTUALENVS_CREATE=false
-
-WORKDIR /app
 
 SHELL ["/bin/bash", "-exo", "pipefail",  "-c"]
 
 RUN apt-get update \
-    && apt-get install --no-install-recommends -y curl \
+    && apt-get install -qyy \
+    -o APT::Install-Recommends=false \
+    -o APT::Install-Suggests=false curl \
 	&& apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -sSL https://install.python-poetry.org | python3 - --version ${POETRY_VERSION}
-RUN python3 -m venv ${VIRTUAL_ENV}
+COPY --from=ghcr.io/astral-sh/uv:${UV_VERSION} /uv /usr/local/bin/uv
 
-COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-dev --no-interaction --no-ansi --no-root
-COPY . ./
-RUN poetry install --no-interaction --no-ansi
+FROM uv AS deps-builder
+
+COPY pyproject.toml /_project/
+COPY uv.lock /_project/
+
+RUN --mount=type=cache,target=/root/.cache <<EOT
+    uv venv
+EOT
+
+WORKDIR /_project
+
+RUN --mount=type=cache,target=/root/.cache <<EOT
+    uv sync --locked --no-dev --no-install-project
+EOT
+
+FROM uv AS project-builder
+
+COPY --from=deps-builder /app /app
+
+COPY . /src
+
+WORKDIR /src
+
+# install project
+RUN --mount=type=cache,target=/root/.cache <<EOT
+    uv sync --locked --no-dev --no-editable
+EOT
 
 FROM base AS final
 
-ARG REPOSITORY={{ cookiecutter.project_url }}
-ARG BUILD_DATETIME
-ARG VERSION
-ARG REVISION
-ARG BRANCH
+SHELL ["/bin/bash", "-exo", "pipefail",  "-c"]
 
-ENV REPOSITORY=${REPOSITORY}
-ENV BUILD_DATETIME=${BUILD_DATETIME:-null}
-ENV VERSION=${VERSION:-null}
-ENV REVISION=${REVISION:-null}
-ENV BRANCH=${BRANCH:-main}
+ENV PATH=/app/bin:$PATH
 
-ENV PATH="/venv/bin:${PATH}" \
-    VIRTUAL_ENV="/venv"
+RUN <<EOT
+    groupadd -r app
+    useradd -r -d /app -g app -N app
+EOT
 
-LABEL maintainers="{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"
+STOPSIGNAL SIGINT
 
-LABEL org.opencontainers.image.created="${BUILD_DATETIME}" \
-      org.opencontainers.image.title="{{ cookiecutter.project_name }}" \
-      org.opencontainers.image.description="{{ cookiecutter.project_short_description }}" \
-      org.opencontainers.image.authors="{{ cookiecutter.author_email }}" \
-      org.opencontainers.image.revision="${REVISION}" \
-      org.opencontainers.image.source="${REPOSITORY}" \
-      org.opencontainers.image.version="${VERSION}" \
-      org.opencontainers.image.licenses="{{ cookiecutter.project_license }}"
+RUN <<EOT
+    apt-get update -qy
+    apt-get install -qyy \
+    -o APT::Install-Recommends=false \
+    -o APT::Install-Suggests=false
+    apt-get clean
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+EOT
 
-COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
-COPY --from=builder /app /app
-
-COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY docker-entrypoint.sh /
 RUN chmod +x '/docker-entrypoint.sh'
-
 ENTRYPOINT ["/bin/bash", "/docker-entrypoint.sh"]
+
+COPY --from=project-builder --chown=app:app /app /app
+
+USER app
+WORKDIR /app
