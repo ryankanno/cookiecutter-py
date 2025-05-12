@@ -40,7 +40,7 @@ jobs:
           enable-cache: true
           cache-suffix: ${{ matrix.os }}-${{ matrix.python-version }}-uv_docs
       - name: Install tox
-        run: uv tool install --python-preference only-system tox==${{ env.TOX_VERSION }} --with tox-uv --with tox-gh
+        run: uv tool install --python-preference only-system tox==${{ env.TOX_VERSION }} --with tox-gh
       - name: Cache pre-commit
         uses: actions/cache@v4
         with:
