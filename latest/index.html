@@ -264,7 +264,7 @@ template is the tool that will help you do just that.</p>
 <section id="features">
 <h2>✨ Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://poetry.eustace.io"><code class="docutils literal notranslate"><span class="pre">poetry</span></code></a> to manage dependencies</p></li>
+<li><p><a class="reference external" href="https://github.com/astral-sh/uv"><code class="docutils literal notranslate"><span class="pre">uv</span></code></a> to manage dependencies</p></li>
 <li><p><a class="reference external" href="https://www.structlog.org/en/stable"><code class="docutils literal notranslate"><span class="pre">structlog</span></code></a> for logging</p></li>
 <li><p><a class="reference external" href="https://mypy-lang.org"><code class="docutils literal notranslate"><span class="pre">mypy</span></code></a> for static typing</p></li>
 <li><p><a class="reference external" href="https://github.com/pytest-dev/pytest"><code class="docutils literal notranslate"><span class="pre">pytest</span></code></a>, <a class="reference external" href="https://github.com/HypothesisWorks/hypothesis"><code class="docutils literal notranslate"><span class="pre">hypothesis</span></code></a>, <a class="reference external" href="https://github.com/boxed/mutmut"><code class="docutils literal notranslate"><span class="pre">mutmut</span></code></a> for testing</p>
@@ -318,13 +318,13 @@ template is the tool that will help you do just that.</p>
 <section id="prerequisites">
 <h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h3>
 <p>Install <a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/installation.html">Cookiecutter</a></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>add<span class="w"> </span>cookiecutter
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>add<span class="w"> </span>cookiecutter
 <span class="c1"># pip install cookiecutter</span>
 <span class="c1"># pipenv install cookiecutter</span>
 </pre></div>
 </div>
 <p><strong>Optional</strong>: Install <a class="reference external" href="https://github.com/cruft/cruft">Cruft</a></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>add<span class="w"> </span>cruft
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>add<span class="w"> </span>cruft
 <span class="c1"># pip install cruft</span>
 <span class="c1"># pipenv install cruft</span>
 </pre></div>
@@ -367,7 +367,7 @@ PRs. The workflow won’t merge anything with a <code class="docutils literal no
 <section id="versioning">
 <h3>Versioning<a class="headerlink" href="#versioning" title="Link to this heading">¶</a></h3>
 <p>If you enable the PyPi workflow, versioning will happen via <a class="reference external" href="https://github.com/mtkennerly/dunamai"><code class="docutils literal notranslate"><span class="pre">dunamai</span></code></a> within the Github pipeline.</p>
-<p>If instead, you prefer to version your package, please do it via <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">version</span> <span class="pre">$(dunamai</span> <span class="pre">from</span> <span class="pre">any)</span></code> as recommended in their <a class="reference external" href="https://github.com/mtkennerly/dunamai#user-content-integration">documentation</a>.</p>
+<p>If instead, you prefer to version your package, please do it via <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">version</span> <span class="pre">$(dunamai</span> <span class="pre">from</span> <span class="pre">any)</span></code> as recommended in their <a class="reference external" href="https://github.com/mtkennerly/dunamai#user-content-integration">documentation</a>.</p>
 <!-- ROADMAP -->
 </section>
 </section>
