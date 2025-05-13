@@ -10,7 +10,6 @@ import logging
 import mmap
 import os
 import re
-import typing
 from distutils.util import strtobool
 from pathlib import Path
 
@@ -47,7 +46,6 @@ EXPECTED_BASE_BAKED_FILES = [
     '/docs/todo/todo.rst',
     '/docs/usage/usage.rst',
     'logging.yaml',
-    'poetry.lock',
     'pyproject.toml',
     'tox.ini',
     '_typos.toml',
@@ -86,7 +84,7 @@ EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES = [
 ]
 
 
-def get_expected_baked_files(package_name: str) -> typing.List[str]:
+def get_expected_baked_files(package_name: str) -> list[str]:
     return EXPECTED_BASE_BAKED_FILES + [
         f'/src/{package_name}/__init__.py',
         f'/src/{package_name}/{package_name}.py',
@@ -95,9 +93,7 @@ def get_expected_baked_files(package_name: str) -> typing.List[str]:
     ]
 
 
-def build_files_list(
-    root_dir: str, is_absolute: bool = True
-) -> typing.List[str]:
+def build_files_list(root_dir: str, is_absolute: bool = True) -> list[str]:
     """Build a list containing abs/relative paths to the generated files."""
     return [
         (
@@ -110,7 +106,7 @@ def build_files_list(
     ]
 
 
-def check_paths_substitution(paths: typing.List[str]) -> None:
+def check_paths_substitution(paths: list[str]) -> None:
     for path in paths:
         if is_binary(path):
             continue
@@ -123,7 +119,7 @@ def check_paths_substitution(paths: typing.List[str]) -> None:
 
 
 def check_paths_exist(
-    expected_paths: typing.List[str], baked_files: typing.List[str]
+    expected_paths: list[str], baked_files: list[str]
 ) -> None:
     baked_files_no_pycache = filter(
         lambda x: '__pycache__' not in x, baked_files
@@ -142,7 +138,7 @@ def check_paths_exist(
 
 
 def test_with_default_configuration(
-    cookies: Cookies, default_context: typing.Dict[str, str]
+    cookies: Cookies, default_context: dict[str, str]
 ) -> None:
     baked_project = cookies.bake(extra_context=default_context)
 
@@ -174,7 +170,7 @@ def test_with_default_configuration(
 
 
 def test_with_parameterized_configuration(  # noqa: C901, PLR0912, PLR0915
-    cookies: Cookies, context: typing.Dict[str, str]
+    cookies: Cookies, context: dict[str, str]
 ) -> None:
     if not bool(strtobool(context['should_install_github_dependabot'])):
         context['should_automerge_autoapprove_github_dependabot'] = 'n'
@@ -251,7 +247,7 @@ def test_with_parameterized_configuration(  # noqa: C901, PLR0912, PLR0915
 
 @pytest.mark.parametrize('codecov', ['y', 'n'])
 def test_with_codecov(
-    cookies: Cookies, default_context: typing.Dict[str, str], codecov: str
+    cookies: Cookies, default_context: dict[str, str], codecov: str
 ) -> None:
     default_context['should_upload_coverage_to_codecov'] = codecov
     baked_project = cookies.bake(extra_context=default_context)
@@ -275,13 +271,13 @@ def test_with_codecov(
                     pytest.fail('Should not have codecov')
 
 
-@pytest.mark.parametrize('poetry_version', ['8.0.8', '4.2.0'])
-def test_with_poetry_version(
+@pytest.mark.parametrize('uv_version', ['8.0.8', '4.2.0'])
+def test_with_uv_version(
     cookies: Cookies,
-    default_context: typing.Dict[str, str],
-    poetry_version: str,
+    default_context: dict[str, str],
+    uv_version: str,
 ) -> None:
-    default_context['poetry_version'] = poetry_version
+    default_context['uv_version'] = uv_version
     baked_project = cookies.bake(extra_context=default_context)
 
     assert baked_project.exit_code == 0
@@ -297,14 +293,14 @@ def test_with_poetry_version(
                 Path(path).open('rb', 0) as file,
                 mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
             ):
-                if s.find(f"POETRY_VERSION={poetry_version}".encode()) == -1:
-                    pytest.fail('Should have appropriate poetry version')
+                if s.find(f"UV_VERSION={uv_version}".encode()) == -1:
+                    pytest.fail('Should have appropriate uv version')
 
 
 @pytest.mark.parametrize('tox_version', ['8.0.8', '4.2.0'])
 def test_with_tox_version(
     cookies: Cookies,
-    default_context: typing.Dict[str, str],
+    default_context: dict[str, str],
     tox_version: str,
 ) -> None:
     default_context['tox_version'] = tox_version
@@ -323,14 +319,14 @@ def test_with_tox_version(
                 Path(path).open('rb', 0) as file,
                 mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
             ):
-                if s.find(f"tox=={tox_version}".encode()) == -1:
+                if s.find(f"TOX_VERSION: {tox_version}".encode()) == -1:
                     pytest.fail('Should have appropriate tox version')
 
 
 @pytest.mark.parametrize('version', ['42.0', '4.2.0'])
 def test_with_version(
     cookies: Cookies,
-    default_context: typing.Dict[str, str],
+    default_context: dict[str, str],
     version: str,
 ) -> None:
     default_context['version'] = version
@@ -357,7 +353,7 @@ def test_with_version(
 
 def test_pyproject_with_default_configuration(
     cookies: Cookies,
-    default_context: typing.Dict[str, str],
+    default_context: dict[str, str],
 ) -> None:
     baked_project = cookies.bake(extra_context=default_context)
 

@@ -2,7 +2,7 @@
 
 set quiet
 
-poetry := 'poetry'
+runner_cmd := 'uv'
 
 [private]
 default:
@@ -43,9 +43,9 @@ clean: clean-docs clean-build clean-pyc clean-test
 
 # Check code coverage with current Python
 coverage:
-    {{poetry}} run pytest --cov --cov-config=pyproject.toml --cov-append --cov-report term-missing --doctest-modules -ra -q -n auto
-    {{poetry}} run coverage report -m
-    {{poetry}} run coverage html
+    {{runner_cmd}} run pytest --cov --cov-config=pyproject.toml --cov-append --cov-report term-missing --doctest-modules -ra -q -n auto
+    {{runner_cmd}} run coverage report -m
+    {{runner_cmd}} run coverage html
     open htmlcov/index.html
 
 # Generate Sphinx documentation (tox:docs)
@@ -55,11 +55,11 @@ docs: clean-docs
 
 # Package
 dist: clean
-    {{poetry}} build
+    {{runner_cmd}} build
 
 # Install package to current Python's site-package
 install: clean
-    {{poetry}} install
+    {{runner_cmd}} install
 
 # Lint (tox:lint)
 lint:
@@ -79,7 +79,7 @@ pre-commit:
 
 # Runs tox
 tox *TOX_ARGS:
-    {{poetry}} run tox {{ TOX_ARGS }}
+    {{runner_cmd}} run tox {{ TOX_ARGS }}
 
 # Runs watchexec
 watch *JUST_RECIPE:

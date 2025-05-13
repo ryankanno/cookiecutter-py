@@ -36,9 +36,9 @@ Detailed description about {{ cookiecutter.project_name }} goes here.
 
 ### Prerequisites
 
-* [poetry](https://python-poetry.org/docs/#installing-with-the-official-installer)
+* [uv](https://docs.astral.sh/uv/getting-started/installation/)
 ```sh
-curl -sSL https://install.python-poetry.org | python3 -
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 ### Installation
@@ -49,7 +49,7 @@ git clone {{ cookiecutter.project_url }}.git
 ```
 2. Install
 ```sh
-poetry install
+uv install
 ```
 
 <!-- USAGE EXAMPLES -->

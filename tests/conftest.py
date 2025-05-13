@@ -5,14 +5,13 @@
 # Distributed under terms of the MIT license.
 
 from itertools import product
-from typing import Dict
 
 import pytest
 from _pytest.fixtures import SubRequest
 
 
 @pytest.fixture
-def default_context(request: SubRequest) -> Dict[str, str]:  # noqa: ARG001
+def default_context(request: SubRequest) -> dict[str, str]:  # noqa: ARG001
     """Creates default prompt vals."""
     return {
         "author_name": "Ryan Kanno",
@@ -38,7 +37,7 @@ def default_context(request: SubRequest) -> Dict[str, str]:  # noqa: ARG001
 
 
 @pytest.fixture(params=list(product(['y', 'n'], repeat=6)))
-def context(request: SubRequest) -> Dict[str, str]:
+def context(request: SubRequest) -> dict[str, str]:
     should_create_author_files = request.param[0]
     should_install_github_dependabot = request.param[1]
     should_automerge_autoapprove_github_dependabot = request.param[2]
