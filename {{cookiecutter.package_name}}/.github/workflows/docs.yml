@@ -36,11 +36,11 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
-          version: {% raw %}${{ env.UV_VERSION }}{% raw %}
+          version: {% raw %}${{ env.UV_VERSION }}{% endraw %}
           enable-cache: true
           cache-suffix: {% raw %}${{ matrix.os }}-${{ matrix.python-version }}-uv_pre-docs{% endraw %}
       - name: Install tox
-        run: uv tool install --python-preference only-system tox=={% raw %}${{ env.TOX_VERSION }}{% raw %} --with tox-gh
+        run: uv tool install --python-preference only-system tox=={% raw %}${{ env.TOX_VERSION }}{% endraw %} --with tox-gh
       - name: Cache pre-commit
         uses: actions/cache@v4
         with:
