@@ -46,7 +46,6 @@ EXPECTED_BASE_BAKED_FILES = [
     '/docs/todo/todo.rst',
     '/docs/usage/usage.rst',
     'logging.yaml',
-    'poetry.lock',
     'pyproject.toml',
     'tox.ini',
     '_typos.toml',
@@ -272,13 +271,13 @@ def test_with_codecov(
                     pytest.fail('Should not have codecov')
 
 
-@pytest.mark.parametrize('poetry_version', ['8.0.8', '4.2.0'])
-def test_with_poetry_version(
+@pytest.mark.parametrize('uv_version', ['8.0.8', '4.2.0'])
+def test_with_uv_version(
     cookies: Cookies,
     default_context: dict[str, str],
-    poetry_version: str,
+    uv_version: str,
 ) -> None:
-    default_context['poetry_version'] = poetry_version
+    default_context['uv_version'] = uv_version
     baked_project = cookies.bake(extra_context=default_context)
 
     assert baked_project.exit_code == 0
@@ -294,8 +293,8 @@ def test_with_poetry_version(
                 Path(path).open('rb', 0) as file,
                 mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
             ):
-                if s.find(f"POETRY_VERSION={poetry_version}".encode()) == -1:
-                    pytest.fail('Should have appropriate poetry version')
+                if s.find(f"UV_VERSION={uv_version}".encode()) == -1:
+                    pytest.fail('Should have appropriate uv version')
 
 
 @pytest.mark.parametrize('tox_version', ['8.0.8', '4.2.0'])
@@ -320,7 +319,7 @@ def test_with_tox_version(
                 Path(path).open('rb', 0) as file,
                 mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
             ):
-                if s.find(f"tox=={tox_version}".encode()) == -1:
+                if s.find(f"TOX_VERSION: {tox_version}".encode()) == -1:
                     pytest.fail('Should have appropriate tox version')
 
 
