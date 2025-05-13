@@ -1,17 +1,19 @@
+ARG UV_VERSION={{ cookiecutter.uv_version }}
+FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv-source
+
 FROM python:{{ cookiecutter.python_version }}-slim-buster AS base
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONHASHSEED=random
 
-FROM base as builder
+FROM base as uv
 
 ENV UV_LINK_MODE=copy \
     UV_COMPILE_BYTECODE=1 \
     UV_PYTHON_DOWNLOADS=never \
     UV_PYTHON={{ cookiecutter.python_version }} \
     UV_PROJECT_ENVIRONMENT=/app \
-    UV_VERSION={{ cookiecutter.uv_version }} \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100
 
@@ -20,11 +22,11 @@ SHELL ["/bin/bash", "-exo", "pipefail",  "-c"]
 RUN apt-get update \
     && apt-get install -qyy \
     -o APT::Install-Recommends=false \
-    -o APT::Install-Suggests=false curl \
+    -o APT::Install-Suggests=false \
 	&& apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=ghcr.io/astral-sh/uv:${UV_VERSION} /uv /usr/local/bin/uv
+COPY --from=uv-source /uv /usr/local/bin/uv
 
 FROM uv AS deps-builder
 
