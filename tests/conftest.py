@@ -25,7 +25,9 @@ def default_context(request: SubRequest) -> dict[str, str]:  # noqa: ARG001
         "version": "0.0.1",
         "python_version": "3.11",
         "supported_python_versions": "3.9, 3.10, 3.11, 3.12, pypy3.9, pypy3.10",  # noqa: B950, E501
-        "poetry_version": "1.8.4",
+        "uv_version": "0.0.1",
+        "tox_version": "0.808.0",
+        "sphinx_theme": ["furo"],
         "should_use_direnv": "y",
         "should_create_author_files": "y",
         "should_install_github_dependabot": "y",
