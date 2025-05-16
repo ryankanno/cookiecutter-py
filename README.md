@@ -152,8 +152,7 @@ See the [open issues](https://github.com/ryankanno/cookiecutter-py/issues) for a
 - [X] update default/initial template doc structure
 - [ ] add publish docs workflow
 - [X] investigate uv
-- [ ] migrate to uv
-- [ ] plan for 1.0
+- [X] migrate to uv
 
 <!-- CONTRIBUTING -->
 ## 🤝 Contributing
