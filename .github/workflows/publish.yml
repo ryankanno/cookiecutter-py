@@ -33,20 +33,18 @@ jobs:
           enable-cache: true
           cache-suffix: ${{ matrix.os }}-${{ matrix.python-version }}-uv_publish
 
-      - name: Set version with dunamai
-        uses: mtkennerly/dunamai-action@v1
-        id: version
-        with:
-          command: dunamai from git
-          args: --no-metadata --style semver
-
-      - run: echo ${{ steps.version.outputs.version }}
-      - run: uv version ${{ steps.version.outputs.version }}
+      - name: Update version
+        shell: bash
+        run: |
+          VERSION=$(uvx dunamai from git --style semver) && uv version $VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: uv build
         run: uv build
 
       - uses: actions/upload-artifact@v4
         with:
-          name: uv_build
           path: dist/
+          name: ${{ github.event.repository.name }}-packages
+          if-no-files-found: ignore
+          overwrite: true
