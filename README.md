@@ -68,7 +68,7 @@ template is the tool that will help you do just that.
     - [`pr-size-labeling`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-size-labeler.yml)
     - [`commitlint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/commitlint.yml)
     - [`trufflehog`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/trufflehog.yml)
-- optional [`direnv`](https://github.com/direnv/direnv) .envrc (with pyenv layout)
+- optional [`direnv`](https://github.com/direnv/direnv) .envrc (with [`use uv`](https://raw.githubusercontent.com/ryankanno/dotfiles/5ed45cfd8c387489fc0459eb1a485b2c21f3d159/dot_config/direnv/direnvrc) layout)
 
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
@@ -152,8 +152,7 @@ See the [open issues](https://github.com/ryankanno/cookiecutter-py/issues) for a
 - [X] update default/initial template doc structure
 - [ ] add publish docs workflow
 - [X] investigate uv
-- [ ] migrate to uv
-- [ ] plan for 1.0
+- [X] migrate to uv
 
 <!-- CONTRIBUTING -->
 ## 🤝 Contributing
