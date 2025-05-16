@@ -38,7 +38,7 @@ jobs:
         id: version
         with:
           command: dunamai from git
-          args: --no-metadata --format "{base}" --pattern "(?P<base>\d\d\d\d\.\d+\.\d+)"
+          args: --no-metadata --style semver
 
       - run: echo ${{ steps.version.outputs.version }}
       - run: uv version ${{ steps.version.outputs.version }}
