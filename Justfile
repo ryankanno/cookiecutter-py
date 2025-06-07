@@ -38,6 +38,10 @@ clean-test:
 clean-docs:
     rm -fr .tox/docsout
 
+[private]
+setup-worktree:
+    direnv allow
+
 # Remove build, Python, test artifacts, and docs
 clean: clean-docs clean-build clean-pyc clean-test
 
