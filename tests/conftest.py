@@ -24,7 +24,7 @@ def default_context(request: SubRequest) -> dict[str, str]:  # noqa: ARG001
         "package_name": "surf",
         "version": "0.0.1",
         "python_version": "3.11",
-        "supported_python_versions": "3.9, 3.10, 3.11, 3.12, pypy3.9, pypy3.10",  # noqa: B950, E501
+        "supported_python_versions": "3.10, 3.11, 3.12, pypy3.10, pypy3.11",  # noqa: B950, E501
         "uv_version": "0.0.1",
         "tox_version": "0.808.0",
         "sphinx_theme": "furo",
@@ -57,7 +57,7 @@ def context(request: SubRequest) -> dict[str, str]:
         'package_name': 'test_project',
         'version': '0.0.1',
         'python_version': '3.11',
-        'supported_python_versions': '3.9, 3.10, 3.11, 3.12, pypy3.9, pypy3.10',  # noqa: B950, E501
+        'supported_python_versions': '3.10, 3.11, 3.12, pypy3.10, pypy3.11',  # noqa: B950, E501
         'should_use_direnv': should_use_direnv,
         'should_create_author_files': should_create_author_files,
         'should_install_github_dependabot': should_install_github_dependabot,
