@@ -3,7 +3,7 @@ name = "cookiecutter-py"
 version = "0.0.0"
 description = "🐍 Modern Python project Cookiecutter template"
 authors = [{ name = "Ryan", email = "ryankanno@localkinegrinds.com" }]
-requires-python = ">=3.9,<3.12"
+requires-python = ">=3.10,<3.12"
 readme = "README.md"
 license = "MIT"
 maintainers = [{ name = "Ryan", email = "ryankanno@localkinegrinds.com" }]
