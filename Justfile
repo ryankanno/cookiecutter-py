@@ -48,9 +48,6 @@ clean: clean-docs clean-build clean-pyc clean-test
 # Check code coverage with current Python
 coverage:
     just tox run -e coverage
-    {{runner_cmd}} run coverage report -m
-    {{runner_cmd}} run coverage html
-    open htmlcov/index.html
 
 # Generate Sphinx documentation (tox:docs)
 [no-quiet]
