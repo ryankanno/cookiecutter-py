@@ -74,8 +74,8 @@ lint-fix:
     just tox run -e lint-fix
 
 # Runs tests (tox:tests)
-tests:
-    just tox run-parallel -m tests
+tests *TESTS_ARGS:
+    just tox run-parallel -m tests {{TESTS_ARGS}}
 
 # Runs pre-commit (tox:pre-commit)
 pre-commit:
