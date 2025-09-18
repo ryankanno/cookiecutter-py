@@ -252,15 +252,15 @@ dev = [
     { name = "pre-commit-uv", specifier = ">=4.1.4" },
     { name = "pytest", specifier = ">=8.3.5,<9" },
     { name = "pytest-cookies", specifier = ">=0.7.0,<0.8" },
-    { name = "pytest-cov", specifier = ">=6.1.1,<7" },
+    { name = "pytest-cov", specifier = ">=6.1.1,<8" },
     { name = "pytest-xdist", specifier = ">=3.6.1,<4" },
-    { name = "ruff", specifier = ">=0.11.7,<0.13" },
+    { name = "ruff", specifier = ">=0.11.7,<0.14" },
     { name = "tox", specifier = ">=4.25.0,<5" },
 ]
 docs = [
     { name = "furo", specifier = ">=2024.8.6,<2026" },
-    { name = "myst-parser", extras = ["linkify"], specifier = ">=3.0.1,<4" },
-    { name = "sphinx", specifier = ">=7.4.7,<8" },
+    { name = "myst-parser", extras = ["linkify"], specifier = ">=3.0.1,<5" },
+    { name = "sphinx", specifier = ">=7.4.7,<9" },
     { name = "sphinx-autobuild", specifier = ">=2024.10.3,<2025" },
 ]
 
