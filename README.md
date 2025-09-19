@@ -48,7 +48,18 @@ template is the tool that will help you do just that.
   - selectable theme
 - [`pdbp`](https://github.com/mdmintz/pdbp) for debugging
 - [`konch`](http://konch.readthedocs.org/en/latest/) for shell configuration w/ [`ipython`](https://ipython.org) support
-- [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff) / [`deptry`](https://github.com/fpgmaas/deptry))
+- [`pre-commit`](https://pre-commit.com) hooks with comprehensive tooling:
+  - [`uv-lock`](https://github.com/astral-sh/uv-pre-commit) for dependency management
+  - [`mypy`](https://mypy-lang.org) for type checking
+  - [`ruff`](https://github.com/astral-sh/ruff) for linting and formatting
+  - [`black`](https://github.com/psf/black) for code formatting
+  - [`blacken-docs`](https://github.com/adamchainz/blacken-docs) for formatting code in docs
+  - [`isort`](https://github.com/pycqa/isort) for import sorting
+  - [`bashate`](https://github.com/openstack/bashate) for shell script linting
+  - [`commitlint`](https://github.com/conventional-changelog/commitlint) for commit message standards
+  - [`detect-secrets`](https://github.com/Yelp/detect-secrets) for secret detection
+  - [`typos`](https://github.com/crate-ci/typos) for spell checking
+  - [`deptry`](https://github.com/fpgmaas/deptry) for dependency validation
 - [`dockerfile`](https://www.docker.com/) for development, testing, and production
 - [`dunamai`](https://github.com/mtkennerly/dunamai) for versioning
 - custom [`Justfile`](https://github.com/casey/just) (run `just`)
@@ -63,11 +74,14 @@ template is the tool that will help you do just that.
   - [`auto approve / merge`](https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/auto-approve-merge-dependabot.yml) workflow
   - with these additional workflows:
 
-    - [`codeql`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/codeql-analysis.yml)
-    - [`hadolint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/hadolint.yml)
-    - [`pr-size-labeling`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-size-labeler.yml)
-    - [`commitlint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/commitlint.yml)
-    - [`trufflehog`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/trufflehog.yml)
+    - [`codeql`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/codeql-analysis.yml) for security analysis
+    - [`hadolint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/hadolint.yml) for Dockerfile linting
+    - [`pr-size-labeling`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-size-labeler.yml) for PR size classification
+    - [`pr-labeler`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-labeler.yml) for automated PR labeling
+    - [`commitlint`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/commitlint.yml) for commit message validation
+    - [`trufflehog`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/trufflehog.yml) for secret scanning
+    - [`docs`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/docs.yml) for documentation publishing
+    - [`release-drafter`](https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/release-drafter.yml) for automated release notes
 - optional [`direnv`](https://github.com/direnv/direnv) .envrc (with [`use uv`](https://raw.githubusercontent.com/ryankanno/dotfiles/5ed45cfd8c387489fc0459eb1a485b2c21f3d159/dot_config/direnv/direnvrc) layout)
 
 <!-- GETTING STARTED -->
@@ -112,7 +126,32 @@ cruft create https://github.com/ryankanno/cookiecutter-py/
 <!-- DETAILS -->
 ## 🔍 Details
 
-Coming soon to a README near you!
+### Justfile Commands
+
+The template includes a comprehensive [`Justfile`](https://github.com/casey/just) with the following commands:
+
+**Development:**
+- **`just install`** - Install dependencies using uv
+- **`just clean`** - Remove all build, test, and documentation artifacts
+
+**Testing & Quality:**
+- **`just tests`** - Run all tests (fast, no coverage)
+- **`just tests -- path/to/test.py`** - Run specific tests
+- **`just tests -- --durations=10`** - Show slow test durations
+- **`just coverage`** - Run tests with comprehensive coverage analysis
+- **`just lint`** - Run all linting checks via tox
+- **`just lint-fix`** - Auto-fix linting issues where possible
+- **`just pre-commit`** - Run pre-commit hooks
+
+**Documentation & Distribution:**
+- **`just docs`** - Build Sphinx documentation
+- **`just dist`** - Build distribution packages
+
+**Utilities:**
+- **`just tox -- <args>`** - Run tox with custom arguments
+- **`just watch <recipe>`** - Watch files and re-run commands on changes (with desktop notifications)
+
+All commands use `uv` as the package manager and integrate with tox environments for consistency.
 
 ### Docker
 
