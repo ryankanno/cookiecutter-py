@@ -46,7 +46,7 @@ template is the tool that will help you do just that.
 - [`sphinx`](http://www.sphinx-doc.org/en/master/) for docs
   - [`myst-parser`](https://github.com/executablebooks/MyST-Parser) for markdown docs
   - selectable theme
-- [`pdb++`](https://github.com/pdbpp/pdbpp) for debugging
+- [`pdbp`](https://github.com/mdmintz/pdbp) for debugging
 - [`konch`](http://konch.readthedocs.org/en/latest/) for shell configuration w/ [`ipython`](https://ipython.org) support
 - [`pre-commit`](https://pre-commit.com) hooks with various hooks (mypy / black / [`ruff`](https://github.com/astral-sh/ruff) / [`deptry`](https://github.com/fpgmaas/deptry))
 - [`dockerfile`](https://www.docker.com/) for development, testing, and production
