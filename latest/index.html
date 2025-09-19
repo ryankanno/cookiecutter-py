@@ -284,7 +284,21 @@ template is the tool that will help you do just that.</p>
 </li>
 <li><p><a class="reference external" href="https://github.com/mdmintz/pdbp"><code class="docutils literal notranslate"><span class="pre">pdbp</span></code></a> for debugging</p></li>
 <li><p><a class="reference external" href="http://konch.readthedocs.org/en/latest/"><code class="docutils literal notranslate"><span class="pre">konch</span></code></a> for shell configuration w/ <a class="reference external" href="https://ipython.org"><code class="docutils literal notranslate"><span class="pre">ipython</span></code></a> support</p></li>
-<li><p><a class="reference external" href="https://pre-commit.com"><code class="docutils literal notranslate"><span class="pre">pre-commit</span></code></a> hooks with various hooks (mypy / black / <a class="reference external" href="https://github.com/astral-sh/ruff"><code class="docutils literal notranslate"><span class="pre">ruff</span></code></a> / <a class="reference external" href="https://github.com/fpgmaas/deptry"><code class="docutils literal notranslate"><span class="pre">deptry</span></code></a>)</p></li>
+<li><p><a class="reference external" href="https://pre-commit.com"><code class="docutils literal notranslate"><span class="pre">pre-commit</span></code></a> hooks with comprehensive tooling:</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/astral-sh/uv-pre-commit"><code class="docutils literal notranslate"><span class="pre">uv-lock</span></code></a> for dependency management</p></li>
+<li><p><a class="reference external" href="https://mypy-lang.org"><code class="docutils literal notranslate"><span class="pre">mypy</span></code></a> for type checking</p></li>
+<li><p><a class="reference external" href="https://github.com/astral-sh/ruff"><code class="docutils literal notranslate"><span class="pre">ruff</span></code></a> for linting and formatting</p></li>
+<li><p><a class="reference external" href="https://github.com/psf/black"><code class="docutils literal notranslate"><span class="pre">black</span></code></a> for code formatting</p></li>
+<li><p><a class="reference external" href="https://github.com/adamchainz/blacken-docs"><code class="docutils literal notranslate"><span class="pre">blacken-docs</span></code></a> for formatting code in docs</p></li>
+<li><p><a class="reference external" href="https://github.com/pycqa/isort"><code class="docutils literal notranslate"><span class="pre">isort</span></code></a> for import sorting</p></li>
+<li><p><a class="reference external" href="https://github.com/openstack/bashate"><code class="docutils literal notranslate"><span class="pre">bashate</span></code></a> for shell script linting</p></li>
+<li><p><a class="reference external" href="https://github.com/conventional-changelog/commitlint"><code class="docutils literal notranslate"><span class="pre">commitlint</span></code></a> for commit message standards</p></li>
+<li><p><a class="reference external" href="https://github.com/Yelp/detect-secrets"><code class="docutils literal notranslate"><span class="pre">detect-secrets</span></code></a> for secret detection</p></li>
+<li><p><a class="reference external" href="https://github.com/crate-ci/typos"><code class="docutils literal notranslate"><span class="pre">typos</span></code></a> for spell checking</p></li>
+<li><p><a class="reference external" href="https://github.com/fpgmaas/deptry"><code class="docutils literal notranslate"><span class="pre">deptry</span></code></a> for dependency validation</p></li>
+</ul>
+</li>
 <li><p><a class="reference external" href="https://www.docker.com/"><code class="docutils literal notranslate"><span class="pre">dockerfile</span></code></a> for development, testing, and production</p></li>
 <li><p><a class="reference external" href="https://github.com/mtkennerly/dunamai"><code class="docutils literal notranslate"><span class="pre">dunamai</span></code></a> for versioning</p></li>
 <li><p>custom <a class="reference external" href="https://github.com/casey/just"><code class="docutils literal notranslate"><span class="pre">Justfile</span></code></a> (run <code class="docutils literal notranslate"><span class="pre">just</span></code>)</p></li>
@@ -300,11 +314,14 @@ template is the tool that will help you do just that.</p>
 <li><p><a class="reference external" href="https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/auto-approve-merge-dependabot.yml"><code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">approve</span> <span class="pre">/</span> <span class="pre">merge</span></code></a> workflow</p></li>
 <li><p>with these additional workflows:</p>
 <ul>
-<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/codeql-analysis.yml"><code class="docutils literal notranslate"><span class="pre">codeql</span></code></a></p></li>
-<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/hadolint.yml"><code class="docutils literal notranslate"><span class="pre">hadolint</span></code></a></p></li>
-<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-size-labeler.yml"><code class="docutils literal notranslate"><span class="pre">pr-size-labeling</span></code></a></p></li>
-<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/commitlint.yml"><code class="docutils literal notranslate"><span class="pre">commitlint</span></code></a></p></li>
-<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/trufflehog.yml"><code class="docutils literal notranslate"><span class="pre">trufflehog</span></code></a></p></li>
+<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/codeql-analysis.yml"><code class="docutils literal notranslate"><span class="pre">codeql</span></code></a> for security analysis</p></li>
+<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/hadolint.yml"><code class="docutils literal notranslate"><span class="pre">hadolint</span></code></a> for Dockerfile linting</p></li>
+<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-size-labeler.yml"><code class="docutils literal notranslate"><span class="pre">pr-size-labeling</span></code></a> for PR size classification</p></li>
+<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/pr-labeler.yml"><code class="docutils literal notranslate"><span class="pre">pr-labeler</span></code></a> for automated PR labeling</p></li>
+<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/commitlint.yml"><code class="docutils literal notranslate"><span class="pre">commitlint</span></code></a> for commit message validation</p></li>
+<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/trufflehog.yml"><code class="docutils literal notranslate"><span class="pre">trufflehog</span></code></a> for secret scanning</p></li>
+<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/docs.yml"><code class="docutils literal notranslate"><span class="pre">docs</span></code></a> for documentation publishing</p></li>
+<li><p><a class="reference external" href="https://raw.githubusercontent.com/ryankanno/cookiecutter-py/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/release-drafter.yml"><code class="docutils literal notranslate"><span class="pre">release-drafter</span></code></a> for automated release notes</p></li>
 </ul>
 </li>
 </ul>
@@ -352,7 +369,36 @@ PRs. The workflow won’t merge anything with a <code class="docutils literal no
 </section>
 <section id="details">
 <h2>🔍 Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h2>
-<p>Coming soon to a README near you!</p>
+<section id="justfile-commands">
+<h3>Justfile Commands<a class="headerlink" href="#justfile-commands" title="Link to this heading">¶</a></h3>
+<p>The template includes a comprehensive <a class="reference external" href="https://github.com/casey/just"><code class="docutils literal notranslate"><span class="pre">Justfile</span></code></a> with the following commands:</p>
+<p><strong>Development:</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">install</span></code></strong> - Install dependencies using uv</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">clean</span></code></strong> - Remove all build, test, and documentation artifacts</p></li>
+</ul>
+<p><strong>Testing &amp; Quality:</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">tests</span></code></strong> - Run all tests (fast, no coverage)</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">tests</span> <span class="pre">--</span> <span class="pre">path/to/test.py</span></code></strong> - Run specific tests</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">tests</span> <span class="pre">--</span> <span class="pre">--durations=10</span></code></strong> - Show slow test durations</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">coverage</span></code></strong> - Run tests with comprehensive coverage analysis</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">lint</span></code></strong> - Run all linting checks via tox</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">lint-fix</span></code></strong> - Auto-fix linting issues where possible</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">pre-commit</span></code></strong> - Run pre-commit hooks</p></li>
+</ul>
+<p><strong>Documentation &amp; Distribution:</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">docs</span></code></strong> - Build Sphinx documentation</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">dist</span></code></strong> - Build distribution packages</p></li>
+</ul>
+<p><strong>Utilities:</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">tox</span> <span class="pre">--</span> <span class="pre">&lt;args&gt;</span></code></strong> - Run tox with custom arguments</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">just</span> <span class="pre">watch</span> <span class="pre">&lt;recipe&gt;</span></code></strong> - Watch files and re-run commands on changes (with desktop notifications)</p></li>
+</ul>
+<p>All commands use <code class="docutils literal notranslate"><span class="pre">uv</span></code> as the package manager and integrate with tox environments for consistency.</p>
+</section>
 <section id="docker">
 <h3>Docker<a class="headerlink" href="#docker" title="Link to this heading">¶</a></h3>
 <p>To build the container:</p>
@@ -495,6 +541,7 @@ SOFTWARE.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#details">🔍 Details</a><ul>
+<li><a class="reference internal" href="#justfile-commands">Justfile Commands</a></li>
 <li><a class="reference internal" href="#docker">Docker</a></li>
 <li><a class="reference internal" href="#versioning">Versioning</a></li>
 </ul>
