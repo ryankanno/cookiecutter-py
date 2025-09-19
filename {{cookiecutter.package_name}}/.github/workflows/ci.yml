@@ -90,7 +90,7 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
-          files: ./.tox/.coverage.{% raw %}${{ env.TOX_COVERAGE_ENV }}{% endraw %}.xml
+          files: ./.tox/.coverage.coverage-{% raw %}${{ env.TOX_COVERAGE_ENV }}{% endraw %}.xml
           verbose: true
           fail_ci_if_error: true
           flags: "{% raw %}${{ env.TOX_COVERAGE_ENV }}{% endraw %}"
