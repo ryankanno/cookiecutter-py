@@ -36,6 +36,7 @@ All commands use `uv` as the package manager and `just` as the task runner.
 
 ### Tox Commands
 - `just tox run -e py311` - Run tests on Python 3.11
+- `just tox run -e py312` - Run tests on Python 3.12
 - `just tox run -e pre-commit` - Run pre-commit hooks
 - `just tox run-parallel -m tests` - Run tests in parallel across Python versions
 

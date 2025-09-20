@@ -3,13 +3,16 @@ name = "cookiecutter-py"
 version = "0.0.0"
 description = "🐍 Modern Python project Cookiecutter template"
 authors = [{ name = "Ryan", email = "ryankanno@localkinegrinds.com" }]
-requires-python = ">=3.10,<3.12"
+requires-python = ">=3.10,<3.13"
 readme = "README.md"
 license = "MIT"
 maintainers = [{ name = "Ryan", email = "ryankanno@localkinegrinds.com" }]
 keywords = ["cookiecutter"]
 classifiers = ["Programming Language :: Python"]
-dependencies = ["cookiecutter>=2.6.0,<3"]
+dependencies = [
+    "cookiecutter>=2.6.0,<3",
+    "setuptools>=80.9.0",
+]
 
 [project.urls]
 Repository = "https://github.com/ryankanno/cookiecutter-py"
@@ -89,7 +92,7 @@ exclude = [
 [tool.black]
 line-length = 79
 skip-string-normalization = true
-target-version = ['py311']
+target-version = ['py311', 'py312']
 include = '\.pyi?$'
 exclude = '''
 (
