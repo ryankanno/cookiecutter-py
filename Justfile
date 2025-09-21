@@ -62,13 +62,13 @@ dist: clean
 install: clean
     {{runner_cmd}} install
 
-# Lint (tox:lint)
-lint:
-    just tox run -e lint
-
-# Lint fix (tox:lint-fix)
-lint-fix:
-    just tox run -e lint-fix
+# Lint (tox:lint) - use --fix to auto-fix issues
+lint *LINT_ARGS:
+    @if [[ "{{LINT_ARGS}}" == "--fix" ]]; then \
+        just tox run -e lint-fix; \
+    else \
+        just tox run -e lint {{LINT_ARGS}}; \
+    fi
 
 # Runs tests (tox:tests)
 tests *TESTS_ARGS:

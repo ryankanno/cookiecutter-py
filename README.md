@@ -141,7 +141,7 @@ The template includes a comprehensive [`Justfile`](https://github.com/casey/just
 - **`just tests -- --durations=10`** - Show slow test durations
 - **`just coverage`** - Run tests with comprehensive coverage analysis
 - **`just lint`** - Run all linting checks via tox
-- **`just lint-fix`** - Auto-fix linting issues where possible
+- **`just lint --fix`** - Auto-fix linting issues where possible
 - **`just pre-commit`** - Run pre-commit hooks
 
 **Documentation & Distribution:**
