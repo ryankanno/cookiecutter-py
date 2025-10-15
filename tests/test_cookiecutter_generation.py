@@ -351,6 +351,74 @@ def test_with_version(
                     )
 
 
+def test_justfile_lint_command_structure(
+    cookies: Cookies,
+    default_context: dict[str, str],
+) -> None:
+    """Verify the generated Justfile has the correct lint command structure.
+
+    The lint recipe should:
+    - Accept variable arguments (*LINT_ARGS)
+    - Check if --fix is passed and route to lint-fix tox environment
+    - Otherwise run the lint tox environment
+    - Not have a standalone lint-fix recipe
+    """
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    for path in abs_baked_files:
+        if path.endswith('Justfile'):
+            with Path(path).open('rb', 0) as file:
+                content = file.read()
+
+                # Check that lint recipe accepts arguments
+                if b'lint *LINT_ARGS:' not in content:
+                    msg = 'Justfile should have lint recipe with '
+                    msg += '*LINT_ARGS parameter'
+                    pytest.fail(msg)
+
+                # Check that lint recipe has conditional logic for --fix
+                if b'if [[ "{{LINT_ARGS}}" == "--fix" ]]' not in content:
+                    pytest.fail(
+                        'Justfile lint recipe should check for --fix flag'
+                    )
+
+                # Check that it calls lint-fix tox environment
+                # when --fix is passed
+                if b'just tox run -e lint-fix' not in content:
+                    msg = 'Justfile should call tox lint-fix '
+                    msg += 'environment when --fix is passed'
+                    pytest.fail(msg)
+
+                # Check that it calls lint tox environment by default
+                if b'just tox run -e lint {{LINT_ARGS}}' not in content:
+                    pytest.fail(
+                        'Justfile should call tox lint environment by default'
+                    )
+
+                # Ensure there's no standalone lint-fix recipe
+                # Look for pattern indicating a separate recipe definition
+                lines = content.decode('utf-8').split('\n')
+                for line in lines:
+                    # Check for standalone lint-fix recipe
+                    # (not inside lint recipe)
+                    if not line.startswith('lint-fix'):
+                        continue
+                    # Make sure it's not commented out
+                    stripped = line.strip()
+                    if stripped.startswith('#'):
+                        continue
+                    msg = 'Justfile should not have a '
+                    msg += 'standalone lint-fix recipe'
+                    pytest.fail(msg)
+
+
 def test_pyproject_with_default_configuration(
     cookies: Cookies,
     default_context: dict[str, str],

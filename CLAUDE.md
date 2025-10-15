@@ -40,7 +40,7 @@ All commands use `uv` as the package manager and `just` as the task runner.
 - `just tests -- --durations=10` - Show slowest 10 tests
 - `just coverage` - Run tests with comprehensive coverage analysis
 - `just lint` - Run ruff linting checks via tox
-- `just lint-fix` - Auto-fix ruff linting issues
+- `just lint --fix` - Auto-fix ruff linting issues
 - `just pre-commit` - Run all pre-commit hooks
 - `just docs` - Build Sphinx documentation
 - `just clean` - Remove all build, test, and documentation artifacts
