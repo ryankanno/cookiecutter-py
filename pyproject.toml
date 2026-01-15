@@ -3,7 +3,7 @@ name = "cookiecutter-py"
 version = "0.0.0"
 description = "🐍 Modern Python project Cookiecutter template"
 authors = [{ name = "Ryan", email = "ryankanno@localkinegrinds.com" }]
-requires-python = ">=3.10,<3.13"
+requires-python = ">=3.10,<3.14"
 readme = "README.md"
 license = "MIT"
 maintainers = [{ name = "Ryan", email = "ryankanno@localkinegrinds.com" }]
@@ -23,6 +23,7 @@ dev = [
     "pytest-cookies>=0.7.0,<0.8",
     "black>=25.1.0,<26",
     "tox>=4.25.0,<5",
+    "tox-uv>=1.21.5",
     "mypy>=1.15.0,<2",
     "pytest-cov>=6.1.1,<8",
     "pytest-xdist>=3.6.1,<4",
@@ -92,7 +93,7 @@ exclude = [
 [tool.black]
 line-length = 79
 skip-string-normalization = true
-target-version = ['py311', 'py312']
+target-version = ['py311', 'py312', 'py313']
 include = '\.pyi?$'
 exclude = '''
 (
