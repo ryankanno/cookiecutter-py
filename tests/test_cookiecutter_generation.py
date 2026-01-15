@@ -10,15 +10,21 @@ import logging
 import mmap
 import os
 import re
-from distutils.util import strtobool
+import sys
 from pathlib import Path
 
 import pytest
 from binaryornot.check import is_binary
 from pytest_cookies.plugin import Cookies
 
+# Add hooks directory to path to import from hook files
+sys.path.insert(0, str(Path(__file__).parent.parent / "hooks"))
+
+from pre_gen_project import strtobool  # noqa: E402
 
 LOGGER = logging.getLogger(__name__)
+
+
 PATTERN = r"{{(\s?cookiecutter)[.](.*?)}}"
 RE_OBJ = re.compile(PATTERN)
 
@@ -447,6 +453,58 @@ def test_pyproject_with_default_configuration(
                     trim_line = line.decode().strip()
                     if trim_line.startswith('# python'):
                         pytest.fail('Should not have commented out python')
+
+
+@pytest.mark.parametrize('python_version', ['3.10', '3.11', '3.12', '3.13'])
+def test_with_python_version(
+    cookies: Cookies,
+    default_context: dict[str, str],
+    python_version: str,
+) -> None:
+    """Verify generated project supports specified Python version."""
+    default_context['python_version'] = python_version
+    default_context['supported_python_versions'] = (
+        "3.10, 3.11, 3.12, 3.13, pypy3.10, pypy3.11"
+    )
+
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    # Verify python version appears in generated pyproject.toml
+    for path in abs_baked_files:
+        if 'pyproject.toml' in path:
+            with (
+                Path(path).open('rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
+                if (
+                    s.find(
+                        f"requires-python = \">={python_version}\"".encode()
+                    )
+                    == -1
+                ):
+                    pytest.fail(
+                        f'pyproject.toml requires Python {python_version}'
+                    )
+
+    # Verify tox.ini includes python version environments
+    for path in abs_baked_files:
+        if path.endswith('tox.ini'):
+            with (
+                Path(path).open('rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
+                py_env = f"py{python_version.replace('.', '')}".encode()
+                if s.find(py_env) == -1:
+                    pytest.fail(
+                        f'tox.ini should include {py_env.decode()} environment'
+                    )
 
 
 # vim: fenc=utf-8
