@@ -271,11 +271,11 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "black", specifier = ">=25.1.0,<26" },
-    { name = "deptry", specifier = ">=0.23.0,<0.24" },
+    { name = "deptry", specifier = ">=0.23.0,<0.25" },
     { name = "mypy", specifier = ">=1.15.0,<2" },
     { name = "pdbp", specifier = ">=1.7.1,<2" },
     { name = "pre-commit-uv", specifier = ">=4.1.4" },
-    { name = "pytest", specifier = ">=8.3.5,<9" },
+    { name = "pytest", specifier = ">=8.3.5,<10" },
     { name = "pytest-cookies", specifier = ">=0.7.0,<0.8" },
     { name = "pytest-cov", specifier = ">=6.1.1,<8" },
     { name = "pytest-xdist", specifier = ">=3.6.1,<4" },
