@@ -67,7 +67,8 @@ def context(request: SubRequest) -> dict[str, str]:
         "should_automerge_autoapprove_github_dependabot": should_automerge_autoapprove_github_dependabot,  # noqa: B950, E501
         'should_install_github_actions': should_install_github_actions,
         'should_upload_coverage_to_codecov': 'y',
-        'should_publish_to_testpypi': should_publish_to_pypi,  # Use same value for backwards compat
+        # Use same value for backwards compat
+        'should_publish_to_testpypi': should_publish_to_pypi,
         'should_publish_to_pypi': should_publish_to_pypi,
         'should_publish_to_github_packages': 'n',
         'should_attach_to_github_release': 'n',

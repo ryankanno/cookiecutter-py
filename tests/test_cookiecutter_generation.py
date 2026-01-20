@@ -402,7 +402,7 @@ def test_with_attach_to_github_release(
         ('y', 'y', 'y', 'y', 5),
     ],
 )
-def test_publish_yml_always_exists_with_github_actions(
+def test_publish_yml_always_exists_with_github_actions(  # noqa: PLR0913, PLR0917
     cookies: Cookies,
     default_context: dict[str, str],
     testpypi: str,
@@ -434,42 +434,39 @@ def test_publish_yml_always_exists_with_github_actions(
 
     # Count jobs in the workflow file
     abs_baked_files = build_files_list(str(baked_project.project_path))
-    for path in abs_baked_files:
-        if 'publish.yml' in path:
-            with Path(path).open('r') as file:
-                content = file.read()
-                # Count job definitions (lines that match pattern "  job_name:")
-                # Jobs are defined at the top level under "jobs:" with 2-space indent
-                job_count = 0
-                in_jobs_section = False
-                for line in content.split('\n'):
-                    stripped = line.strip()
-                    # Track when we enter the jobs section
-                    if stripped == 'jobs:':
-                        in_jobs_section = True
-                        continue
-                    # If we're in jobs section and hit a top-level key, we're out
-                    if in_jobs_section and line and not line.startswith(' '):
-                        in_jobs_section = False
-                    # Count jobs only within jobs section
-                    if (
-                        in_jobs_section
-                        and line.startswith('  ')
-                        and ':' in line
-                        and not line.startswith('    ')
-                    ):
-                        # Check it's a job definition, not a property within a job
-                        if (
-                            stripped
-                            and not stripped.startswith('#')
-                            and stripped.endswith(':')
-                        ):
-                            job_count += 1
+    publish_yml = next(
+        (path for path in abs_baked_files if 'publish.yml' in path), None
+    )
+    if not publish_yml:
+        pytest.fail('Could not find publish.yml in baked files')
 
-                if job_count != expected_job_count:
-                    pytest.fail(
-                        f'Expected {expected_job_count} jobs, found {job_count}'
-                    )
+    with Path(publish_yml).open('r', encoding='utf-8') as file:
+        content = file.read()
+
+    # Count job definitions under "jobs:" section
+    job_count = 0
+    in_jobs_section = False
+    for line in content.split('\n'):
+        stripped = line.strip()
+        if stripped == 'jobs:':
+            in_jobs_section = True
+            continue
+        if in_jobs_section and line and not line.startswith(' '):
+            in_jobs_section = False
+        # Count jobs: 2-space indent, ends with colon, not a comment
+        is_job = (
+            in_jobs_section
+            and line.startswith('  ')
+            and not line.startswith('    ')
+            and stripped
+            and not stripped.startswith('#')
+            and stripped.endswith(':')
+        )
+        if is_job:
+            job_count += 1
+
+    if job_count != expected_job_count:
+        pytest.fail(f'Expected {expected_job_count} jobs, found {job_count}')
 
 
 @pytest.mark.parametrize('testpypi_enabled', ['y', 'n'])
@@ -486,31 +483,45 @@ def test_publish_pypi_job_dependencies(
 
     abs_baked_files = build_files_list(str(baked_project.project_path))
 
-    for path in abs_baked_files:
-        if 'publish.yml' in path:
-            with (
-                Path(path).open('rb', 0) as file,
-                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
-            ):
-                # Look for the publish_pypi job and its needs line
-                content = s.read().decode('utf-8')
-                if 'publish_pypi:' in content:
-                    if testpypi_enabled == 'y':
-                        # Should have both build and publish_test_pypi as dependencies
-                        if 'needs: [build, publish_test_pypi]' not in content:
-                            pytest.fail(
-                                'publish_pypi should depend on [build, publish_test_pypi] when TestPyPI is enabled'
-                            )
-                    else:
-                        # Should only have build as dependency
-                        if 'needs: [build, publish_test_pypi]' in content:
-                            pytest.fail(
-                                'publish_pypi should not depend on publish_test_pypi when TestPyPI is disabled'
-                            )
-                        if 'needs: [build]' not in content:
-                            pytest.fail(
-                                'publish_pypi should depend on [build] when TestPyPI is disabled'
-                            )
+    publish_yml = next(
+        (path for path in abs_baked_files if 'publish.yml' in path), None
+    )
+    if not publish_yml:
+        return
+
+    with (
+        Path(publish_yml).open('rb', 0) as file,
+        mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+    ):
+        content = s.read().decode('utf-8')
+
+    if 'publish_pypi:' not in content:
+        return
+
+    # Verify dependencies based on TestPyPI configuration
+    has_testpypi_dep = 'needs: [build, publish_test_pypi]' in content
+    has_build_only_dep = 'needs: [build]' in content
+
+    if testpypi_enabled == 'y':
+        if not has_testpypi_dep:
+            msg = (
+                'publish_pypi should depend on '
+                '[build, publish_test_pypi] when TestPyPI is enabled'
+            )
+            pytest.fail(msg)
+    else:
+        if has_testpypi_dep:
+            msg = (
+                'publish_pypi should not depend on '
+                'publish_test_pypi when TestPyPI is disabled'
+            )
+            pytest.fail(msg)
+        if not has_build_only_dep:
+            msg = (
+                'publish_pypi should depend on '
+                '[build] when TestPyPI is disabled'
+            )
+            pytest.fail(msg)
 
 
 @pytest.mark.parametrize('uv_version', ['8.0.8', '4.2.0'])
