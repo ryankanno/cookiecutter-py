@@ -52,7 +52,10 @@ def manage_github_files(
     should_install_github_dependabot: str,
     should_automerge_autoapprove_github_dependabot: str,
     should_install_github_actions: str,
+    should_publish_to_testpypi: str,
     should_publish_to_pypi: str,
+    should_publish_to_github_packages: str,
+    should_attach_to_github_release: str,
 ) -> None:
     if not strtobool(should_install_github_dependabot):
         remove_path(PROJECT_GITHUB / Path("dependabot.yml"))
@@ -75,8 +78,10 @@ def manage_github_files(
         remove_path(PROJECT_GITHUB / Path("labeler.yml"))
         remove_path(PROJECT_GITHUB / Path("release-drafter.yml"))
         remove_path(PROJECT_GITHUB / Path("workflows"))
-    elif not strtobool(should_publish_to_pypi):
-        remove_path(PROJECT_GITHUB / Path("workflows") / Path("publish.yml"))
+    else:
+        # Never remove publish.yml - the build job should always run
+        # Individual publish jobs are conditionally included via Jinja2 in the template
+        pass
 
     if not any(Path(PROJECT_GITHUB).iterdir()):
         remove_path(PROJECT_GITHUB)
@@ -115,7 +120,10 @@ if __name__ == '__main__':
         '{{ cookiecutter.should_install_github_dependabot }}',
         '{{ cookiecutter.should_automerge_autoapprove_github_dependabot }}',
         '{{ cookiecutter.should_install_github_actions}}',
+        '{{ cookiecutter.should_publish_to_testpypi }}',
         '{{ cookiecutter.should_publish_to_pypi }}',
+        '{{ cookiecutter.should_publish_to_github_packages }}',
+        '{{ cookiecutter.should_attach_to_github_release }}',
     )
     update_pyproject_version('{{ cookiecutter.version  }}')
     uncomment_pyproject_python_dependency()
