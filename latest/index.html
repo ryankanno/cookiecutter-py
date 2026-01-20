@@ -311,7 +311,16 @@ template is the tool that will help you do just that.</p>
 <li><p>optional <a class="reference external" href="https://codecov.io"><code class="docutils literal notranslate"><span class="pre">codecov</span></code></a> integration for code coverage</p></li>
 </ul>
 </li>
-<li><p><a class="reference external" href="https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/publish.yml"><code class="docutils literal notranslate"><span class="pre">publish</span></code></a> workflow (to <a class="reference external" href="https://test.pypi.org">test.pypi.org</a> / <a class="reference external" href="https://pypi.org">pypi.org</a>) w/ <a class="reference external" href="https://github.com/release-drafter/release-drafter"><code class="docutils literal notranslate"><span class="pre">release-drafter</span></code></a> integration</p></li>
+<li><p><a class="reference external" href="https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/publish.yml"><code class="docutils literal notranslate"><span class="pre">publish</span></code></a> workflow with configurable publishing to:</p>
+<ul>
+<li><p><a class="reference external" href="https://test.pypi.org">TestPyPI</a> (optional, enabled by default)</p></li>
+<li><p><a class="reference external" href="https://pypi.org">PyPI</a> (optional, enabled by default)</p></li>
+<li><p><a class="reference external" href="https://docs.github.com/en/packages">GitHub Packages</a> (optional, disabled by default)</p></li>
+<li><p>GitHub Release artifacts (optional, disabled by default)</p></li>
+<li><p>Always builds and uploads artifacts to GitHub Actions for manual inspection</p></li>
+<li><p>Integrated with <a class="reference external" href="https://github.com/release-drafter/release-drafter"><code class="docutils literal notranslate"><span class="pre">release-drafter</span></code></a></p></li>
+</ul>
+</li>
 <li><p><a class="reference external" href="https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/auto-approve-merge-dependabot.yml"><code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">approve</span> <span class="pre">/</span> <span class="pre">merge</span></code></a> workflow</p></li>
 <li><p>with these additional workflows:</p>
 <ul>
@@ -415,6 +424,47 @@ PRs. The workflow won’t merge anything with a <code class="docutils literal no
 <h3>Versioning<a class="headerlink" href="#versioning" title="Link to this heading">¶</a></h3>
 <p>If you enable the PyPi workflow, versioning will happen via <a class="reference external" href="https://github.com/mtkennerly/dunamai"><code class="docutils literal notranslate"><span class="pre">dunamai</span></code></a> within the Github pipeline.</p>
 <p>If instead, you prefer to version your package, please do it via <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">version</span> <span class="pre">$(dunamai</span> <span class="pre">from</span> <span class="pre">any)</span></code> as recommended in their <a class="reference external" href="https://github.com/mtkennerly/dunamai#user-content-integration">documentation</a>.</p>
+</section>
+<section id="configuration-variables">
+<h3>Configuration Variables<a class="headerlink" href="#configuration-variables" title="Link to this heading">¶</a></h3>
+<p>When you run cookiecutter, you’ll be prompted for various configuration options. Here are the key variables:</p>
+<p><strong>Project Information:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">author_name</span></code> - Your full name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">author_email</span></code> - Your email address</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code> - Human-readable project name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_short_description</span></code> - Brief description of your project</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_url</span></code> - Project repository URL</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_license</span></code> - License type (default: MIT)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">github_repository_owner</span></code> - GitHub username or organization</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">package_name</span></code> - Python package name (snake_case)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">version</span></code> - Initial version number (default: 0.0.0)</p></li>
+</ul>
+<p><strong>Python &amp; Dependencies:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python_version</span></code> - Minimum Python version (default: 3.12)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">supported_python_versions</span></code> - Comma-separated list of supported versions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uv_version</span></code> - Version of uv to use</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tox_version</span></code> - Version of tox to use</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sphinx_theme</span></code> - Documentation theme (select from multiple options)</p></li>
+</ul>
+<p><strong>Optional Features:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">should_use_direnv</span></code> - Include .envrc for direnv (default: y)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">should_create_author_files</span></code> - Include AUTHORS.rst (default: y)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">should_install_github_dependabot</span></code> - Enable Dependabot (default: y)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">should_automerge_autoapprove_github_dependabot</span></code> - Auto-approve/merge Dependabot PRs (default: y)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">should_install_github_actions</span></code> - Include GitHub Actions workflows (default: y)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">should_upload_coverage_to_codecov</span></code> - Upload coverage to Codecov (default: y)</p></li>
+</ul>
+<p><strong>Publishing Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">should_publish_to_testpypi</span></code> - Publish to TestPyPI on every main push (default: y)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">should_publish_to_pypi</span></code> - Publish to PyPI on release (default: y)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">should_publish_to_github_packages</span></code> - Publish to GitHub Packages on release (default: n)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">should_attach_to_github_release</span></code> - Attach build artifacts to GitHub releases (default: n)</p></li>
+</ul>
+<p><strong>Note:</strong> Even if all publishing options are disabled, the build job still runs and uploads artifacts to GitHub Actions for manual inspection.</p>
 <!-- ROADMAP -->
 </section>
 </section>
@@ -431,12 +481,9 @@ PRs. The workflow won’t merge anything with a <code class="docutils literal no
 <li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> add licenses</p></li>
 <li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> add typeguard</p></li>
 <li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> version releases</p></li>
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> update docs</p>
-<ul class="contains-task-list">
-<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> include cookiecutter var descriptions</p></li>
-</ul>
-</li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> update docs</p></li>
 <li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> add publish docs workflow</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> include cookiecutter var descriptions</p></li>
 <li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> update default/initial template doc structure</p></li>
 <li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> investigate uv</p></li>
 <li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> migrate to uv</p></li>
@@ -545,6 +592,7 @@ SOFTWARE.</p>
 <li><a class="reference internal" href="#justfile-commands">Justfile Commands</a></li>
 <li><a class="reference internal" href="#docker">Docker</a></li>
 <li><a class="reference internal" href="#versioning">Versioning</a></li>
+<li><a class="reference internal" href="#configuration-variables">Configuration Variables</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#roadmap">🚧 Roadmap</a></li>
