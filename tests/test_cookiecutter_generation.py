@@ -215,7 +215,9 @@ def test_with_parameterized_configuration(  # noqa: C901, PLR0912, PLR0915
     if strtobool(context['should_create_author_files']):
         expected_files += EXPECTED_BAKED_AUTHORS_FILES
 
-    if strtobool(context['should_publish_to_pypi']):
+    # publish.yml always exists when GitHub Actions is enabled
+    # Individual publish jobs are conditionally included via Jinja2
+    if strtobool(context['should_install_github_actions']):
         expected_files += EXPECTED_BAKED_GITHUB_ACTIONS_PYPI_PUBLISH_FILES
 
     if strtobool(context['should_install_github_dependabot']):
@@ -275,6 +277,251 @@ def test_with_codecov(
                     pytest.fail('Should have codecov')
                 elif s.find(b'codecov') != -1 and codecov == 'n':
                     pytest.fail('Should not have codecov')
+
+
+@pytest.mark.parametrize('publish_testpypi', ['y', 'n'])
+def test_with_publish_to_testpypi(
+    cookies: Cookies, default_context: dict[str, str], publish_testpypi: str
+) -> None:
+    default_context['should_publish_to_testpypi'] = publish_testpypi
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    for path in abs_baked_files:
+        if 'publish.yml' in path:
+            with (
+                Path(path).open('rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
+                if (
+                    s.find(b'publish_test_pypi:') == -1
+                    and publish_testpypi == 'y'
+                ):
+                    pytest.fail('Should have publish_test_pypi job')
+                elif (
+                    s.find(b'publish_test_pypi:') != -1
+                    and publish_testpypi == 'n'
+                ):
+                    pytest.fail('Should not have publish_test_pypi job')
+
+
+@pytest.mark.parametrize('publish_github_packages', ['y', 'n'])
+def test_with_publish_to_github_packages(
+    cookies: Cookies,
+    default_context: dict[str, str],
+    publish_github_packages: str,
+) -> None:
+    default_context['should_publish_to_github_packages'] = (
+        publish_github_packages
+    )
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    for path in abs_baked_files:
+        if 'publish.yml' in path:
+            with (
+                Path(path).open('rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
+                if (
+                    s.find(b'publish_github_packages:') == -1
+                    and publish_github_packages == 'y'
+                ):
+                    pytest.fail('Should have publish_github_packages job')
+                elif (
+                    s.find(b'publish_github_packages:') != -1
+                    and publish_github_packages == 'n'
+                ):
+                    pytest.fail('Should not have publish_github_packages job')
+
+
+@pytest.mark.parametrize('attach_release', ['y', 'n'])
+def test_with_attach_to_github_release(
+    cookies: Cookies, default_context: dict[str, str], attach_release: str
+) -> None:
+    default_context['should_attach_to_github_release'] = attach_release
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    for path in abs_baked_files:
+        if 'publish.yml' in path:
+            with (
+                Path(path).open('rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
+                if (
+                    s.find(b'attach_to_release:') == -1
+                    and attach_release == 'y'
+                ):
+                    pytest.fail('Should have attach_to_release job')
+                elif (
+                    s.find(b'attach_to_release:') != -1
+                    and attach_release == 'n'
+                ):
+                    pytest.fail('Should not have attach_to_release job')
+
+
+@pytest.mark.parametrize(
+    (
+        'testpypi',
+        'pypi',
+        'github_packages',
+        'attach_release',
+        'expected_job_count',
+    ),
+    [
+        # All disabled - file should STILL exist (with only build job)
+        ('n', 'n', 'n', 'n', 1),
+        # Only TestPyPI enabled
+        ('y', 'n', 'n', 'n', 2),
+        # Only PyPI enabled
+        ('n', 'y', 'n', 'n', 2),
+        # Only GitHub Packages enabled
+        ('n', 'n', 'y', 'n', 2),
+        # Only attach to release enabled
+        ('n', 'n', 'n', 'y', 2),
+        # All enabled
+        ('y', 'y', 'y', 'y', 5),
+    ],
+)
+def test_publish_yml_always_exists_with_github_actions(  # noqa: PLR0913, PLR0917
+    cookies: Cookies,
+    default_context: dict[str, str],
+    testpypi: str,
+    pypi: str,
+    github_packages: str,
+    attach_release: str,
+    expected_job_count: int,
+) -> None:
+    default_context['should_publish_to_testpypi'] = testpypi
+    default_context['should_publish_to_pypi'] = pypi
+    default_context['should_publish_to_github_packages'] = github_packages
+    default_context['should_attach_to_github_release'] = attach_release
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    rel_baked_files = build_files_list(
+        str(baked_project.project_path), is_absolute=False
+    )
+
+    publish_yml_path = '/.github/workflows/publish.yml'
+    if publish_yml_path not in rel_baked_files:
+        pytest.fail(
+            'publish.yml should always exist when GitHub Actions is enabled'
+        )
+
+    # Count jobs in the workflow file
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+    publish_yml = next(
+        (path for path in abs_baked_files if 'publish.yml' in path), None
+    )
+    if not publish_yml:
+        pytest.fail('Could not find publish.yml in baked files')
+
+    with Path(publish_yml).open('r', encoding='utf-8') as file:
+        content = file.read()
+
+    # Count job definitions under "jobs:" section
+    job_count = 0
+    in_jobs_section = False
+    for line in content.split('\n'):
+        stripped = line.strip()
+        if stripped == 'jobs:':
+            in_jobs_section = True
+            continue
+        if in_jobs_section and line and not line.startswith(' '):
+            in_jobs_section = False
+        # Count jobs: 2-space indent, ends with colon, not a comment
+        is_job = (
+            in_jobs_section
+            and line.startswith('  ')
+            and not line.startswith('    ')
+            and stripped
+            and not stripped.startswith('#')
+            and stripped.endswith(':')
+        )
+        if is_job:
+            job_count += 1
+
+    if job_count != expected_job_count:
+        pytest.fail(f'Expected {expected_job_count} jobs, found {job_count}')
+
+
+@pytest.mark.parametrize('testpypi_enabled', ['y', 'n'])
+def test_publish_pypi_job_dependencies(
+    cookies: Cookies, default_context: dict[str, str], testpypi_enabled: str
+) -> None:
+    default_context['should_publish_to_testpypi'] = testpypi_enabled
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    publish_yml = next(
+        (path for path in abs_baked_files if 'publish.yml' in path), None
+    )
+    if not publish_yml:
+        return
+
+    with (
+        Path(publish_yml).open('rb', 0) as file,
+        mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+    ):
+        content = s.read().decode('utf-8')
+
+    if 'publish_pypi:' not in content:
+        return
+
+    # Verify dependencies based on TestPyPI configuration
+    has_testpypi_dep = 'needs: [build, publish_test_pypi]' in content
+    has_build_only_dep = 'needs: [build]' in content
+
+    if testpypi_enabled == 'y':
+        if not has_testpypi_dep:
+            msg = (
+                'publish_pypi should depend on '
+                '[build, publish_test_pypi] when TestPyPI is enabled'
+            )
+            pytest.fail(msg)
+    else:
+        if has_testpypi_dep:
+            msg = (
+                'publish_pypi should not depend on '
+                'publish_test_pypi when TestPyPI is disabled'
+            )
+            pytest.fail(msg)
+        if not has_build_only_dep:
+            msg = (
+                'publish_pypi should depend on '
+                '[build] when TestPyPI is disabled'
+            )
+            pytest.fail(msg)
 
 
 @pytest.mark.parametrize('uv_version', ['8.0.8', '4.2.0'])

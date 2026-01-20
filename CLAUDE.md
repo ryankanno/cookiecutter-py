@@ -16,18 +16,23 @@ This is a modern Python Cookiecutter template project that generates standardize
 
 ### Critical Architectural Patterns
 - **Template exclusions**: `pyproject.toml` excludes `{{cookiecutter.package_name}}/` from mypy/black/ruff to prevent linting unrendered Jinja2 templates
-- **Post-generation hooks**: `hooks/post_gen_project.py` conditionally removes files based on user selections (e.g., direnv, GitHub workflows, author files)
+- **Post-generation hooks**: `hooks/post_gen_project.py` conditionally removes files based on user selections (e.g., direnv, author files, Dependabot workflows). Note: `publish.yml` is never removed when GitHub Actions is enabled - it always builds and uploads artifacts to GitHub Actions even when all publish destinations are disabled.
 - **Test strategy**: Uses `pytest-cookies` plugin to test actual template generation, verifying that cookiecutter variables are properly substituted and expected files exist
 
 The template generates projects with:
 - `uv` for dependency management
-- `tox` for testing across Python versions (3.10, 3.11, 3.12, PyPy)
+- `tox` for testing across Python versions (3.10, 3.11, 3.12, 3.13, PyPy)
 - `pytest` with coverage, xdist, randomly, mock, and hypothesis
 - `ruff` for linting and formatting
 - `mypy` for type checking
 - `sphinx` for documentation with selectable themes
 - Pre-commit hooks with comprehensive tooling (detect-secrets, commitlint, bashate, typos, deptry)
-- GitHub Actions workflows (CI, CodeQL, publish to PyPI, auto-approve/merge Dependabot)
+- GitHub Actions workflows:
+  - CI with optional Codecov integration
+  - CodeQL security analysis
+  - Publish workflow with configurable destinations (TestPyPI, PyPI, GitHub Packages, GitHub Releases)
+  - Auto-approve/merge Dependabot PRs
+  - Additional workflows for hadolint, commitlint, trufflehog, docs, PR labeling
 - Docker configuration for development and production
 
 ## Development Commands
@@ -51,6 +56,7 @@ All commands use `uv` as the package manager and `just` as the task runner.
 - `just tox run -e py310` - Run tests on Python 3.10
 - `just tox run -e py311` - Run tests on Python 3.11
 - `just tox run -e py312` - Run tests on Python 3.12
+- `just tox run -e py313` - Run tests on Python 3.13
 - `just tox run -e coverage-py312` - Run tests with coverage on Python 3.12
 - `just tox run -e pre-commit` - Run pre-commit hooks
 - `just tox run -e docs` - Build documentation
@@ -63,7 +69,13 @@ The project tests the cookiecutter template generation process:
 - Tests verify that all cookiecutter variables (e.g., `{{cookiecutter.package_name}}`) are properly substituted in generated files
 - Tests verify expected files exist based on user configuration choices
 - Tests verify post-generation hooks correctly remove conditional files
-- Parameterized tests cover different configuration combinations (codecov, uv version, tox version, sphinx theme)
+- Parameterized tests cover different configuration combinations (codecov, uv version, tox version, sphinx theme, publish destinations)
+- Tests verify publish workflow job inclusion:
+  - `test_with_publish_to_testpypi` - Verifies TestPyPI job is conditionally included
+  - `test_with_publish_to_github_packages` - Verifies GitHub Packages job is conditionally included
+  - `test_with_attach_to_github_release` - Verifies attach-to-release job is conditionally included
+  - `test_publish_yml_always_exists_with_github_actions` - Verifies workflow always exists and validates job counts
+  - `test_publish_pypi_job_dependencies` - Verifies publish_pypi dependencies are correct
 - Coverage tracks `hooks/` directory to ensure post-generation scripts are tested
 
 ### Key Configuration Files
