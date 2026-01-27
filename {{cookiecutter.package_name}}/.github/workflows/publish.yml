@@ -1,5 +1,16 @@
-# Builds and publishes to testpypi on every push to main
-# On release, publishes to pypi
+# Builds on every push to main and uploads artifacts
+{% if cookiecutter.should_publish_to_testpypi == 'y' -%}
+# Publishes to TestPyPI on every push to main
+{% endif -%}
+{% if cookiecutter.should_publish_to_pypi == 'y' -%}
+# Publishes to PyPI on release
+{% endif -%}
+{% if cookiecutter.should_publish_to_github_packages == 'y' -%}
+# Publishes to GitHub Packages on release
+{% endif -%}
+{% if cookiecutter.should_attach_to_github_release == 'y' -%}
+# Attaches artifacts to GitHub release
+{% endif -%}
 name: publish
 
 on:
@@ -50,11 +61,11 @@ jobs:
       - name: uv build
         run: uv build
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v6
         with:
           name: uv_build
           path: dist/
-
+{% if cookiecutter.should_publish_to_testpypi == 'y' %}
   publish_test_pypi:
     if: github.repository_owner == '{{ cookiecutter.github_repository_owner }}'
     runs-on: ubuntu-latest
@@ -68,7 +79,7 @@ jobs:
         with:
           python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v7
         with:
           name: uv_build
           path: dist/
@@ -90,11 +101,12 @@ jobs:
 
       - name: uv publish TestPyPi
         run: uv publish -r test-pypi
-
+{% endif %}
+{% if cookiecutter.should_publish_to_pypi == 'y' %}
   publish_pypi:
     if: github.repository_owner == '{{ cookiecutter.github_repository_owner }}' && github.event_name == 'release' && github.event.action == 'published'
     runs-on: ubuntu-latest
-    needs: [build, publish_test_pypi]
+    needs: [build{% if cookiecutter.should_publish_to_testpypi == 'y' %}, publish_test_pypi{% endif %}]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -104,7 +116,7 @@ jobs:
         with:
           python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v7
         with:
           name: uv_build
           path: dist/
@@ -123,3 +135,64 @@ jobs:
 
       - name: uv publish PyPi
         run: uv publish
+{% endif %}
+{% if cookiecutter.should_publish_to_github_packages == 'y' %}
+  publish_github_packages:
+    if: github.repository_owner == '{{ cookiecutter.github_repository_owner }}' && github.event_name == 'release' && github.event.action == 'published'
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
+
+      - uses: actions/download-artifact@v7
+        with:
+          name: uv_build
+          path: dist/
+
+      - name: Install uv {% raw %}${{ env.UV_VERSION }}{% endraw %}
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: {% raw %}${{ env.UV_VERSION }}{% endraw %}
+          enable-cache: true
+          cache-suffix: uv_publish
+
+      - run: uv version {% raw %}${{ needs.build.outputs.version }}{% endraw %}
+
+      - name: uv configure GitHub Packages
+        run: uv config repositories.github https://pypi.pkg.github.com/{{ cookiecutter.github_repository_owner }}
+
+      - name: uv configure GitHub Packages Token
+        run: uv config pypi-token.github {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
+      - name: uv publish to GitHub Packages
+        run: uv publish -r github
+{% endif %}
+{% if cookiecutter.should_attach_to_github_release == 'y' %}
+  attach_to_release:
+    if: github.repository_owner == '{{ cookiecutter.github_repository_owner }}' && github.event_name == 'release' && github.event.action == 'published'
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v7
+        with:
+          name: uv_build
+          path: dist/
+
+      - name: Upload artifacts to GitHub Release
+        run: gh release upload {% raw %}${{ github.ref_name }}{% endraw %} dist/*
+        env:
+          GH_TOKEN: {% raw %}${{ github.token }}{% endraw %}
+{% endif %}

@@ -71,7 +71,13 @@ template is the tool that will help you do just that.
 
     - optional [`codecov`](https://codecov.io) integration for code coverage
 
-  - [`publish`](https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/publish.yml) workflow (to [test.pypi.org](https://test.pypi.org) / [pypi.org](https://pypi.org)) w/ [`release-drafter`](https://github.com/release-drafter/release-drafter) integration
+  - [`publish`](https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/publish.yml) workflow with configurable publishing to:
+    - [TestPyPI](https://test.pypi.org) (optional, enabled by default)
+    - [PyPI](https://pypi.org) (optional, enabled by default)
+    - [GitHub Packages](https://docs.github.com/en/packages) (optional, disabled by default)
+    - GitHub Release artifacts (optional, disabled by default)
+    - Always builds and uploads artifacts to GitHub Actions for manual inspection
+    - Integrated with [`release-drafter`](https://github.com/release-drafter/release-drafter)
   - [`auto approve / merge`](https://github.com/ryankanno/cookiecutter-py/blob/main/%7B%7Bcookiecutter.package_name%7D%7D/.github/workflows/auto-approve-merge-dependabot.yml) workflow
   - with these additional workflows:
 
@@ -174,6 +180,44 @@ If you enable the PyPi workflow, versioning will happen via [`dunamai`](https://
 
 If instead, you prefer to version your package, please do it via ```uv version $(dunamai from any)``` as recommended in their [documentation](https://github.com/mtkennerly/dunamai#user-content-integration).
 
+### Configuration Variables
+
+When you run cookiecutter, you'll be prompted for various configuration options. Here are the key variables:
+
+**Project Information:**
+- `author_name` - Your full name
+- `author_email` - Your email address
+- `project_name` - Human-readable project name
+- `project_short_description` - Brief description of your project
+- `project_url` - Project repository URL
+- `project_license` - License type (default: MIT)
+- `github_repository_owner` - GitHub username or organization
+- `package_name` - Python package name (snake_case)
+- `version` - Initial version number (default: 0.0.0)
+
+**Python & Dependencies:**
+- `python_version` - Minimum Python version (default: 3.12)
+- `supported_python_versions` - Comma-separated list of supported versions
+- `uv_version` - Version of uv to use
+- `tox_version` - Version of tox to use
+- `sphinx_theme` - Documentation theme (select from multiple options)
+
+**Optional Features:**
+- `should_use_direnv` - Include .envrc for direnv (default: y)
+- `should_create_author_files` - Include AUTHORS.rst (default: y)
+- `should_install_github_dependabot` - Enable Dependabot (default: y)
+- `should_automerge_autoapprove_github_dependabot` - Auto-approve/merge Dependabot PRs (default: y)
+- `should_install_github_actions` - Include GitHub Actions workflows (default: y)
+- `should_upload_coverage_to_codecov` - Upload coverage to Codecov (default: y)
+
+**Publishing Options:**
+- `should_publish_to_testpypi` - Publish to TestPyPI on every main push (default: y)
+- `should_publish_to_pypi` - Publish to PyPI on release (default: y)
+- `should_publish_to_github_packages` - Publish to GitHub Packages on release (default: n)
+- `should_attach_to_github_release` - Attach build artifacts to GitHub releases (default: n)
+
+**Note:** Even if all publishing options are disabled, the build job still runs and uploads artifacts to GitHub Actions for manual inspection.
+
 <!-- ROADMAP -->
 ## 🚧 Roadmap
 
@@ -188,8 +232,8 @@ See the [open issues](https://github.com/ryankanno/cookiecutter-py/issues) for a
 - [ ] add typeguard
 - [ ] version releases
 - [ ] update docs
-  - [ ] include cookiecutter var descriptions
 - [ ] add publish docs workflow
+- [X] include cookiecutter var descriptions
 - [X] update default/initial template doc structure
 - [X] investigate uv
 - [X] migrate to uv
