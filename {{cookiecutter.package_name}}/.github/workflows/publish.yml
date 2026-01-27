@@ -61,7 +61,7 @@ jobs:
       - name: uv build
         run: uv build
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v6
         with:
           name: uv_build
           path: dist/
@@ -79,7 +79,7 @@ jobs:
         with:
           python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v7
         with:
           name: uv_build
           path: dist/
@@ -116,7 +116,7 @@ jobs:
         with:
           python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v7
         with:
           name: uv_build
           path: dist/
@@ -153,7 +153,7 @@ jobs:
         with:
           python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v7
         with:
           name: uv_build
           path: dist/
@@ -186,7 +186,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v7
         with:
           name: uv_build
           path: dist/
