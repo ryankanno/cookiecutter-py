@@ -22,9 +22,9 @@
   "should_install_github_dependabot": "y",
   "should_automerge_autoapprove_github_dependabot": "y",
   "should_install_github_actions": "y",
-  "should_upload_coverage_to_codecov": "y",
-  "should_publish_to_testpypi": "y",
-  "should_publish_to_pypi": "y",
+  "should_upload_coverage_to_codecov": "n",
+  "should_publish_to_testpypi": "n",
+  "should_publish_to_pypi": "n",
   "should_publish_to_github_packages": "n",
   "should_attach_to_github_release": "n"
 }
