@@ -59,7 +59,7 @@ jobs:
           cp -a .tox/docs_out/ artifact/html_docs
       - name: Upload docs artifact
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: html_docs
           path: ./artifact
