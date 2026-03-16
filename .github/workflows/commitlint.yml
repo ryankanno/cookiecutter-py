@@ -105,7 +105,7 @@ jobs:
       - name: Update PR
         if: ${{ steps.commitlint.outcome == 'failure' && steps.prTitle.outcome == 'failure' }}
         id: comment
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: commitlint
