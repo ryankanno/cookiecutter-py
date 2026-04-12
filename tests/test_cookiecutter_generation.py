@@ -550,6 +550,92 @@ def test_with_uv_version(
                     pytest.fail('Should have appropriate uv version')
 
 
+def parse_dockerfile_stages(lines: list[str]) -> list[str]:
+    """Extract named stage names from Dockerfile FROM instructions."""
+    stage_names = []
+    for line in lines:
+        if not line.startswith('FROM '):
+            continue
+        parts = line.split()
+        if 'AS' in parts:
+            stage_names.append(parts[parts.index('AS') + 1])
+    return stage_names
+
+
+def get_stage_lines(lines: list[str], stage_name: str) -> list[str]:
+    """Extract lines belonging to a specific named stage."""
+    stage_lines = []
+    in_stage = False
+    for line in lines:
+        if line.startswith('FROM ') and f'AS {stage_name}' in line:
+            in_stage = True
+            continue
+        if in_stage and line.startswith('FROM '):
+            break
+        if in_stage:
+            stage_lines.append(line)
+    return stage_lines
+
+
+def test_dockerfile_structure(
+    cookies: Cookies,
+    default_context: dict[str, str],
+) -> None:
+    """Verify the generated Dockerfile has valid structure."""
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    dockerfile_path = next(
+        (path for path in abs_baked_files if path.endswith('Dockerfile')),
+        None,
+    )
+    assert dockerfile_path is not None, 'Dockerfile should exist'
+
+    content = Path(dockerfile_path).read_text(encoding='utf-8')
+    lines = content.strip().split('\n')
+
+    # Verify no unrendered cookiecutter variables
+    for i, line in enumerate(lines, 1):
+        assert (
+            RE_OBJ.search(line) is None
+        ), f'Unrendered cookiecutter variable on line {i}: {line}'
+
+    # Verify multi-stage build has required stages
+    stage_names = parse_dockerfile_stages(lines)
+    for expected_stage in [
+        'base',
+        'uv',
+        'deps-builder',
+        'project-builder',
+        'final',
+    ]:
+        assert (
+            expected_stage in stage_names
+        ), f'Missing expected stage: {expected_stage}'
+
+    # Verify COPY --from references point to defined stages
+    defined_sources = set(stage_names) | {'uv-source'}
+    for line in lines:
+        if 'COPY --from=' not in line:
+            continue
+        from_ref = line.split('--from=')[1].split()[0]
+        assert (
+            from_ref in defined_sources
+        ), f'COPY --from={from_ref} references undefined stage'
+
+    # Verify final stage runs as non-root user
+    final_lines = get_stage_lines(lines, 'final')
+    user_lines = [line for line in final_lines if line.startswith('USER ')]
+    assert user_lines, 'Final stage should set a non-root USER'
+    assert user_lines[-1] != 'USER root', 'Final stage should not run as root'
+
+
 @pytest.mark.parametrize('tox_version', ['8.0.8', '4.2.0'])
 def test_with_tox_version(
     cookies: Cookies,

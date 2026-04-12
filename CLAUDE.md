@@ -76,6 +76,8 @@ The project tests the cookiecutter template generation process:
   - `test_with_attach_to_github_release` - Verifies attach-to-release job is conditionally included
   - `test_publish_yml_always_exists_with_github_actions` - Verifies workflow always exists and validates job counts
   - `test_publish_pypi_job_dependencies` - Verifies publish_pypi dependencies are correct
+- Tests verify Dockerfile structure:
+  - `test_dockerfile_structure` - Verifies multi-stage build stages exist, COPY --from references are valid, no unrendered cookiecutter variables, and final stage runs as non-root user
 - Coverage tracks `hooks/` directory to ensure post-generation scripts are tested
 
 ### Key Configuration Files
