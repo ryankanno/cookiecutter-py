@@ -11,7 +11,7 @@ keywords = ["cookiecutter"]
 classifiers = ["Programming Language :: Python"]
 dependencies = [
     "cookiecutter>=2.6.0,<3",
-    "setuptools>=80.9.0",
+    "setuptools>=82.0.1",
 ]
 
 [project.urls]
