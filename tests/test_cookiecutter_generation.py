@@ -840,5 +840,46 @@ def test_with_python_version(
                     )
 
 
+THIRD_PARTY_SPHINX_THEMES = [
+    'furo',
+    'sphinx-rtd-theme',
+    'sphinx-book-theme',
+    'pydata-sphinx-theme',
+    'sphinx-press-theme',
+    'piccolo-theme',
+    'sphinxawesome-theme',
+    'sphinx-wagtail-theme',
+]
+
+
+@pytest.mark.parametrize('sphinx_theme', THIRD_PARTY_SPHINX_THEMES)
+def test_with_sphinx_theme(
+    cookies: Cookies,
+    default_context: dict[str, str],
+    sphinx_theme: str,
+) -> None:
+    """Verify generated pyproject.toml has correct sphinx theme package."""
+    default_context['sphinx_theme'] = sphinx_theme
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    for path in abs_baked_files:
+        if 'pyproject.toml' in path:
+            with (
+                Path(path).open('rb', 0) as file,
+                mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s,
+            ):
+                if s.find(sphinx_theme.encode()) == -1:
+                    pytest.fail(
+                        f'pyproject.toml should contain {sphinx_theme}'
+                    )
+
+
 # vim: fenc=utf-8
 # vim: filetype=python

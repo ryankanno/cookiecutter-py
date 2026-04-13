@@ -54,7 +54,7 @@ docs = [
     {% elif cookiecutter.sphinx_theme == "piccolo-theme" %}
     "piccolo-theme>=0.22.0,<1",
     {% elif cookiecutter.sphinx_theme == "sphinxawesome-theme" %}
-    "spinxawesome-theme>=5.1.6,<6",
+    "sphinxawesome-theme>=5.1.6,<6",
     {% elif cookiecutter.sphinx_theme == "sphinx-wagtail-theme" %}
     "sphinx-wagtail-theme>=6.3.0,<7",
     {% endif %}
