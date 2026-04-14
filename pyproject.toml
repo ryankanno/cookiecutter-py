@@ -172,6 +172,7 @@ ignore = [
 ]
 
 [tool.ruff.format]
+preview = true
 quote-style = "preserve"
 
 [tool.ruff.lint.isort]

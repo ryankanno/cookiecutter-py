@@ -121,9 +121,9 @@ def check_paths_substitution(paths: list[str]) -> None:
         with Path(path).open(encoding="utf-8") as f:
             line = f.readline()
             match = RE_OBJ.search(line)
-            assert (
-                match is None
-            ), f"cookiecutter variable not replaced in {path}"
+            assert match is None, (
+                f"cookiecutter variable not replaced in {path}"
+            )
 
 
 def check_paths_exist(
@@ -604,9 +604,9 @@ def test_dockerfile_structure(
 
     # Verify no unrendered cookiecutter variables
     for i, line in enumerate(lines, 1):
-        assert (
-            RE_OBJ.search(line) is None
-        ), f'Unrendered cookiecutter variable on line {i}: {line}'
+        assert RE_OBJ.search(line) is None, (
+            f'Unrendered cookiecutter variable on line {i}: {line}'
+        )
 
     # Verify multi-stage build has required stages
     stage_names = parse_dockerfile_stages(lines)
@@ -617,9 +617,9 @@ def test_dockerfile_structure(
         'project-builder',
         'final',
     ]:
-        assert (
-            expected_stage in stage_names
-        ), f'Missing expected stage: {expected_stage}'
+        assert expected_stage in stage_names, (
+            f'Missing expected stage: {expected_stage}'
+        )
 
     # Verify COPY --from references point to defined stages
     defined_sources = set(stage_names) | {'uv-source'}
@@ -627,9 +627,9 @@ def test_dockerfile_structure(
         if 'COPY --from=' not in line:
             continue
         from_ref = line.split('--from=')[1].split()[0]
-        assert (
-            from_ref in defined_sources
-        ), f'COPY --from={from_ref} references undefined stage'
+        assert from_ref in defined_sources, (
+            f'COPY --from={from_ref} references undefined stage'
+        )
 
     # Verify final stage runs as non-root user
     final_lines = get_stage_lines(lines, 'final')
