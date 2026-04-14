@@ -15,7 +15,7 @@ This is a modern Python Cookiecutter template project that generates standardize
 - **Configuration**: `cookiecutter.json` defines template variables, defaults, and choices (like sphinx theme options)
 
 ### Critical Architectural Patterns
-- **Template exclusions**: `pyproject.toml` excludes `{{cookiecutter.package_name}}/` from mypy/black/ruff to prevent linting unrendered Jinja2 templates
+- **Template exclusions**: `pyproject.toml` excludes `{{cookiecutter.package_name}}/` from mypy/ruff to prevent linting unrendered Jinja2 templates
 - **Post-generation hooks**: `hooks/post_gen_project.py` conditionally removes files based on user selections (e.g., direnv, author files, Dependabot workflows). Note: `publish.yml` is never removed when GitHub Actions is enabled - it always builds and uploads artifacts to GitHub Actions even when all publish destinations are disabled.
 - **Test strategy**: Uses `pytest-cookies` plugin to test actual template generation, verifying that cookiecutter variables are properly substituted and expected files exist
 

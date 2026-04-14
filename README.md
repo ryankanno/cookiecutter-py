@@ -52,10 +52,7 @@ template is the tool that will help you do just that.
 - [`pre-commit`](https://pre-commit.com) hooks with comprehensive tooling:
   - [`uv-lock`](https://github.com/astral-sh/uv-pre-commit) for dependency management
   - [`mypy`](https://mypy-lang.org) for type checking
-  - [`ruff`](https://github.com/astral-sh/ruff) for linting and formatting
-  - [`black`](https://github.com/psf/black) for code formatting
-  - [`blacken-docs`](https://github.com/adamchainz/blacken-docs) for formatting code in docs
-  - [`isort`](https://github.com/pycqa/isort) for import sorting
+  - [`ruff`](https://github.com/astral-sh/ruff) for linting, formatting, and import sorting
   - [`bashate`](https://github.com/openstack/bashate) for shell script linting
   - [`commitlint`](https://github.com/conventional-changelog/commitlint) for commit message standards
   - [`detect-secrets`](https://github.com/Yelp/detect-secrets) for secret detection

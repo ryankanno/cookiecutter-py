@@ -21,7 +21,6 @@ Repository = "https://github.com/ryankanno/cookiecutter-py"
 dev = [
     "pytest>=8.3.5,<10",
     "pytest-cookies>=0.7.0,<0.8",
-    "black>=25.1.0,<27",
     "tox>=4.25.0,<5",
     "tox-uv>=1.21.5",
     "mypy>=1.15.0,<2",
@@ -90,36 +89,6 @@ exclude = [
     'cookiecutter\.package_name',
 ]
 
-[tool.black]
-line-length = 79
-skip-string-normalization = true
-target-version = ['py311', 'py312', 'py313']
-include = '\.pyi?$'
-exclude = '''
-(
-  /(
-     \.ruff_cache
-     | \.direnv
-     | \.eggs
-     | \.git
-     | \.hg
-     | \.mypy_cache
-     | \.nox
-     | \.tox
-     | \.venv
-     | venv
-     | \.svn
-     | _build
-     | buck-out
-     | build
-     | dist
-     | __pypackages__
-     | \{\{cookiecutter\.package_name\}\}\/docs
-     | \{\{cookiecutter\.package_name\}\}\/tests
- )/
-)
-'''
-
 [tool.pytest.ini_options]
 minversion = "7.4"
 addopts = "-n auto"
@@ -150,19 +119,6 @@ exclude_lines = [
 show_missing = true
 skip_covered = false
 
-[tool.isort]
-force_grid_wrap = 0
-force_single_line = true
-include_trailing_comma = true
-lines_after_imports = 2
-multi_line_output = 3
-use_parentheses = true
-known_third_party = [""]
-default_section = "THIRDPARTY"
-known_first_party = "{{ cookiecutter.package_name }}"
-sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
-skip = "tests"
-
 [tool.ruff]
 extend-exclude = ['[{][{]cookiecutter.package_name[}][}]/tests', '[{][{]cookiecutter.package_name[}][}]/docs', 'docs']
 line-length = 79
@@ -192,6 +148,7 @@ select = [
     "FIX",  # temporary developer notes (flake8-fixme)
     "FURB", # code improvements (refurb)
     "G",    # logging string formatting (flake8-logging-format)
+    "I",    # import sorting (isort)
     "LOG",  # logging module usage (flake8-logging)
     "PERF", # performance anti-patterns (perflint)
     "PGH",  # pygrep hooks
@@ -213,6 +170,14 @@ ignore = [
     "D103",
     "D104",
 ]
+
+[tool.ruff.format]
+preview = true
+quote-style = "preserve"
+
+[tool.ruff.lint.isort]
+force-single-line = true
+lines-after-imports = 2
 
 [tool.ruff.lint.per-file-ignores]
 "tests/test_*.py" = ["S101"]

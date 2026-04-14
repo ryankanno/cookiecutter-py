@@ -12,6 +12,7 @@ from pathlib import Path
 
 import pytest
 
+
 # Add hooks directory to path to import from hook files
 sys.path.insert(0, str(Path(__file__).parent.parent / "hooks"))
 
