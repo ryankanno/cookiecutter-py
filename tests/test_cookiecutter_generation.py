@@ -17,10 +17,12 @@ import pytest
 from binaryornot.check import is_binary
 from pytest_cookies.plugin import Cookies
 
+
 # Add hooks directory to path to import from hook files
 sys.path.insert(0, str(Path(__file__).parent.parent / "hooks"))
 
 from pre_gen_project import strtobool  # noqa: E402
+
 
 LOGGER = logging.getLogger(__name__)
 
