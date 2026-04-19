@@ -18,7 +18,7 @@ repos:
           (?x)(cookiecutter\.package_name)
         additional_dependencies: [pytest==7.1.2]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.3
+    rev: v0.11.7
     hooks:
     - id: ruff
       args: ['--config', 'pyproject.toml']
