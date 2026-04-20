@@ -14,8 +14,8 @@ clean-build:
     rm -fr build/
     rm -fr dist/
     rm -fr .eggs/
-    find . -name '*.egg-info' -exec rm -fr {} +
-    find . -name '*.egg' -exec rm -f {} +
+    find . \( -path ./.venv -o -path ./.tox -o -path ./.direnv -o -path ./.git -o -path ./.worktrees \) -prune -o -name '*.egg-info' -exec rm -fr {} +
+    find . -name '*.egg' -type f -exec rm -f {} +
 
 # Remove Python artifacts (.pyc, .pyo, __pycache__)
 [private]
@@ -84,4 +84,4 @@ tox *TOX_ARGS:
 
 # Runs watchexec
 watch *JUST_RECIPE:
-    watchexec -r -e py -- "just {{ JUST_RECIPE }} && toastify send '🚀 just {{ JUST_RECIPE }}' 'just {{ JUST_RECIPE }} was successful' --icon info || toastify send '❌ just {{ JUST_RECIPE }}' '{{ JUST_RECIPE }} failed' --icon error"
+    watchexec -r -e py -- "just {{ JUST_RECIPE }} && toastify send '🚀 just {{ JUST_RECIPE }}' 'just {{ JUST_RECIPE }} was successful' || toastify send '❌ just {{ JUST_RECIPE }}' '{{ JUST_RECIPE }} failed'"

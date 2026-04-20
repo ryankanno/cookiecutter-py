@@ -8,6 +8,9 @@ import logging
 import sys
 
 
+logger = logging.getLogger(__name__)
+
+
 def strtobool(val: str) -> int:
     """Convert a string representation of truth to 1 or 0.
 
@@ -42,7 +45,7 @@ def validate_supported_python_versions(supported_python_versions: str) -> None:
 
     for version in supported_python_versions_list:
         if not version.startswith(tuple(VALID_PYTHON_VERSION_PREFIXES)):
-            logging.error(
+            logger.error(
                 "ERROR: %s is not a valid supported Python version. "
                 "Supported are any Pythons that begin with the following prefixes: %s ",  # noqa: B950, E501
                 version,
@@ -57,12 +60,12 @@ def validate_dependabot(
     should_install_gh_actions: bool,
 ) -> None:
     if not should_install_dependabot and should_install_automerge:
-        logging.error(
+        logger.error(
             "ERROR: You must install dependabot if you want to install the automerge workflow."  # noqa: B950, E501
         )
         sys.exit(1)
     elif not should_install_gh_actions and should_install_automerge:
-        logging.error(
+        logger.error(
             "ERROR: You must install Github Actions if you want to install the Dependabot automerge workflow."  # noqa: B950, E501
         )
         sys.exit(1)
