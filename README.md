@@ -197,7 +197,7 @@ Publishing triggers `publish.yml` which builds the sdist/wheel and uploads them 
 
 #### Skipping a PR from release notes
 
-Add `[skip]` to the PR title. The drafter autolabeler tags it with `skip-changelog`, and `exclude-labels` in `.github/release-drafter.yml` keeps it out of the next release's changelog and version bump.
+Apply the `skip-changelog` label to the PR. `exclude-labels` in `.github/release-drafter.yml` keeps labelled PRs out of the next release's changelog and version bump.
 
 ### Configuration Variables
 

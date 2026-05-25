@@ -56,9 +56,6 @@ exclude-contributors:
   - dependabot[bot]
 
 autolabeler:
-  - label: "skip-changelog"
-    title:
-      - '/\[skip\]/'
   - label: "documentation"
     branch:
       - '/docs{0,1}\/.+/'

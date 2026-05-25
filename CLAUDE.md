@@ -111,7 +111,7 @@ gh release create 2.0.0 --generate-notes
 
 ### Skipping a PR from release notes
 
-Add `[skip]` to the PR title. The drafter autolabeler tags the PR with `skip-changelog`, and `exclude-labels` keeps it out of the next release's changelog and version bump.
+Apply the `skip-changelog` label to the PR. `exclude-labels` in `.github/release-drafter.yml` keeps labelled PRs out of the next release's changelog and version bump.
 
 ## Important Considerations
 
