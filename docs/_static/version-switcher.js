@@ -52,12 +52,33 @@
     }
   }
 
+  function injectBrandBadge(current) {
+    if (!current) {
+      return;
+    }
+    const targets = [
+      document.querySelector(".sidebar-brand-text"),
+      document.querySelector(".mobile-header .header-center .brand"),
+    ];
+    targets.forEach(function (target) {
+      if (!target || target.querySelector(".cc-version-badge")) {
+        return;
+      }
+      const badge = document.createElement("span");
+      badge.className = "cc-version-badge";
+      badge.textContent = current;
+      badge.setAttribute("title", "Documentation version " + current);
+      target.appendChild(badge);
+    });
+  }
+
   function init() {
     const select = document.getElementById("cc-version-select");
+    const current = detectCurrentVersion();
+    injectBrandBadge(current);
     if (!select) {
       return;
     }
-    const current = detectCurrentVersion();
     fetch(buildVersionsUrl(), { cache: "no-store" })
       .then(function (response) {
         if (!response.ok) {
