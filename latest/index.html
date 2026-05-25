@@ -422,6 +422,23 @@ PRs. The workflow won’t merge anything with a <code class="docutils literal no
 <p>If you enable the PyPi workflow, versioning will happen via <a class="reference external" href="https://github.com/mtkennerly/dunamai"><code class="docutils literal notranslate"><span class="pre">dunamai</span></code></a> within the Github pipeline.</p>
 <p>If instead, you prefer to version your package, please do it via <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">version</span> <span class="pre">$(dunamai</span> <span class="pre">from</span> <span class="pre">any)</span></code> as recommended in their <a class="reference external" href="https://github.com/mtkennerly/dunamai#user-content-integration">documentation</a>.</p>
 </section>
+<section id="publishing-a-release">
+<h3>Publishing a Release<a class="headerlink" href="#publishing-a-release" title="Link to this heading">¶</a></h3>
+<p>Tags use plain SemVer with no <code class="docutils literal notranslate"><span class="pre">v</span></code> prefix (e.g. <code class="docutils literal notranslate"><span class="pre">2.0.0</span></code>). The <code class="docutils literal notranslate"><span class="pre">publish.yml</span></code> workflow fires on <code class="docutils literal notranslate"><span class="pre">release:</span> <span class="pre">published</span></code> and derives the wheel version from the tag via <code class="docutils literal notranslate"><span class="pre">dunamai</span> <span class="pre">from</span> <span class="pre">git</span> <span class="pre">--style</span> <span class="pre">semver</span></code>.</p>
+<p>Two paths:</p>
+<p><strong>Drafter (default).</strong> <a class="reference external" href="https://github.com/release-drafter/release-drafter"><code class="docutils literal notranslate"><span class="pre">release-drafter</span></code></a> maintains a draft on every push to <code class="docutils literal notranslate"><span class="pre">main</span></code>. Version resolves from PR labels: <code class="docutils literal notranslate"><span class="pre">breaking</span></code> → major-ish bump (currently mapped to minor — adjust <code class="docutils literal notranslate"><span class="pre">version-resolver</span></code> if you want true major automation), <code class="docutils literal notranslate"><span class="pre">feature</span></code> → minor, <code class="docutils literal notranslate"><span class="pre">fix</span></code> / <code class="docutils literal notranslate"><span class="pre">refactor</span></code> / <code class="docutils literal notranslate"><span class="pre">build</span></code> / <code class="docutils literal notranslate"><span class="pre">documentation</span></code> / <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> / <code class="docutils literal notranslate"><span class="pre">performance</span></code> → patch. Open the draft, confirm the tag, click <strong>Publish</strong>.</p>
+<p><strong>Manual (forced major or off-cycle cuts).</strong></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span><span class="m">2</span>.0.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;2.0.0&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span><span class="m">2</span>.0.0
+gh<span class="w"> </span>release<span class="w"> </span>create<span class="w"> </span><span class="m">2</span>.0.0<span class="w"> </span>--generate-notes
+</pre></div>
+</div>
+<p>Publishing triggers <code class="docutils literal notranslate"><span class="pre">publish.yml</span></code> which builds the sdist/wheel and uploads them as a GitHub Actions artifact.</p>
+<section id="skipping-a-pr-from-release-notes">
+<h4>Skipping a PR from release notes<a class="headerlink" href="#skipping-a-pr-from-release-notes" title="Link to this heading">¶</a></h4>
+<p>Apply the <code class="docutils literal notranslate"><span class="pre">skip-changelog</span></code> label to the PR. <code class="docutils literal notranslate"><span class="pre">exclude-labels</span></code> in <code class="docutils literal notranslate"><span class="pre">.github/release-drafter.yml</span></code> keeps labelled PRs out of the next release’s changelog and version bump.</p>
+</section>
+</section>
 <section id="configuration-variables">
 <h3>Configuration Variables<a class="headerlink" href="#configuration-variables" title="Link to this heading">¶</a></h3>
 <p>When you run cookiecutter, you’ll be prompted for various configuration options. Here are the key variables:</p>
@@ -589,6 +606,10 @@ SOFTWARE.</p>
 <li><a class="reference internal" href="#justfile-commands">Justfile Commands</a></li>
 <li><a class="reference internal" href="#docker">Docker</a></li>
 <li><a class="reference internal" href="#versioning">Versioning</a></li>
+<li><a class="reference internal" href="#publishing-a-release">Publishing a Release</a><ul>
+<li><a class="reference internal" href="#skipping-a-pr-from-release-notes">Skipping a PR from release notes</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#configuration-variables">Configuration Variables</a></li>
 </ul>
 </li>
