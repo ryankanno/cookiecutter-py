@@ -790,7 +790,7 @@ def test_pyproject_with_default_configuration(
                         pytest.fail('Should not have commented out python')
 
 
-@pytest.mark.parametrize('python_version', ['3.10', '3.11', '3.12', '3.13'])
+@pytest.mark.parametrize('python_version', ['3.11', '3.12', '3.13'])
 def test_with_python_version(
     cookies: Cookies,
     default_context: dict[str, str],
@@ -798,9 +798,7 @@ def test_with_python_version(
 ) -> None:
     """Verify generated project supports specified Python version."""
     default_context['python_version'] = python_version
-    default_context['supported_python_versions'] = (
-        "3.10, 3.11, 3.12, 3.13, pypy3.10, pypy3.11"
-    )
+    default_context['supported_python_versions'] = "3.11, 3.12, 3.13, pypy3.11"
 
     baked_project = cookies.bake(extra_context=default_context)
 

@@ -191,7 +191,7 @@ def test_with_unsupported_python_versions() -> None:
 
 def test_with_supported_python_versions() -> None:
     validate_supported_python_versions(
-        "3.10, 3.11, pypy3.10, pypy3.11",
+        "3.11, 3.12, pypy3.11",
     )  # noqa: B950
 
 
