@@ -1,0 +1,92 @@
+(function () {
+  "use strict";
+
+  function detectCurrentVersion() {
+    const segments = window.location.pathname.split("/").filter(Boolean);
+    // GH pages serves at /<repo>/<version>/...
+    // index 0 is the repo name, index 1 is the version slug.
+    if (segments.length >= 2) {
+      return segments[1];
+    }
+    return "";
+  }
+
+  function buildVersionsUrl() {
+    const segments = window.location.pathname.split("/").filter(Boolean);
+    if (segments.length === 0) {
+      return "/versions.json";
+    }
+    return "/" + segments[0] + "/versions.json";
+  }
+
+  function navigateTo(slug) {
+    const segments = window.location.pathname.split("/").filter(Boolean);
+    if (segments.length < 1) {
+      window.location.pathname = "/" + slug + "/";
+      return;
+    }
+    const tail = segments.slice(2).join("/");
+    const suffix = tail ? "/" + tail : "/";
+    window.location.pathname = "/" + segments[0] + "/" + slug + suffix;
+  }
+
+  function populate(select, entries, current) {
+    select.innerHTML = "";
+    let matched = false;
+    entries.forEach(function (entry) {
+      const option = document.createElement("option");
+      option.value = entry.name;
+      option.textContent = entry.name;
+      if (entry.name === current) {
+        option.selected = true;
+        matched = true;
+      }
+      select.appendChild(option);
+    });
+    if (!matched && current) {
+      const option = document.createElement("option");
+      option.value = current;
+      option.textContent = current + " (current)";
+      option.selected = true;
+      select.insertBefore(option, select.firstChild);
+    }
+  }
+
+  function init() {
+    const select = document.getElementById("cc-version-select");
+    if (!select) {
+      return;
+    }
+    const current = detectCurrentVersion();
+    fetch(buildVersionsUrl(), { cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("versions.json HTTP " + response.status);
+        }
+        return response.json();
+      })
+      .then(function (entries) {
+        populate(select, entries, current);
+        select.addEventListener("change", function () {
+          if (select.value) {
+            navigateTo(select.value);
+          }
+        });
+      })
+      .catch(function (err) {
+        console.warn("version-switcher: failed to load versions.json", err);
+        select.innerHTML = "";
+        const option = document.createElement("option");
+        option.textContent = current || "current";
+        option.selected = true;
+        select.appendChild(option);
+        select.disabled = true;
+      });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
