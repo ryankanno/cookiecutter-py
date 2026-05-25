@@ -5,6 +5,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  release:
+    types: [ published ]
 
   # manual
   workflow_dispatch:
@@ -63,10 +65,91 @@ jobs:
         with:
           name: html_docs
           path: ./artifact
-      - name: Deploy to gh pages
-        if: ${{ github.event_name == 'push' && github.ref_name ==  github.event.repository.default_branch }}
-        uses: peaceiris/actions-gh-pages@v4
+
+  deploy:
+    needs: tox-docs
+    if: >-
+      ${{ (github.event_name == 'push' && github.ref_name == github.event.repository.default_branch)
+          || github.event_name == 'release'
+          || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: docs-gh-pages
+      cancel-in-progress: false
+    steps:
+      - name: Determine destination directory
+        id: dest
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "dir=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "dir=latest" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Checkout gh-pages
+        uses: actions/checkout@v6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .tox/docs_out/
-          destination_dir: ./latest
+          ref: gh-pages
+          path: gh-pages
+      - name: Download docs artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: html_docs
+          path: ./artifact
+      - name: Sync HTML into version directory
+        shell: bash
+        run: |
+          DEST="${{ steps.dest.outputs.dir }}"
+          rm -rf "gh-pages/${DEST}"
+          mkdir -p "gh-pages/${DEST}"
+          cp -a artifact/html_docs/. "gh-pages/${DEST}/"
+      - name: Regenerate versions.json
+        shell: bash
+        working-directory: gh-pages
+        run: |
+          touch .nojekyll
+          python3 - <<'PY'
+          import json, pathlib, re
+
+          root = pathlib.Path(".")
+          version_re = re.compile(r"^\d+\.\d+\.\d+([._-].+)?$")
+
+          entries = []
+          for child in sorted(root.iterdir()):
+              if not child.is_dir() or child.name.startswith("."):
+                  continue
+              name = child.name
+              if name == "latest" or version_re.match(name):
+                  entries.append(name)
+
+          def sort_key(name: str):
+              if name == "latest":
+                  return (0, ())
+              parts = re.split(r"[._-]", name)
+              nums = []
+              for part in parts:
+                  try:
+                      nums.append(int(part))
+                  except ValueError:
+                      nums.append(part)
+              return (1, tuple(-n if isinstance(n, int) else n for n in nums))
+
+          entries.sort(key=sort_key)
+          payload = [{"name": name, "url": f"/cookiecutter-py/{name}/"} for name in entries]
+          pathlib.Path("versions.json").write_text(json.dumps(payload, indent=2) + "\n")
+          PY
+      - name: Commit and push
+        shell: bash
+        working-directory: gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+            exit 0
+          fi
+          git commit -m "deploy: ${{ steps.dest.outputs.dir }} from ${GITHUB_SHA}"
+          git push origin gh-pages

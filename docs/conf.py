@@ -56,3 +56,18 @@ myst_enable_extensions = [
 
 html_theme = 'furo'
 html_static_path = ['_static']
+html_css_files = ['version-switcher.css']
+html_js_files = ['version-switcher.js']
+
+html_sidebars = {
+    '**': [
+        'sidebar/brand.html',
+        'sidebar/search.html',
+        'sidebar/scroll-start.html',
+        'sidebar/navigation.html',
+        'sidebar/ethical-ads.html',
+        'sidebar/scroll-end.html',
+        'sidebar/version-selector.html',
+        'sidebar/variant-selector.html',
+    ],
+}
