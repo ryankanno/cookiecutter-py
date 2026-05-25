@@ -26,3 +26,28 @@
 .sidebar-version-selector__select:disabled {
   opacity: 0.6;
 }
+
+.cc-version-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.6rem;
+  background: var(--color-brand-primary, var(--color-background-secondary));
+  color: var(--color-background-primary, #fff);
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+}
+
+.sidebar-brand-text .cc-version-badge {
+  background: var(--color-foreground-primary);
+  color: var(--color-background-primary);
+  opacity: 0.85;
+}
+
+.mobile-header .header-center .brand .cc-version-badge {
+  font-size: 0.7em;
+  padding: 0.02rem 0.35rem;
+}
