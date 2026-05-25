@@ -86,9 +86,14 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write
+      id-token: write
     concurrency:
-      group: docs-gh-pages
+      group: pages
       cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Determine destination directory
         id: dest
@@ -153,7 +158,7 @@ jobs:
           payload = [{"name": name, "url": f"/cookiecutter-py/{name}/"} for name in entries]
           pathlib.Path("versions.json").write_text(json.dumps(payload, indent=2) + "\n")
           PY
-      - name: Commit and push
+      - name: Commit and push gh-pages branch
         shell: bash
         working-directory: gh-pages
         run: |
@@ -161,8 +166,23 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
-            echo "No changes to publish."
-            exit 0
+            echo "No gh-pages changes to publish."
+          else
+            git commit -m "deploy: ${{ steps.dest.outputs.dir }} from ${GITHUB_SHA}"
+            git push origin gh-pages
           fi
-          git commit -m "deploy: ${{ steps.dest.outputs.dir }} from ${GITHUB_SHA}"
-          git push origin gh-pages
+      - name: Stage Pages payload
+        shell: bash
+        run: |
+          mkdir -p _pages_payload
+          cp -a gh-pages/. _pages_payload/
+          rm -rf _pages_payload/.git
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _pages_payload
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
