@@ -177,6 +177,28 @@ If you enable the PyPi workflow, versioning will happen via [`dunamai`](https://
 
 If instead, you prefer to version your package, please do it via ```uv version $(dunamai from any)``` as recommended in their [documentation](https://github.com/mtkennerly/dunamai#user-content-integration).
 
+### Publishing a Release
+
+Tags use plain SemVer with no `v` prefix (e.g. `2.0.0`). The `publish.yml` workflow fires on `release: published` and derives the wheel version from the tag via `dunamai from git --style semver`.
+
+Two paths:
+
+**Drafter (default).** [`release-drafter`](https://github.com/release-drafter/release-drafter) maintains a draft on every push to `main`. Version resolves from PR labels: `breaking` → major-ish bump (currently mapped to minor — adjust `version-resolver` if you want true major automation), `feature` → minor, `fix` / `refactor` / `build` / `documentation` / `dependencies` / `performance` → patch. Open the draft, confirm the tag, click **Publish**.
+
+**Manual (forced major or off-cycle cuts).**
+
+```sh
+git tag -a 2.0.0 -m "2.0.0"
+git push origin 2.0.0
+gh release create 2.0.0 --generate-notes
+```
+
+Publishing triggers `publish.yml` which builds the sdist/wheel and uploads them as a GitHub Actions artifact.
+
+#### Skipping a PR from release notes
+
+Apply the `skip-changelog` label to the PR. `exclude-labels` in `.github/release-drafter.yml` keeps labelled PRs out of the next release's changelog and version bump.
+
 ### Configuration Variables
 
 When you run cookiecutter, you'll be prompted for various configuration options. Here are the key variables:

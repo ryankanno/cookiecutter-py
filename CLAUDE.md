@@ -87,6 +87,32 @@ The project tests the cookiecutter template generation process:
 - `hooks/post_gen_project.py` - Post-generation script that conditionally removes files based on user selections
 - `hooks/pre_gen_project.py` - Pre-generation validation script
 
+## Releases
+
+Tags use plain SemVer with no `v` prefix (e.g. `2.0.0`). The `publish.yml` workflow fires on `release: published` and derives the wheel version from the tag via `dunamai from git --style semver`.
+
+### Drafter flow (default)
+
+`release-drafter` maintains a draft release on every push to `main`. Version bumps come from PR labels (configured in `.github/release-drafter.yml`):
+
+- `feature` → minor
+- `fix`, `refactor`, `build`, `documentation`, `dependencies`, `performance` → patch
+- `breaking` → currently minor (move it under `version-resolver.major` if you want true major automation)
+
+Open the draft on GitHub, confirm the tag, click **Publish**. That fires `publish.yml`.
+
+### Manual flow (forced major or off-cycle cuts)
+
+```sh
+git tag -a 2.0.0 -m "2.0.0"
+git push origin 2.0.0
+gh release create 2.0.0 --generate-notes
+```
+
+### Skipping a PR from release notes
+
+Apply the `skip-changelog` label to the PR. `exclude-labels` in `.github/release-drafter.yml` keeps labelled PRs out of the next release's changelog and version bump.
+
 ## Important Considerations
 
 When working with this codebase, be aware that changes may affect both:
