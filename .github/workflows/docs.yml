@@ -8,8 +8,17 @@ on:
   release:
     types: [ published ]
 
-  # manual
+  # manual; optionally backfill a specific tag's docs to a named version dir
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref to build docs from (branch, tag, or SHA). Defaults to the branch the workflow is dispatched from.'
+        required: false
+        default: ''
+      version:
+        description: 'Destination directory under gh-pages (e.g. 2.0.0, latest). Defaults to latest.'
+        required: false
+        default: ''
 
 env:
   UV_VERSION: 0.7.3
@@ -31,6 +40,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref || github.ref }}
       - name: Configure Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
@@ -85,6 +96,8 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "release" ]; then
             echo "dir=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.version }}" ]; then
+            echo "dir=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
           else
             echo "dir=latest" >> "$GITHUB_OUTPUT"
           fi
