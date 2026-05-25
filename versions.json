@@ -4,6 +4,10 @@
     "url": "/cookiecutter-py/latest/"
   },
   {
+    "name": "2.0.0",
+    "url": "/cookiecutter-py/2.0.0/"
+  },
+  {
     "name": "1.0.0",
     "url": "/cookiecutter-py/1.0.0/"
   }
