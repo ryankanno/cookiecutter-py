@@ -28,11 +28,9 @@ def strtobool(val: str) -> int:
 
 
 VALID_PYTHON_VERSION_PREFIXES = [
-    "3.10",
     "3.11",
     "3.12",
     "3.13",
-    "pypy3.10",
     "pypy3.11",
 ]
 
