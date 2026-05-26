@@ -846,12 +846,7 @@ def test_with_python_version(
 THIRD_PARTY_SPHINX_THEMES = [
     'furo',
     'sphinx-rtd-theme',
-    'sphinx-book-theme',
     'pydata-sphinx-theme',
-    'sphinx-press-theme',
-    'piccolo-theme',
-    'sphinxawesome-theme',
-    'sphinx-wagtail-theme',
 ]
 
 
