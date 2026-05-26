@@ -1,0 +1,53 @@
+.sidebar-version-selector {
+  margin: 0.5rem 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: var(--font-size--small);
+}
+
+.sidebar-version-selector__label {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-foreground-muted);
+}
+
+.sidebar-version-selector__select {
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  background: var(--color-background-secondary);
+  color: var(--color-foreground-primary);
+  border: 1px solid var(--color-background-border);
+  border-radius: 0.25rem;
+  font: inherit;
+}
+
+.sidebar-version-selector__select:disabled {
+  opacity: 0.6;
+}
+
+.cc-version-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.6rem;
+  background: var(--color-brand-primary, var(--color-background-secondary));
+  color: var(--color-background-primary, #fff);
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+}
+
+.sidebar-brand-text .cc-version-badge {
+  background: var(--color-foreground-primary);
+  color: var(--color-background-primary);
+  opacity: 0.85;
+}
+
+.mobile-header .header-center .brand .cc-version-badge {
+  font-size: 0.7em;
+  padding: 0.02rem 0.35rem;
+}
