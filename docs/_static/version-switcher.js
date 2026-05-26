@@ -52,6 +52,46 @@
     }
   }
 
+  function deriveRepoUrl() {
+    const host = window.location.hostname || "";
+    const ghIoMatch = host.match(/^([^.]+)\.github\.io$/);
+    const segments = window.location.pathname.split("/").filter(Boolean);
+    if (!ghIoMatch || segments.length === 0) {
+      return null;
+    }
+    return "https://github.com/" + ghIoMatch[1] + "/" + segments[0];
+  }
+
+  function linkifyBuildHash() {
+    const copyright = document.querySelector(".copyright");
+    if (!copyright) {
+      return;
+    }
+    const repoUrl = deriveRepoUrl();
+    if (!repoUrl) {
+      return;
+    }
+    const text = copyright.textContent;
+    const match = text.match(/build ([a-f0-9]{7,40})/);
+    if (!match) {
+      return;
+    }
+    const sha = match[1];
+    const link = document.createElement("a");
+    link.href = repoUrl + "/commit/" + sha;
+    link.textContent = sha;
+    link.rel = "noopener";
+    link.target = "_blank";
+    link.className = "cc-build-commit";
+    copyright.innerHTML = "";
+    copyright.append(
+      document.createTextNode(text.slice(0, match.index)),
+      document.createTextNode("build "),
+      link,
+      document.createTextNode(text.slice(match.index + match[0].length))
+    );
+  }
+
   function injectBrandBadge(current) {
     if (!current) {
       return;
@@ -76,6 +116,7 @@
     const select = document.getElementById("cc-version-select");
     const current = detectCurrentVersion();
     injectBrandBadge(current);
+    linkifyBuildHash();
     if (!select) {
       return;
     }
