@@ -5,9 +5,20 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  release:
+    types: [ published ]
 
-  # manual
+  # manual; optionally backfill a specific tag's docs to a named version dir
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref to build docs from (branch, tag, or SHA). Defaults to the branch the workflow is dispatched from.'
+        required: false
+        default: ''
+      version:
+        description: 'Destination directory under gh-pages (e.g. 2.0.0, latest). Defaults to latest.'
+        required: false
+        default: ''
 
 env:
   UV_VERSION: {{ cookiecutter.uv_version }}
@@ -28,9 +39,118 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+        with:
+          ref: {% raw %}${{ inputs.ref || github.ref }}{% endraw %}
+          fetch-depth: 0
+{%- if cookiecutter.sphinx_theme == 'furo' %}
+      - name: Overlay docs theme assets from default branch
+        if: {% raw %}github.event_name == 'workflow_dispatch' && inputs.ref != ''{% endraw %}
+        shell: bash
+        env:
+          DEFAULT_BRANCH: {% raw %}${{ github.event.repository.default_branch }}{% endraw %}
+        run: |
+          set -euo pipefail
+          git fetch origin "${DEFAULT_BRANCH}"
+          REF="origin/${DEFAULT_BRANCH}"
+          mkdir -p docs/_static docs/_templates/sidebar
+          git show "${REF}:docs/_static/version-switcher.js"  > docs/_static/version-switcher.js
+          git show "${REF}:docs/_static/version-switcher.css" > docs/_static/version-switcher.css
+          git show "${REF}:docs/_templates/sidebar/version-selector.html" \
+            > docs/_templates/sidebar/version-selector.html
+          if [ -s docs/conf.py ] && [ "$(tail -c 1 docs/conf.py | wc -c)" -ne 0 ]; then
+            printf '\n' >> docs/conf.py
+          fi
+          cat >> docs/conf.py <<'PYCONF'
+
+          # --- docs theme overlay (injected during backfill builds) ---
+          _overlay_templates = list(globals().get("templates_path", []) or [])
+          if "_templates" not in _overlay_templates:
+              _overlay_templates.append("_templates")
+          templates_path = _overlay_templates
+
+          _overlay_static = list(globals().get("html_static_path", []) or [])
+          if "_static" not in _overlay_static:
+              _overlay_static.append("_static")
+          html_static_path = _overlay_static
+
+          html_css_files = list(globals().get("html_css_files", []) or []) + [
+              "version-switcher.css",
+          ]
+          html_js_files = list(globals().get("html_js_files", []) or []) + [
+              "version-switcher.js",
+          ]
+
+          _overlay_sidebars = dict(globals().get("html_sidebars", {}) or {})
+          _overlay_default = [
+              "sidebar/brand.html",
+              "sidebar/search.html",
+              "sidebar/scroll-start.html",
+              "sidebar/navigation.html",
+              "sidebar/ethical-ads.html",
+              "sidebar/scroll-end.html",
+              "sidebar/version-selector.html",
+              "sidebar/variant-selector.html",
+          ]
+          if "**" in _overlay_sidebars:
+              if "sidebar/version-selector.html" not in _overlay_sidebars["**"]:
+                  _overlay_sidebars["**"].insert(-1, "sidebar/version-selector.html")
+          else:
+              _overlay_sidebars["**"] = _overlay_default
+          html_sidebars = _overlay_sidebars
+
+          import os as _overlay_os
+          import subprocess as _overlay_subprocess
+
+          def _overlay_commit_short():
+              sha = _overlay_os.environ.get("GITHUB_SHA", "")
+              try:
+                  result = _overlay_subprocess.run(
+                      ["git", "rev-parse", "--short", "HEAD"],
+                      cwd=_overlay_os.path.dirname(_overlay_os.path.abspath(__file__)),
+                      capture_output=True,
+                      text=True,
+                      check=True,
+                  )
+                  return result.stdout.strip()
+              except (_overlay_subprocess.CalledProcessError, FileNotFoundError):
+                  return sha[:7] if sha else ""
+
+          _overlay_sha = _overlay_commit_short()
+          if _overlay_sha and "build " not in str(globals().get("copyright", "")):
+              copyright = f'{globals().get("copyright", "")} · build {_overlay_sha}'
+
+          _overlay_repo_url = {% raw %}"https://github.com/${{ github.repository }}"{% endraw %}
+          _overlay_github_mark_svg = (
+              '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" '
+              'width="1em" height="1em" fill="currentColor" aria-hidden="true">'
+              '<path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 '
+              '5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49'
+              '-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 '
+              '1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78'
+              '-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 '
+              '0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53'
+              '-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 '
+              '3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 '
+              '0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>'
+              '</svg>'
+          )
+          _overlay_theme_opts = dict(globals().get("html_theme_options", {}) or {})
+          _overlay_footer_icons = list(_overlay_theme_opts.get("footer_icons", []) or [])
+          if not any(i.get("name") == "GitHub" for i in _overlay_footer_icons):
+              _overlay_footer_icons.append({
+                  "name": "GitHub",
+                  "url": _overlay_repo_url,
+                  "html": _overlay_github_mark_svg,
+                  "class": "",
+              })
+          _overlay_theme_opts["footer_icons"] = _overlay_footer_icons
+          html_theme_options = _overlay_theme_opts
+          # --- end docs theme overlay ---
+          PYCONF
+{%- endif %}
       - name: Configure Python {% raw %}${{ matrix.python-version }}{% endraw %}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
       - name: Install uv
@@ -42,7 +162,7 @@ jobs:
       - name: Install tox
         run: uv tool install --python-preference only-system tox=={% raw %}${{ env.TOX_VERSION }}{% endraw %} --with tox-gh
       - name: Cache pre-commit
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: {% raw %}${{ env.PRE_COMMIT_CACHE }}{% endraw %}
           key: {% raw %}${{ matrix.os }}-${{ matrix.python-version }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}{% endraw %}
@@ -59,14 +179,120 @@ jobs:
           cp -a .tox/docs_out/ artifact/html_docs
       - name: Upload docs artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: html_docs
           path: ./artifact
-      - name: Deploy to gh pages
-        if: {% raw %}${{ github.event_name == 'push' && github.ref_name ==  github.event.repository.default_branch }}{% endraw %}
-        uses: peaceiris/actions-gh-pages@v4
+
+  deploy:
+    needs: tox-docs
+    if: >-
+      {% raw %}${{ (github.event_name == 'push' && github.ref_name == github.event.repository.default_branch)
+          || github.event_name == 'release'
+          || github.event_name == 'workflow_dispatch' }}{% endraw %}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: {% raw %}${{ steps.deployment.outputs.page_url }}{% endraw %}
+    steps:
+      - name: Determine destination directory
+        id: dest
+        shell: bash
+        run: |
+          if [ "{% raw %}${{ github.event_name }}{% endraw %}" = "release" ]; then
+            echo "dir={% raw %}${{ github.event.release.tag_name }}{% endraw %}" >> "$GITHUB_OUTPUT"
+          elif [ "{% raw %}${{ github.event_name }}{% endraw %}" = "workflow_dispatch" ] && [ -n "{% raw %}${{ inputs.version }}{% endraw %}" ]; then
+            echo "dir={% raw %}${{ inputs.version }}{% endraw %}" >> "$GITHUB_OUTPUT"
+          else
+            echo "dir=latest" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Checkout gh-pages
+        uses: actions/checkout@v6
         with:
-          github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-          publish_dir: .tox/docs_out/
-          destination_dir: ./latest
+          ref: gh-pages
+          path: gh-pages
+      - name: Download docs artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: html_docs
+          path: ./artifact
+      - name: Sync HTML into version directory
+        shell: bash
+        run: |
+          DEST="{% raw %}${{ steps.dest.outputs.dir }}{% endraw %}"
+          rm -rf "gh-pages/${DEST}"
+          mkdir -p "gh-pages/${DEST}"
+          cp -a artifact/html_docs/. "gh-pages/${DEST}/"
+      - name: Regenerate versions.json
+        shell: bash
+        working-directory: gh-pages
+        env:
+          REPO_NAME: {% raw %}${{ github.event.repository.name }}{% endraw %}
+        run: |
+          touch .nojekyll
+          python3 - <<'PY'
+          import json, os, pathlib, re
+
+          root = pathlib.Path(".")
+          version_re = re.compile(r"^\d+\.\d+\.\d+([._-].+)?$")
+          repo = os.environ["REPO_NAME"]
+
+          entries = []
+          for child in sorted(root.iterdir()):
+              if not child.is_dir() or child.name.startswith("."):
+                  continue
+              name = child.name
+              if name == "latest" or version_re.match(name):
+                  entries.append(name)
+
+          def sort_key(name: str):
+              if name == "latest":
+                  return (0, ())
+              parts = re.split(r"[._-]", name)
+              nums = []
+              for part in parts:
+                  try:
+                      nums.append(int(part))
+                  except ValueError:
+                      nums.append(part)
+              return (1, tuple(-n if isinstance(n, int) else n for n in nums))
+
+          entries.sort(key=sort_key)
+          payload = [{"name": name, "url": f"/{repo}/{name}/"} for name in entries]
+          pathlib.Path("versions.json").write_text(json.dumps(payload, indent=2) + "\n")
+          PY
+      - name: Commit and push gh-pages branch
+        shell: bash
+        working-directory: gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No gh-pages changes to publish."
+          else
+            git commit -m "deploy: {% raw %}${{ steps.dest.outputs.dir }} from ${GITHUB_SHA}{% endraw %}"
+            git push origin gh-pages
+          fi
+      - name: Stage Pages payload
+        shell: bash
+        run: |
+          mkdir -p _pages_payload
+          cp -a gh-pages/. _pages_payload/
+          rm -rf _pages_payload/.git
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _pages_payload
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
