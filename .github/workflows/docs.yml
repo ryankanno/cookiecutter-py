@@ -97,6 +97,27 @@ jobs:
           else:
               _overlay_sidebars["**"] = _overlay_default
           html_sidebars = _overlay_sidebars
+
+          import os as _overlay_os
+          import subprocess as _overlay_subprocess
+
+          def _overlay_commit_short():
+              sha = _overlay_os.environ.get("GITHUB_SHA", "")
+              try:
+                  result = _overlay_subprocess.run(
+                      ["git", "rev-parse", "--short", "HEAD"],
+                      cwd=_overlay_os.path.dirname(_overlay_os.path.abspath(__file__)),
+                      capture_output=True,
+                      text=True,
+                      check=True,
+                  )
+                  return result.stdout.strip()
+              except (_overlay_subprocess.CalledProcessError, FileNotFoundError):
+                  return sha[:7] if sha else ""
+
+          _overlay_sha = _overlay_commit_short()
+          if _overlay_sha and "build " not in str(globals().get("copyright", "")):
+              copyright = f'{globals().get("copyright", "")} · build {_overlay_sha}'
           # --- end docs theme overlay ---
           PYCONF
       - name: Configure Python ${{ matrix.python-version }}
