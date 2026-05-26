@@ -50,9 +50,6 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'myst_parser',
-    {%- if cookiecutter.sphinx_theme == 'sphinx-wagtail-theme' -%}
-    '{{ cookiecutter.sphinx_theme|replace('-', '_') }}'
-    {%- endif %}
 ]
 
 templates_path = ['_templates']
@@ -79,11 +76,7 @@ myst_enable_extensions = [
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-{% if cookiecutter.sphinx_theme == 'sphinx-press-theme' %}
-html_theme = 'press'
-{% else %}
 html_theme = '{{ cookiecutter.sphinx_theme|replace('-', '_') }}'
-{% endif %}
 
 html_static_path = ['_static']
 {% if cookiecutter.sphinx_theme == 'sphinx-rtd-theme' -%}

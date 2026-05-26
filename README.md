@@ -219,7 +219,7 @@ When you run cookiecutter, you'll be prompted for various configuration options.
 - `supported_python_versions` - Comma-separated list of supported versions
 - `uv_version` - Version of uv to use
 - `tox_version` - Version of tox to use
-- `sphinx_theme` - Documentation theme (select from multiple options)
+- `sphinx_theme` - Documentation theme ([furo](https://pradyunsg.me/furo/), [sphinx-rtd-theme](https://sphinx-rtd-theme.readthedocs.io/), or [pydata-sphinx-theme](https://pydata-sphinx-theme.readthedocs.io/))
 
 **Optional Features:**
 - `should_use_direnv` - Include .envrc for direnv (default: y)
