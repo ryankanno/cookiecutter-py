@@ -90,7 +90,38 @@ html_static_path = ['_static']
 html_context = {
     "display_github": True,
     "github_user": "{{ cookiecutter.project_url.split('/')[-2] }}",
-    "github_repo": "{{ cookiecutter.project_url.split('/')[-1] }}"
+    "github_repo": "{{ cookiecutter.project_url.split('/')[-1] }}",
+    "github_version": "main",
+    "conf_py_path": "/docs/",
+}
+html_css_files = ['version-switcher.css']
+html_js_files = ['version-switcher.js']
+{% endif -%}
+{% if cookiecutter.sphinx_theme == 'pydata-sphinx-theme' -%}
+_pages_base = (
+    f"https://{{ cookiecutter.project_url.split('/')[-2] }}.github.io"
+    f"/{{ cookiecutter.project_url.split('/')[-1] }}"
+)
+html_theme_options = {
+    'use_edit_page_button': True,
+    'switcher': {
+        'json_url': f'{_pages_base}/versions.json',
+        'version_match': os.environ.get('DOCS_VERSION_MATCH', 'latest'),
+    },
+    'navbar_end': ['version-switcher', 'theme-switcher', 'navbar-icon-links'],
+    'icon_links': [
+        {
+            'name': 'GitHub',
+            'url': '{{cookiecutter.project_url}}',
+            'icon': 'fa-brands fa-github',
+        },
+    ],
+}
+html_context = {
+    'github_user': '{{ cookiecutter.project_url.split('/')[-2] }}',
+    'github_repo': '{{ cookiecutter.project_url.split('/')[-1] }}',
+    'github_version': 'main',
+    'doc_path': 'docs',
 }
 {% endif -%}
 {% if cookiecutter.sphinx_theme == 'furo' %}

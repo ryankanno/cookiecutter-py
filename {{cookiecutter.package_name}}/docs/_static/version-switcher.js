@@ -1,10 +1,14 @@
 (function () {
   "use strict";
 
+  function detectTheme() {
+    if (document.querySelector(".sidebar-drawer")) return "furo";
+    if (document.querySelector(".wy-side-nav-search")) return "rtd";
+    return null;
+  }
+
   function detectCurrentVersion() {
     const segments = window.location.pathname.split("/").filter(Boolean);
-    // GH pages serves at /<repo>/<version>/...
-    // index 0 is the repo name, index 1 is the version slug.
     if (segments.length >= 2) {
       return segments[1];
     }
@@ -28,6 +32,29 @@
     const tail = segments.slice(2).join("/");
     const suffix = tail ? "/" + tail : "/";
     window.location.pathname = "/" + segments[0] + "/" + slug + suffix;
+  }
+
+  function ensureDropdownExists(theme) {
+    if (document.getElementById("cc-version-select")) return;
+    if (theme !== "rtd") return;
+    const target = document.querySelector(".wy-side-nav-search");
+    if (!target) return;
+    const wrap = document.createElement("div");
+    wrap.className = "sidebar-version-selector sidebar-version-selector--rtd";
+    const label = document.createElement("label");
+    label.htmlFor = "cc-version-select";
+    label.className = "sidebar-version-selector__label";
+    label.textContent = "Version";
+    const select = document.createElement("select");
+    select.id = "cc-version-select";
+    select.className = "sidebar-version-selector__select";
+    select.setAttribute("aria-label", "Select documentation version");
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "loading…";
+    select.appendChild(placeholder);
+    wrap.append(label, select);
+    target.appendChild(wrap);
   }
 
   function populate(select, entries, current) {
@@ -62,8 +89,23 @@
     return "https://github.com/" + ghIoMatch[1] + "/" + segments[0];
   }
 
+  function findCopyrightEl() {
+    const selectors = [
+      ".copyright",
+      "footer .copyright",
+      "footer p",
+    ];
+    for (const sel of selectors) {
+      const el = document.querySelector(sel);
+      if (el && /build [a-f0-9]{7,40}/.test(el.textContent)) {
+        return el;
+      }
+    }
+    return null;
+  }
+
   function linkifyBuildHash() {
-    const copyright = document.querySelector(".copyright");
+    const copyright = findCopyrightEl();
     if (!copyright) {
       return;
     }
@@ -92,18 +134,22 @@
     );
   }
 
-  function injectBrandBadge(current) {
-    if (!current) {
-      return;
+  function injectBrandBadge(theme, current) {
+    if (!current) return;
+    let targets = [];
+    if (theme === "furo") {
+      targets = [
+        document.querySelector(".sidebar-brand-text"),
+        document.querySelector(".mobile-header .header-center .brand"),
+      ];
+    } else if (theme === "rtd") {
+      targets = [
+        document.querySelector(".wy-side-nav-search > a"),
+        document.querySelector(".wy-nav-top > a"),
+      ];
     }
-    const targets = [
-      document.querySelector(".sidebar-brand-text"),
-      document.querySelector(".mobile-header .header-center .brand"),
-    ];
     targets.forEach(function (target) {
-      if (!target || target.querySelector(".cc-version-badge")) {
-        return;
-      }
+      if (!target || target.querySelector(".cc-version-badge")) return;
       const badge = document.createElement("span");
       badge.className = "cc-version-badge";
       badge.textContent = current;
@@ -113,10 +159,12 @@
   }
 
   function init() {
-    const select = document.getElementById("cc-version-select");
+    const theme = detectTheme();
     const current = detectCurrentVersion();
-    injectBrandBadge(current);
+    ensureDropdownExists(theme);
+    injectBrandBadge(theme, current);
     linkifyBuildHash();
+    const select = document.getElementById("cc-version-select");
     if (!select) {
       return;
     }
