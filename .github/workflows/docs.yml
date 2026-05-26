@@ -42,6 +42,63 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref || github.ref }}
+          fetch-depth: 0
+      - name: Overlay docs theme assets from default branch
+        if: github.event_name == 'workflow_dispatch' && inputs.ref != ''
+        shell: bash
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          git fetch origin "${DEFAULT_BRANCH}"
+          REF="origin/${DEFAULT_BRANCH}"
+          mkdir -p docs/_static docs/_templates/sidebar
+          git show "${REF}:docs/_static/version-switcher.js"  > docs/_static/version-switcher.js
+          git show "${REF}:docs/_static/version-switcher.css" > docs/_static/version-switcher.css
+          git show "${REF}:docs/_templates/sidebar/version-selector.html" \
+            > docs/_templates/sidebar/version-selector.html
+          if [ -s docs/conf.py ] && [ "$(tail -c 1 docs/conf.py | wc -c)" -ne 0 ]; then
+            printf '\n' >> docs/conf.py
+          fi
+          cat >> docs/conf.py <<'PYCONF'
+
+          # --- docs theme overlay (injected during backfill builds) ---
+          _overlay_templates = list(globals().get("templates_path", []) or [])
+          if "_templates" not in _overlay_templates:
+              _overlay_templates.append("_templates")
+          templates_path = _overlay_templates
+
+          _overlay_static = list(globals().get("html_static_path", []) or [])
+          if "_static" not in _overlay_static:
+              _overlay_static.append("_static")
+          html_static_path = _overlay_static
+
+          html_css_files = list(globals().get("html_css_files", []) or []) + [
+              "version-switcher.css",
+          ]
+          html_js_files = list(globals().get("html_js_files", []) or []) + [
+              "version-switcher.js",
+          ]
+
+          _overlay_sidebars = dict(globals().get("html_sidebars", {}) or {})
+          _overlay_default = [
+              "sidebar/brand.html",
+              "sidebar/search.html",
+              "sidebar/scroll-start.html",
+              "sidebar/navigation.html",
+              "sidebar/ethical-ads.html",
+              "sidebar/scroll-end.html",
+              "sidebar/version-selector.html",
+              "sidebar/variant-selector.html",
+          ]
+          if "**" in _overlay_sidebars:
+              if "sidebar/version-selector.html" not in _overlay_sidebars["**"]:
+                  _overlay_sidebars["**"].insert(-1, "sidebar/version-selector.html")
+          else:
+              _overlay_sidebars["**"] = _overlay_default
+          html_sidebars = _overlay_sidebars
+          # --- end docs theme overlay ---
+          PYCONF
       - name: Configure Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
