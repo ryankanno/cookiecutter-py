@@ -4,10 +4,27 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import os
+import subprocess
 import sys
 
 
 sys.path.insert(0, os.path.abspath('../cookiecutter_py/'))
+
+
+def _detect_commit_short() -> str:
+    sha = os.environ.get('GITHUB_SHA', '')
+    try:
+        result = subprocess.run(
+            ['git', 'rev-parse', '--short', 'HEAD'],
+            cwd=os.path.dirname(os.path.abspath(__file__)),
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        return result.stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return sha[:7] if sha else ''
+
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -15,6 +32,10 @@ sys.path.insert(0, os.path.abspath('../cookiecutter_py/'))
 project = 'cookiecutter-py'
 copyright = '2024, Ryan Kanno'
 author = 'Ryan Kanno'
+
+_commit_short = _detect_commit_short()
+if _commit_short:
+    copyright = f'{copyright} · build {_commit_short}'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
