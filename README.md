@@ -249,9 +249,9 @@ See the [open issues](https://github.com/ryankanno/cookiecutter-py/issues) for a
 - [ ] add hypothesis example to template
 - [ ] add licenses
 - [ ] add typeguard
-- [ ] version releases
-- [ ] update docs
-- [ ] add publish docs workflow
+- [X] version releases
+- [X] add publish docs workflow
+- [X] update docs
 - [X] include cookiecutter var descriptions
 - [X] update default/initial template doc structure
 - [X] investigate uv

@@ -25,9 +25,11 @@ categories:
 
 
 version-resolver:
-  minor:
+  major:
     labels:
       - 'breaking'
+  minor:
+    labels:
       - 'feature'
   patch:
     labels:
