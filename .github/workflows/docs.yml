@@ -217,7 +217,7 @@ jobs:
           ref: gh-pages
           path: gh-pages
       - name: Download docs artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: html_docs
           path: ./artifact
@@ -283,11 +283,11 @@ jobs:
           cp -a gh-pages/. _pages_payload/
           rm -rf _pages_payload/.git
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _pages_payload
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
