@@ -26,7 +26,7 @@ jobs:
           - TOXENV: "pre-commit"
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Configure Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
@@ -60,7 +60,7 @@ jobs:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Configure Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
@@ -86,7 +86,7 @@ jobs:
           MATRIX_PYTHON_VERSION=${{matrix.python-version}}
           echo "TOX_COVERAGE_ENV=py$(echo ${MATRIX_PYTHON_VERSION} | cut -d . -f -2 | sed -e 's/\.//g')" >> $GITHUB_ENV
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./.tox/.coverage.coverage-${{ env.TOX_COVERAGE_ENV }}.xml
