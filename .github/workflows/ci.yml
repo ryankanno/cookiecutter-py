@@ -26,9 +26,9 @@ jobs:
           - TOXENV: "pre-commit"
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Configure Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install uv
@@ -40,7 +40,7 @@ jobs:
       - name: Install tox
         run: uv tool install --python-preference only-system tox==${{ env.TOX_VERSION }} --with tox-gh
       - name: Cache pre-commit
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ${{ env.PRE_COMMIT_CACHE }}
           key: ${{ matrix.os }}-${{ matrix.python-version }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
@@ -60,9 +60,9 @@ jobs:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Configure Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install uv
@@ -74,7 +74,7 @@ jobs:
       - name: Install tox
         run: uv tool install --python-preference only-system tox==${{ env.TOX_VERSION }} --with tox-gh
       - name: Cache tox env
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: .tox
           key: ${{ matrix.os }}-${{ matrix.python-version }}-tox-${{ hashFiles('pyproject.toml', 'uv.lock') }}
@@ -86,7 +86,7 @@ jobs:
           MATRIX_PYTHON_VERSION=${{matrix.python-version}}
           echo "TOX_COVERAGE_ENV=py$(echo ${MATRIX_PYTHON_VERSION} | cut -d . -f -2 | sed -e 's/\.//g')" >> $GITHUB_ENV
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./.tox/.coverage.coverage-${{ env.TOX_COVERAGE_ENV }}.xml
