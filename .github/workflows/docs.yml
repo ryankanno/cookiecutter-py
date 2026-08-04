@@ -39,7 +39,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref || github.ref }}
           fetch-depth: 0
@@ -148,7 +148,7 @@ jobs:
           # --- end docs theme overlay ---
           PYCONF
       - name: Configure Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install uv
@@ -160,7 +160,7 @@ jobs:
       - name: Install tox
         run: uv tool install --python-preference only-system tox==${{ env.TOX_VERSION }} --with tox-gh
       - name: Cache pre-commit
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ${{ env.PRE_COMMIT_CACHE }}
           key: ${{ matrix.os }}-${{ matrix.python-version }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
@@ -212,7 +212,7 @@ jobs:
             echo "dir=latest" >> "$GITHUB_OUTPUT"
           fi
       - name: Checkout gh-pages
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: gh-pages
           path: gh-pages
