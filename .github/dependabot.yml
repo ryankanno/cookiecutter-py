@@ -17,7 +17,10 @@ updates:
     labels:
       - "github-actions"
 
-  - package-ecosystem: "pip"
+  # Python deps for this template repo itself, not the generated project.
+  # Must be "uv", not "pip": the pip updater edits pyproject.toml without
+  # regenerating uv.lock, and every tox env runs `uv sync --locked`.
+  - package-ecosystem: "uv"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -27,45 +30,24 @@ updates:
       prefix: "build"
       include: "scope"
     groups:
+      # `dependency-type: "development"` is pip-only, so the dev group is
+      # expressed as everything minus the runtime deps.
       dev:
-        dependency-type: "development"
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "cookiecutter"
+          - "setuptools"
     open-pull-requests-limit: 10
     labels:
       - "automerge"
-      - "pip"
       - "dependencies"
 
-  - package-ecosystem: "github-actions"
-    directory: "{{cookiecutter.package_name}}"
-    schedule:
-      interval: "weekly"
-    assignees:
-      - "ryankanno"
-    commit-message:
-      prefix: "build(github)"
-    groups:
-      gha:
-        update-types:
-          - "major"
-          - "minor"
-          - "patch"
-    labels:
-      - "github-actions"
-
-  - package-ecosystem: "pip"
-    directory: "{{cookiecutter.package_name}}"
-    schedule:
-      interval: "weekly"
-    assignees:
-      - "ryankanno"
-    commit-message:
-      prefix: "build"
-      include: "scope"
-    open-pull-requests-limit: 10
-    labels:
-      - "automerge"
-      - "pip"
-      - "dependencies"
+  # NOTE: no "uv"/"pip" or "github-actions" entry for the template directory.
+  # Its pyproject.toml and workflows are Jinja2, not valid TOML/YAML, so
+  # Dependabot errors with "Dependabot can't parse your pyproject.toml" and
+  # finds no workflow manifests at all. Bumping the template's own pins is
+  # manual. Only its non-templated files (Dockerfile) can be serviced here.
 
   - package-ecosystem: "docker"
     directory: "{{cookiecutter.package_name}}"
