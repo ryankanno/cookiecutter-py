@@ -23,19 +23,19 @@ dev = [
     "pytest-cookies>=0.7.0,<0.8",
     "tox>=4.25.0,<5",
     "tox-uv>=1.21.5",
-    "mypy>=1.15.0,<2",
+    "mypy>=1.15.0,<3",
     "pytest-cov>=6.1.1,<8",
     "pytest-xdist>=3.6.1,<4",
-    "ruff>=0.11.7,<0.16",
+    "ruff>=0.11.7,<0.17",
     "deptry>=0.23.0,<0.26",
     "pre-commit-uv>=4.1.4",
     "pdbp>=1.7.1,<2",
 ]
 docs = [
-    "sphinx>=7.4.7,<9",
-    "sphinx-autobuild>=2024.10.3,<2025",
+    "sphinx>=7.4.7,<10",
+    "sphinx-autobuild>=2024.10.3,<2026",
     "furo>=2024.8.6,<2026",
-    "myst-parser[linkify]>=3.0.1,<5",
+    "myst-parser[linkify]>=3.0.1,<6",
 ]
 
 [tool.uv]
