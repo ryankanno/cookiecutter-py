@@ -879,5 +879,45 @@ def test_with_sphinx_theme(
                     )
 
 
+def test_dependabot_uses_uv_ecosystem(
+    cookies: Cookies, default_context: dict[str, str]
+) -> None:
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    abs_baked_files = build_files_list(str(baked_project.project_path))
+
+    dependabot_path = next(
+        (path for path in abs_baked_files if path.endswith('dependabot.yml')),
+        None,
+    )
+    assert dependabot_path is not None, 'dependabot.yml should exist'
+
+    content = Path(dependabot_path).read_text(encoding='utf-8')
+    settings = '\n'.join(
+        line
+        for line in content.splitlines()
+        if not line.lstrip().startswith('#')
+    )
+
+    # The pip updater edits pyproject.toml without regenerating uv.lock,
+    # which breaks the `uv sync --locked` in every tox env.
+    assert 'package-ecosystem: "uv"' in settings, (
+        'dependabot.yml should use the uv ecosystem'
+    )
+    assert 'package-ecosystem: "pip"' not in settings, (
+        'dependabot.yml should not use the pip ecosystem'
+    )
+
+    # `dependency-type` is pip-only, so it silently does nothing under uv.
+    assert 'dependency-type:' not in settings, (
+        'dependency-type is unsupported in uv groups; use patterns instead'
+    )
+
+
 # vim: fenc=utf-8
 # vim: filetype=python
