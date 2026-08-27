@@ -879,6 +879,29 @@ def test_with_sphinx_theme(
                     )
 
 
+def test_readme_install_command_is_valid(
+    cookies: Cookies, default_context: dict[str, str]
+) -> None:
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+    assert baked_project.project_path.is_dir()
+
+    readme = baked_project.project_path / 'README.md'
+    content = readme.read_text(encoding='utf-8')
+
+    # `uv install` is not a uv subcommand, so the documented bootstrap step
+    # fails and the user never generates the uv.lock that CI requires.
+    assert 'uv install' not in content, (
+        'uv install is not a valid uv subcommand'
+    )
+    assert 'uv sync' in content, (
+        'README should document uv sync as the install step'
+    )
+
+
 def test_dependabot_uses_uv_ecosystem(
     cookies: Cookies, default_context: dict[str, str]
 ) -> None:

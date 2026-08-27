@@ -49,8 +49,10 @@ git clone {{ cookiecutter.project_url }}.git
 ```
 2. Install
 ```sh
-uv install
+uv sync
 ```
+This also generates `uv.lock`. Commit it before your first push, since CI
+resolves dependencies with `uv sync --locked` and fails without it.
 
 <!-- USAGE EXAMPLES -->
 ## 🛠️ Usage
