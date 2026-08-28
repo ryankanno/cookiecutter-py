@@ -27,7 +27,7 @@ internal:
   - changed-files:
     - any-glob-to-any-file:
       - '.bandit'
-      - '.commitlint.config.mjs'
+      - 'commitlint.config.mjs'
       - '.konchrc'
       - '.pre-commit-config.yaml'
       - '.secrets.baseline'
