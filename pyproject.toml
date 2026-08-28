@@ -96,6 +96,9 @@ testpaths = [
     "tests",
 ]
 norecursedirs = ["{{cookiecutter.package_name}}"]
+markers = [
+    "bake: generates a project and runs it (slow, needs network)",
+]
 
 [tool.coverage.run]
 parallel = true
@@ -181,3 +184,6 @@ lines-after-imports = 2
 
 [tool.ruff.lint.per-file-ignores]
 "tests/test_*.py" = ["S101"]
+# The harness exists to shell out to uv, so flagging subprocess use here
+# has no root cause to fix.
+"tests/test_baked_project.py" = ["S404", "S603"]

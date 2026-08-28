@@ -74,6 +74,10 @@ lint *LINT_ARGS:
 tests *TESTS_ARGS:
     just tox run-parallel -m tests {{TESTS_ARGS}}
 
+# Generates a project and runs it (tox:bake)
+bake *BAKE_ARGS:
+    just tox run -e bake {{BAKE_ARGS}}
+
 # Runs pre-commit (tox:pre-commit)
 pre-commit:
     just tox run -e pre-commit
