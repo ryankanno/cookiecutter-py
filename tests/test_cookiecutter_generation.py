@@ -932,6 +932,12 @@ def test_dependabot_uses_uv_ecosystem(
     assert 'package-ecosystem: "uv"' in settings, (
         'dependabot.yml should use the uv ecosystem'
     )
+
+    # Hook revs drift independently of the pins in pyproject.toml, so
+    # without this ecosystem nothing updates them.
+    assert 'package-ecosystem: "pre-commit"' in settings, (
+        'dependabot.yml should cover pre-commit hook revs'
+    )
     assert 'package-ecosystem: "pip"' not in settings, (
         'dependabot.yml should not use the pip ecosystem'
     )

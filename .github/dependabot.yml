@@ -43,6 +43,25 @@ updates:
       - "automerge"
       - "dependencies"
 
+  # Hook revs in .pre-commit-config.yaml, which nothing else updated. They
+  # drift independently of the pinned tool versions in pyproject.toml.
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "ryankanno"
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    groups:
+      pre-commit:
+        patterns:
+          - "*"
+    labels:
+      - "automerge"
+      - "dependencies"
+
   # NOTE: no "uv"/"pip" or "github-actions" entry for the template directory.
   # Its pyproject.toml and workflows are Jinja2, not valid TOML/YAML, so
   # Dependabot errors with "Dependabot can't parse your pyproject.toml" and
