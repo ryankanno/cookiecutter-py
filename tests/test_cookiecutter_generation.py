@@ -32,7 +32,7 @@ RE_OBJ = re.compile(PATTERN)
 
 
 EXPECTED_BASE_BAKED_FILES = [
-    '.commitlint.config.js',
+    '.commitlint.config.mjs',
     '.dockerignore',
     '.gitignore',
     '.konchrc',

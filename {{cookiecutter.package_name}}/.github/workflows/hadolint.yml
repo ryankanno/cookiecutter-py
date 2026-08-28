@@ -20,10 +20,10 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: Lint Dockerfile
-        uses: hadolint/hadolint-action@v2.1.0
+        uses: hadolint/hadolint-action@v3.5.0
         id: hadolint
         with:
           dockerfile: Dockerfile
@@ -31,7 +31,7 @@ jobs:
         continue-on-error: true
 
       - name: Update Pull Request
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         if: github.event_name == 'pull_request'
         with:
           github-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
