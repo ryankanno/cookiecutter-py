@@ -78,6 +78,10 @@ tests *TESTS_ARGS:
 bake *BAKE_ARGS:
     just tox run -e bake {{BAKE_ARGS}}
 
+# Builds the generated image (tox:bake-docker)
+bake-docker *BAKE_ARGS:
+    just tox run -e bake-docker {{BAKE_ARGS}}
+
 # Runs pre-commit (tox:pre-commit)
 pre-commit:
     just tox run -e pre-commit
