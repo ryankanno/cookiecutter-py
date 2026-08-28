@@ -98,6 +98,7 @@ testpaths = [
 norecursedirs = ["{{cookiecutter.package_name}}"]
 markers = [
     "bake: generates a project and runs it (slow, needs network)",
+    "docker: builds the generated image (CI only, needs docker)",
 ]
 
 [tool.coverage.run]
