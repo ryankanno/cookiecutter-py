@@ -948,5 +948,27 @@ def test_dependabot_uses_uv_ecosystem(
     )
 
 
+def test_commitlint_comment_emoji_are_intact(
+    cookies: Cookies, default_context: dict[str, str]
+) -> None:
+    baked_project = cookies.bake(extra_context=default_context)
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path
+
+    workflow = (
+        baked_project.project_path / '.github' / 'workflows' / 'commitlint.yml'
+    )
+    content = workflow.read_text(encoding='utf-8')
+
+    # These were once lossily converted to literal '?' bytes, which lost the
+    # error/warning distinction in the comment posted on failing PRs.
+    for emoji in ('👕', '👉', '👈', '🔎', 'ℹ️', '❌', '⚠️'):
+        assert emoji in content, (
+            f'commitlint.yml lost the {emoji} in its comment template'
+        )
+
+
 # vim: fenc=utf-8
 # vim: filetype=python
