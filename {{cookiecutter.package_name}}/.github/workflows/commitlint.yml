@@ -28,15 +28,15 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - uses: wagoid/commitlint-github-action@v5
+      - uses: wagoid/commitlint-github-action@v6
         id: commitlint
         continue-on-error: true
         with:
-          configFile: .commitlint.config.js
+          configFile: .commitlint.config.mjs
 
       - name: Validate PR Title
         id: prTitle
@@ -54,7 +54,7 @@ jobs:
       - name: Format Commitlint Messages
         id: format
         if: {% raw %}${{ steps.commitlint.outcome == 'failure' }}{% endraw %}
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         with:
           github-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           script: |
@@ -115,7 +115,7 @@ jobs:
 
       - name: Fail Job on Error
         if: {% raw %}${{ steps.commitlint.outcome == 'failure' && steps.prTitle.outcome == 'failure' }}{% endraw %}
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         with:
           script: |
             core.setFailed("There were problems with this PR's commit messages")

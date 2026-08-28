@@ -56,9 +56,11 @@ SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 
 ENV PATH=/app/bin:$PATH
 
+# Fixed ids so the final USER can be numeric and stay resolvable on hosts
+# that do not share this image's passwd database.
 RUN <<EOT
-    groupadd -r app
-    useradd -r -d /app -g app -N app
+    groupadd -r -g 1001 app
+    useradd -r -u 1001 -d /app -g app -N app
 EOT
 
 STOPSIGNAL SIGINT
@@ -76,5 +78,5 @@ ENTRYPOINT ["/bin/bash", "/docker-entrypoint.sh"]
 
 COPY --from=project-builder --chown=app:app /app /app
 
-USER app
+USER 1001
 WORKDIR /app
