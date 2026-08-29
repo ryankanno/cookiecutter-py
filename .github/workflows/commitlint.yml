@@ -64,14 +64,14 @@ jobs:
             const totalWarnings = results.reduce((a, r) => a + r.warnings.length, 0);
 
             const header = `
-            ## ?? Commitlint Problems for this PR: ${!titleGood ? '' : `
+            ## 👕 Commitlint Problems for this PR: ${!titleGood ? '' : `
 
             **The PR title conforms to conventional commit style**
 
-            ?? **Make sure the PR is squashed into a single commit using the PR title** ??`}
+            👉 **Make sure the PR is squashed into a single commit using the PR title** 👈`}
 
-            ??  Found ${totalErrors} errors, ${totalWarnings} warnings
-            ??   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
+            🔎  Found ${totalErrors} errors, ${totalWarnings} warnings
+            ℹ️   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
             `;
 
             const comment = results.reduce((acc, result) => {
@@ -82,7 +82,7 @@ jobs:
               const [firstLine, ...rest] = result.message.split('\n');
 
               const body = rest.join('\n').trim();
-              const icon = result.errors.length ? '?' : '??';
+              const icon = result.errors.length ? '❌' : '⚠️';
               const hash = result.hash.substring(0, 8);
 
               return `${acc} ${!body.length ? '\n\n' : `
@@ -96,8 +96,8 @@ jobs:
             </details>
 
             `}${result.errors.map(error => `
-            - ? ${error}`).join('')} ${result.warnings.map(warn => `
-            - ?? ${warn}`).join('')}`;
+            - ❌ ${error}`).join('')} ${result.warnings.map(warn => `
+            - ⚠️ ${warn}`).join('')}`;
             }, header);
 
             core.setOutput('comment', comment);
