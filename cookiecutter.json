@@ -14,7 +14,7 @@
 
   "python_version": "3.12",
   "supported_python_versions": "3.11, 3.12, 3.13, pypy3.11",
-  "uv_version": "0.11.15",
+  "uv_version": "0.12.5",
   "tox_version": "4.25.0",
   "sphinx_theme": ["furo", "sphinx-rtd-theme", "pydata-sphinx-theme"],
   "should_use_direnv": "y",

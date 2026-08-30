@@ -445,8 +445,7 @@ def test_publish_yml_always_exists_with_github_actions(  # noqa: PLR0913, PLR091
     if not publish_yml:
         pytest.fail('Could not find publish.yml in baked files')
 
-    with Path(publish_yml).open('r', encoding='utf-8') as file:
-        content = file.read()
+    content = Path(publish_yml).read_text(encoding='utf-8')
 
     # Count job definitions under "jobs:" section
     job_count = 0
@@ -718,33 +717,30 @@ def test_justfile_lint_command_structure(
 
     for path in abs_baked_files:
         if path.endswith('Justfile'):
-            with Path(path).open('rb', 0) as file:
-                content = file.read()
+            content = Path(path).read_bytes()
 
-                # Check that lint recipe accepts arguments
-                if b'lint *LINT_ARGS:' not in content:
-                    msg = 'Justfile should have lint recipe with '
-                    msg += '*LINT_ARGS parameter'
-                    pytest.fail(msg)
+            # Check that lint recipe accepts arguments
+            if b'lint *LINT_ARGS:' not in content:
+                msg = 'Justfile should have lint recipe with '
+                msg += '*LINT_ARGS parameter'
+                pytest.fail(msg)
 
-                # Check that lint recipe has conditional logic for --fix
-                if b'if [[ "{{LINT_ARGS}}" == "--fix" ]]' not in content:
-                    pytest.fail(
-                        'Justfile lint recipe should check for --fix flag'
-                    )
+            # Check that lint recipe has conditional logic for --fix
+            if b'if [[ "{{LINT_ARGS}}" == "--fix" ]]' not in content:
+                pytest.fail('Justfile lint recipe should check for --fix flag')
 
-                # Check that it calls lint-fix tox environment
-                # when --fix is passed
-                if b'just tox run -e lint-fix' not in content:
-                    msg = 'Justfile should call tox lint-fix '
-                    msg += 'environment when --fix is passed'
-                    pytest.fail(msg)
+            # Check that it calls lint-fix tox environment
+            # when --fix is passed
+            if b'just tox run -e lint-fix' not in content:
+                msg = 'Justfile should call tox lint-fix '
+                msg += 'environment when --fix is passed'
+                pytest.fail(msg)
 
-                # Check that it calls lint tox environment by default
-                if b'just tox run -e lint {{LINT_ARGS}}' not in content:
-                    pytest.fail(
-                        'Justfile should call tox lint environment by default'
-                    )
+            # Check that it calls lint tox environment by default
+            if b'just tox run -e lint {{LINT_ARGS}}' not in content:
+                pytest.fail(
+                    'Justfile should call tox lint environment by default'
+                )
 
                 # Ensure there's no standalone lint-fix recipe
                 # Look for pattern indicating a separate recipe definition

@@ -88,13 +88,11 @@ def update_pyproject_version(
 ) -> None:
     pyproject_path = Path("pyproject.toml")
     if pyproject_path.is_file():
-        with pyproject_path.open() as f:
-            pyproject = f.read()
+        pyproject = pyproject_path.read_text(encoding="utf-8")
         pyproject = pyproject.replace(
             'version = "0.0.0"', f"version = {version!r}"
         )
-        with pyproject_path.open("w") as f:
-            f.write(pyproject)
+        pyproject_path.write_text(pyproject, encoding="utf-8")
 
 
 def uncomment_pyproject_python_dependency() -> None:
