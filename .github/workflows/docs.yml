@@ -22,7 +22,7 @@ on:
 
 env:
   UV_VERSION: 0.12.5
-  TOX_VERSION: 4.25.0
+  TOX_VERSION: 4.34.1
   PRE_COMMIT_CACHE: ~/.cache/pre-commit
 
 jobs:
