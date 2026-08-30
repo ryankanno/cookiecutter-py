@@ -24,6 +24,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # Must exceed `exclude-newer` in pyproject.toml, or uv refuses to
+    # resolve the very versions Dependabot proposes. Both count from the
+    # release publication date; the extra day avoids the boundary.
+    cooldown:
+      default-days: 15
     assignees:
       - "ryankanno"
     commit-message:
@@ -49,6 +54,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # Hook environments install through uv, so they inherit `exclude-newer`
+    # too. Only default-days is supported for this ecosystem.
+    cooldown:
+      default-days: 15
     assignees:
       - "ryankanno"
     commit-message:
