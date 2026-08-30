@@ -742,21 +742,21 @@ def test_justfile_lint_command_structure(
                     'Justfile should call tox lint environment by default'
                 )
 
-                # Ensure there's no standalone lint-fix recipe
-                # Look for pattern indicating a separate recipe definition
-                lines = content.decode('utf-8').split('\n')
-                for line in lines:
-                    # Check for standalone lint-fix recipe
-                    # (not inside lint recipe)
-                    if not line.startswith('lint-fix'):
-                        continue
-                    # Make sure it's not commented out
-                    stripped = line.strip()
-                    if stripped.startswith('#'):
-                        continue
-                    msg = 'Justfile should not have a '
-                    msg += 'standalone lint-fix recipe'
-                    pytest.fail(msg)
+            # Ensure there's no standalone lint-fix recipe
+            # Look for pattern indicating a separate recipe definition
+            lines = content.decode('utf-8').split('\n')
+            for line in lines:
+                # Check for standalone lint-fix recipe
+                # (not inside lint recipe)
+                if not line.startswith('lint-fix'):
+                    continue
+                # Make sure it's not commented out
+                stripped = line.strip()
+                if stripped.startswith('#'):
+                    continue
+                msg = 'Justfile should not have a '
+                msg += 'standalone lint-fix recipe'
+                pytest.fail(msg)
 
 
 def test_pyproject_with_default_configuration(
