@@ -227,11 +227,11 @@ When you run cookiecutter, you'll be prompted for various configuration options.
 - `should_install_github_dependabot` - Enable Dependabot (default: y)
 - `should_automerge_autoapprove_github_dependabot` - Auto-approve/merge Dependabot PRs (default: y)
 - `should_install_github_actions` - Include GitHub Actions workflows (default: y)
-- `should_upload_coverage_to_codecov` - Upload coverage to Codecov (default: y)
+- `should_upload_coverage_to_codecov` - Upload coverage to Codecov (default: n)
 
 **Publishing Options:**
-- `should_publish_to_testpypi` - Publish to TestPyPI on every main push (default: y)
-- `should_publish_to_pypi` - Publish to PyPI on release (default: y)
+- `should_publish_to_testpypi` - Publish to TestPyPI on every main push (default: n)
+- `should_publish_to_pypi` - Publish to PyPI on release (default: n)
 - `should_publish_to_github_packages` - Publish to GitHub Packages on release (default: n)
 - `should_attach_to_github_release` - Attach build artifacts to GitHub releases (default: n)
 
