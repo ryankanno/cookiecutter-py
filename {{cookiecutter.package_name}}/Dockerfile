@@ -34,7 +34,7 @@ COPY pyproject.toml /_project/
 COPY uv.lock /_project/
 
 RUN --mount=type=cache,target=/root/.cache <<EOT
-    uv sync --locked --no-dev --no-install-project
+    uv sync --locked --no-default-groups --no-install-project
 EOT
 
 FROM uv AS project-builder
@@ -47,7 +47,7 @@ WORKDIR /src
 
 # install project
 RUN --mount=type=cache,target=/root/.cache <<EOT
-    uv sync --locked --no-dev --no-editable
+    uv sync --locked --no-default-groups --no-editable
 EOT
 
 FROM base AS final
