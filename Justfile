@@ -60,7 +60,7 @@ dist: clean
 
 # Install package to current Python's site-package
 install: clean
-    {{runner_cmd}} install
+    {{runner_cmd}} sync
 
 # Lint (tox:lint) - use --fix to auto-fix issues
 lint *LINT_ARGS:
