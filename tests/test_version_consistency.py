@@ -21,6 +21,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
 TEMPLATE_ROOT = REPO_ROOT / '{{cookiecutter.package_name}}'
+WORKFLOWS_DIR = REPO_ROOT / '.github' / 'workflows'
 
 # `- repo: <url>` followed by `rev: <value>`, which is enough structure to
 # read a pre-commit config without taking on a YAML dependency.
@@ -53,7 +54,9 @@ def hook_revs(config: Path) -> dict[str, str]:
     }
 
 
-def workflow_env_versions(name: str) -> dict[str, str]:
+def workflow_env_versions(
+    name: str, workflows_dir: Path = WORKFLOWS_DIR
+) -> dict[str, str]:
     """Declared value of `name` in each workflow that uses it.
 
     Keyed by filename rather than collapsed into a set, so that a workflow
@@ -72,7 +75,7 @@ def workflow_env_versions(name: str) -> dict[str, str]:
     workflows = sorted(
         path
         for suffix in ('*.yml', '*.yaml')
-        for path in (REPO_ROOT / '.github' / 'workflows').glob(suffix)
+        for path in workflows_dir.glob(suffix)
     )
 
     found: dict[str, str] = {}
@@ -83,6 +86,43 @@ def workflow_env_versions(name: str) -> dict[str, str]:
         match = declaration.search(text)
         found[workflow.name] = match['value'] if match else '<undeclared>'
     return found
+
+
+def test_workflow_env_versions_reads_both_extensions(
+    tmp_path: Path,
+) -> None:
+    """Both `.yml` and `.yaml` workflows are scanned, declared or not.
+
+    Actions accepts either extension. Globbing only `.yml` would skip a
+    `.yaml` workflow silently, and a skipped workflow reads as agreement
+    rather than as one nobody checked.
+    """
+    # Built by concatenation: an f-string or `.format` would collapse the
+    # `${{ }}` the usage regex looks for into `${ }`.
+    uses = (
+        'jobs:\n  build:\n    steps:\n'
+        '      - uses: astral-sh/setup-uv@v7\n'
+        '        with:\n'
+        '          version: ${{ env.UV_VERSION }}\n'
+    )
+
+    (tmp_path / 'a.yml').write_text(
+        'env:\n  UV_VERSION: 1.0.0\n' + uses, encoding='utf-8'
+    )
+    (tmp_path / 'b.yaml').write_text(
+        'env:\n  UV_VERSION: 2.0.0\n' + uses, encoding='utf-8'
+    )
+    # Uses the variable but never declares it, which expands to an empty
+    # string and installs an unpinned tool.
+    (tmp_path / 'c.yaml').write_text(uses, encoding='utf-8')
+    # References nothing, so it should not appear at all.
+    (tmp_path / 'd.yml').write_text('jobs: {}\n', encoding='utf-8')
+
+    assert workflow_env_versions('UV_VERSION', tmp_path) == {
+        'a.yml': '1.0.0',
+        'b.yaml': '2.0.0',
+        'c.yaml': '<undeclared>',
+    }
 
 
 def test_hook_revs_match_the_lockfile() -> None:
