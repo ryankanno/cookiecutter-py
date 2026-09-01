@@ -58,13 +58,27 @@ def hook_revs(config: Path) -> dict[str, str]:
     }
 
 
-def workflow_env_versions() -> dict[str, set[str]]:
-    """UV_VERSION and TOX_VERSION values found across all workflows."""
-    found: dict[str, set[str]] = {'UV_VERSION': set(), 'TOX_VERSION': set()}
+def workflow_env_versions(name: str) -> dict[str, str]:
+    """Declared value of `name` in each workflow that uses it.
+
+    Keyed by filename rather than collapsed into a set, so that a workflow
+    which references the variable without declaring it is visible. Such a
+    workflow expands `${{ env.NAME }}` to an empty string and silently
+    installs an unpinned tool, which is the drift these tests exist to
+    catch — but it would not change the set of declared values.
+    """
+    usage = re.compile(r'\$\{\{\s*env\.' + name + r'\s*\}\}')
+    declaration = re.compile(
+        r'^\s*' + name + r':\s*(?P<value>\S+)', re.MULTILINE
+    )
+
+    found: dict[str, str] = {}
     for workflow in (REPO_ROOT / '.github' / 'workflows').glob('*.yml'):
         text = workflow.read_text(encoding='utf-8')
-        for match in ENV_VERSION.finditer(text):
-            found[match['name']].add(match['value'])
+        if not usage.search(text):
+            continue
+        match = declaration.search(text)
+        found[workflow.name] = match['value'] if match else '<undeclared>'
     return found
 
 
@@ -98,7 +112,7 @@ def test_uv_version_agrees_everywhere() -> None:
     template default. Nothing propagates between them.
     """
     locked = locked_versions()['uv']
-    envs = workflow_env_versions()['UV_VERSION']
+    envs = workflow_env_versions('UV_VERSION')
     hook = hook_revs(REPO_ROOT / '.pre-commit-config.yaml')[
         'https://github.com/astral-sh/uv-pre-commit'
     ]
@@ -106,11 +120,13 @@ def test_uv_version_agrees_everywhere() -> None:
         (REPO_ROOT / 'cookiecutter.json').read_text(encoding='utf-8')
     )['uv_version']
 
+    assert envs, 'no workflow references UV_VERSION; has it been renamed?'
+
     declared = {
         'uv.lock': locked,
         'pre-commit rev': hook,
         'cookiecutter.json': template_default,
-        **{f'workflow env ({v})': v for v in envs},
+        **{f'workflow {name}': value for name, value in envs.items()},
     }
 
     assert len(set(declared.values())) == 1, (
@@ -127,15 +143,17 @@ def test_tox_version_agrees_everywhere() -> None:
     run different tox.
     """
     locked = locked_versions()['tox']
-    envs = workflow_env_versions()['TOX_VERSION']
+    envs = workflow_env_versions('TOX_VERSION')
     template_default = json.loads(
         (REPO_ROOT / 'cookiecutter.json').read_text(encoding='utf-8')
     )['tox_version']
 
+    assert envs, 'no workflow references TOX_VERSION; has it been renamed?'
+
     declared = {
         'uv.lock': locked,
         'cookiecutter.json': template_default,
-        **{f'workflow env ({v})': v for v in envs},
+        **{f'workflow {name}': value for name, value in envs.items()},
     }
 
     assert len(set(declared.values())) == 1, (
