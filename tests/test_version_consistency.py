@@ -28,11 +28,6 @@ HOOK_REV = re.compile(
     r'-\s+repo:\s*(?P<repo>\S+)\s*\n\s*rev:\s*"?(?P<rev>[^"\s]+)"?'
 )
 
-ENV_VERSION = re.compile(
-    r'^\s*(?P<name>UV_VERSION|TOX_VERSION):\s*(?P<value>\S+)',
-    re.MULTILINE,
-)
-
 # Hook repository -> the package it installs, so a rev can be compared
 # against what uv resolves.
 HOOK_PACKAGES = {
@@ -72,8 +67,16 @@ def workflow_env_versions(name: str) -> dict[str, str]:
         r'^\s*' + name + r':\s*(?P<value>\S+)', re.MULTILINE
     )
 
+    # Actions accepts both extensions, so a .yaml workflow must not be
+    # skipped silently.
+    workflows = sorted(
+        path
+        for suffix in ('*.yml', '*.yaml')
+        for path in (REPO_ROOT / '.github' / 'workflows').glob(suffix)
+    )
+
     found: dict[str, str] = {}
-    for workflow in (REPO_ROOT / '.github' / 'workflows').glob('*.yml'):
+    for workflow in workflows:
         text = workflow.read_text(encoding='utf-8')
         if not usage.search(text):
             continue
@@ -106,7 +109,7 @@ def test_hook_revs_match_the_lockfile() -> None:
 
 
 def test_uv_version_agrees_everywhere() -> None:
-    """Five places pin uv, and they must agree.
+    """Six places pin uv, and they must agree.
 
     The lockfile, a pre-commit hook, three workflow env blocks and the
     template default. Nothing propagates between them.
