@@ -16,6 +16,11 @@ jobs:
   auto-approve:
     name: Auto approve Dependabot PRs
     runs-on: ubuntu-latest
+    # Dependabot's two labels fire two concurrent runs. Serialize them per
+    # PR so the second sees the first's approval rather than racing it.
+    concurrency:
+      group: dependabot-approve-${{ github.event.pull_request.number || github.run_id }}
+      cancel-in-progress: false
     permissions:
       pull-requests: write
     if: |
