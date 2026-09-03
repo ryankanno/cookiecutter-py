@@ -31,9 +31,11 @@ jobs:
         github.actor == 'dependabot-preview'
       )
     steps:
-      - uses: hmarr/auto-approve-action@v4.0.0
-        with:
-          github-token: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
+      - name: Approve
+        env:
+          GH_TOKEN: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
+          PR_URL: "{% raw %}${{ github.event.pull_request.html_url }}{% endraw %}"
+        run: gh pr review --approve "$PR_URL"
   auto-merge:
     name: Auto merge Dependabot PRs
     runs-on: ubuntu-latest
