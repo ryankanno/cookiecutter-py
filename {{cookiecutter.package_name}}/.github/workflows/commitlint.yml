@@ -42,7 +42,7 @@ jobs:
       - name: Validate PR Title
         id: prTitle
         if: {% raw %}${{ steps.commitlint.outcome == 'failure' }}{% endraw %}
-        uses: aslafy-z/conventional-pr-title-action@v2.2.0
+        uses: aslafy-z/conventional-pr-title-action@v3.2.0
         continue-on-error: true
         with:
           success-state: Title follows the conventional commit format.
