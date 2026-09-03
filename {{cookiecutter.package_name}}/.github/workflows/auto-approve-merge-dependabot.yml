@@ -16,6 +16,11 @@ jobs:
   auto-approve:
     name: Auto approve Dependabot PRs
     runs-on: ubuntu-latest
+    # Dependabot's two labels fire two concurrent runs. Serialize them per
+    # PR so the second sees the first's approval rather than racing it.
+    concurrency:
+      group: dependabot-approve-{% raw %}${{ github.event.pull_request.number || github.run_id }}{% endraw %}
+      cancel-in-progress: false
     permissions:
       pull-requests: write
     if: |
@@ -31,9 +36,20 @@ jobs:
         github.actor == 'dependabot-preview'
       )
     steps:
-      - uses: hmarr/auto-approve-action@v4.0.0
-        with:
-          github-token: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
+      - name: Approve
+        env:
+          GH_TOKEN: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
+          PR_URL: "{% raw %}${{ github.event.pull_request.html_url }}{% endraw %}"
+        # Dependabot assigns two labels and GitHub fires a separate
+        # `labeled` event for each, so this job runs more than once
+        # per PR. Re-approving returns 422 and fails the run.
+        run: |
+          states=$(gh pr view "$PR_URL" --json reviews \
+            --jq '.reviews[] | select(.author.login == "github-actions[bot]") | .state')
+          case "$states" in
+            *APPROVED*) echo "Already approved; nothing to do." ;;
+            *) gh pr review --approve "$PR_URL" ;;
+          esac
   auto-merge:
     name: Auto merge Dependabot PRs
     runs-on: ubuntu-latest
