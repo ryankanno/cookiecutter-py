@@ -28,7 +28,7 @@ dev = [
     "pytest-xdist>=3.6.1,<4",
     "ruff>=0.16.3,<0.17",
     "deptry>=0.25.1,<0.26",
-    "pre-commit-uv>=4.1.4",
+    "pre-commit-uv>=4.3.0",
     "pdbp>=1.7.1,<2",
 ]
 docs = [
