@@ -35,7 +35,16 @@ jobs:
         env:
           GH_TOKEN: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
           PR_URL: "{% raw %}${{ github.event.pull_request.html_url }}{% endraw %}"
-        run: gh pr review --approve "$PR_URL"
+        # Dependabot assigns two labels and GitHub fires a separate
+        # `labeled` event for each, so this job runs more than once
+        # per PR. Re-approving returns 422 and fails the run.
+        run: |
+          states=$(gh pr view "$PR_URL" --json reviews \
+            --jq '.reviews[] | select(.author.login == "github-actions[bot]") | .state')
+          case "$states" in
+            *APPROVED*) echo "Already approved; nothing to do." ;;
+            *) gh pr review --approve "$PR_URL" ;;
+          esac
   auto-merge:
     name: Auto merge Dependabot PRs
     runs-on: ubuntu-latest
